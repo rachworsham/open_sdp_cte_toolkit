@@ -1,0 +1,40 @@
+<style>
+.affix {
+   position: static;
+ }
+ @media (min-width: 992px) {
+    #toc.affix {
+		top: inherit;
+		width: inherit;
+		position: fixed;
+    }
+}
+
+a {
+  color: #A51C30;
+}
+
+a:focus, a:hover {
+  color: #6D121F;
+}
+
+/* Fix for anchor link scroll location */
+h1:before, h2:before, h3:before, h4:before {
+  display: block;
+  content: " ";
+  margin-top: -124px;
+  height: 124px;
+  visibility: hidden;
+}
+
+#logo{
+	 background-color: #A51C30;
+}
+body {
+	padding-top: 115px;
+	overflow: visible;
+}
+html {
+	overflow: visible;
+}
+</style>
