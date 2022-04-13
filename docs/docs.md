@@ -244,7 +244,7 @@ Figure 1.0 offers an example of how to present students' credential intentions a
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.0.1.png" style="display: block; margin: 0 auto; height: 115px;">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.0.1.png">
 </div>
 </div>
 
