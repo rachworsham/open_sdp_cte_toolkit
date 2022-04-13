@@ -1,5 +1,5 @@
 // Change the path in the next line to your top-level working directory
-cd "/Users/reworsha/Downloads/open_sdp_cte_toolkit-master 2"
+cd "your filepath"
 
 // Change the path below to the directory where you will store programs
 global programs "./code"
