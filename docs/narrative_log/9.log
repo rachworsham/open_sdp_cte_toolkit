@@ -1,0 +1,84 @@
+
+
+<span class="stcmt">/******************************************************</span>
+<span class="stcmt"> Create completer/transfer rate charts</span>
+<span class="stcmt">******************************************************/</span>		
+
+<span class="stcmt">* Data set up for completion/transfer rates by college-level credits earned</span>
+cap frame drop complete_trans_entry_college_credits
+frame copy default complete_trans_college_credits
+frame change complete_trans_college_credits
+drop if cumcollegecreditsearned &gt; 21 &amp; cohorttermindex == 1 <span class="stcmt">// exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary</span>
+bys studentid: egen min_cohorttermindex = min(cohorttermindex)
+drop if min_cohorttermindex != 1
+drop min_cohorttermindex
+gen credit_bin_in_first_term = 0
+local lower_bound = 0
+forvalues c = 3(3)21 {
+	di in red `lower_bound'
+	di in red `c'
+	table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned)
+	if `lower_bound' == 0 {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp; (cumcollegecreditsearned &lt;= `c')
+	} 
+	else {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp; (cumcollegecreditsearned &gt; `lower_bound' &amp; cumcollegecreditsearned &lt;=`c')
+	}
+	local lower_bound = `c'
+}
+table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned)
+bys studentid: egen any_terminating = max(terminating)
+bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1]
+collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)
+gen credit_type = "college-level"
+tempfile college_credits
+save `college_credits'	
+
+<span class="stcmt">* Data set up for completion/transfer rates by credits earned in first term, whether credits were college-level or not</span>
+cap frame drop complete_trans_credits
+frame copy default complete_trans_credits
+frame change complete_trans_credits
+drop if cumcreditsearned &gt; 21 &amp; cohorttermindex == 1 <span class="stcmt">// exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary</span>
+bys studentid: egen min_cohorttermindex = min(cohorttermindex)
+drop if min_cohorttermindex != 1
+drop min_cohorttermindex
+gen credit_bin_in_first_term = 0
+local lower_bound = 0
+forvalues c = 3(3)21 {
+	di in red `lower_bound'
+	di in red `c'
+	table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcreditsearned max cumcreditsearned)
+	if `lower_bound' == 0 {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp; (cumcreditsearned &lt;= `c')
+	} 
+	else {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp; (cumcreditsearned &gt; `lower_bound' &amp; cumcreditsearned &lt;=`c')
+	}
+	local lower_bound = `c'
+}
+table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcreditsearned max cumcreditsearned)
+bys studentid: egen any_terminating = max(terminating)
+bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1]
+collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)
+gen credit_type = "any"
+
+<span class="stcmt">* Combine data sets for completion/transfer rates by both credit types in first term: any credit and college-level credit</span>
+append using `college_credits'
+
+<span class="stcmt">* Completion/transfer rates by pathway and first-term credit-type bins</span>
+twoway (line any_terminating credit_bin_in_first_term <span class="stcmt">///</span>
+	if credit_type == "any", lcolor("51 34 136")) <span class="stcmt">///</span>
+	   (line any_terminating credit_bin_in_first_term <span class="stcmt">///</span>
+	   if credit_type == "college-level", lcolor("68 170 153")), <span class="stcmt">///</span>
+	   by(entry_pathway, graphregion(fcolor(white)) <span class="stcmt">///</span>
+	   title("First Completion/Transfer Rates by Pathway" "and Entry Term Credits Earned") <span class="stcmt">///</span>
+	   imargin(medium) <span class="stcmt">///</span>
+	   note("Note: Credits earned in the first term are grouped into three-credit intervals, labeled by the maximum of the interval. Developmental" "credits are included in the Any Credits sum, but not the College-Level sum.", <span class="stcmt">///</span>
+	   size(vsmall))) xtitle("Credits Earned in First Term") <span class="stcmt">///</span>
+	   ytitle("3 Yr. First Completion/Transfer Rate") ylabel(0(0.2)1.05) <span class="stcmt">///</span>
+	   xlabel(3(3)21) plotregion(margin(zero)) yline(0, lcolor(black)) <span class="stcmt">///</span>
+	   legend(label(1 "Any Credits") label(2 "College-Level Credits"))
+	   
+graph export "${saved_graphs}/3_student_status_at_6_terms_by_entry_term_credits_earned.png", replace
+
+
