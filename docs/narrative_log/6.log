@@ -86,33 +86,33 @@ import plotly.express as px
 import numpy as np
 import pandas as pd
 
-# Read in prepped data
+<span class="stcmt">* Read in prepped data</span>
 df = pd.read_stata("${graph_ready}")
 
-# Add column to be passed to color argument
+<span class="stcmt">* Add column to be passed to color argument</span>
 df['color_val'] = "constant"
 
-# Set up list for accummulating scatterplot charts
+<span class="stcmt">* Set up list for accummulating scatterplot charts</span>
 charts = list()
 
-# Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above
+<span class="stcmt">* Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span>
 pathway_label_titles = dict()
 if 'entry_pathway_label' in df.columns:
 	for c in sorted(list(df.pathway.unique())):
 		pathway_label_titles[c] = list(df[df['pathway'] == c].entry_pathway_label.unique())[0]
 	df = df.drop('entry_pathway_label', 1) # drop column of labels now that it is no longer needed
 		
-# Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display
+<span class="stcmt">* Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</span>
 df['proportion_failing'] = np.round(df['proportion_failing'], 2)
 df['prob_completer_pass'] = np.round(df['prob_completer_pass'], 2)
 df['prob_completer_fail'] = np.round(df['prob_completer_fail'], 2)
 df['prob_completer_diff'] = np.round(df['prob_completer_diff'], 2)
 	
-# Set up the charts
+<span class="stcmt">* Set up the charts</span>
 for c in sorted(list(df['pathway'].unique())):
-	# Subset to data for a single pathway
+	<span class="stcmt">* Subset to data for a single pathway</span>
 	df_display = df[df['pathway'] == c]
-	# Set min and max for axes
+	<span class="stcmt">* Set min and max for axes</span>
 	if np.amin(df_display['prob_completer_diff']) &lt; 0:
 		y_min = np.amin(df_display['prob_completer_diff']) - 0.02
 	else:
@@ -127,7 +127,7 @@ for c in sorted(list(df['pathway'].unique())):
 	else:
 		x_max = np.amax(df_display['proportion_failing']) + 0.02
 	
-	# Create scatterplot
+	<span class="stcmt">* Create scatterplot</span>
 	fig = px.scatter(df_display,
 					 x = "proportion_failing", 
 					 y = "prob_completer_diff",
@@ -165,14 +165,14 @@ for c in sorted(list(df['pathway'].unique())):
 					 gridwidth = 1,
 					 gridcolor = "rgb(192,192,192)")
 	
-	# Highlight y = 0 line for reference if y range extends below 0
+	<span class="stcmt">* Highlight y = 0 line for reference if y range extends below 0</span>
 	if y_min &lt; 0:
 		fig.add_hline(y=0, line_color="black", opacity = 1)
 
-	# Append chart to list
+	<span class="stcmt">* Append chart to list</span>
 	charts.append(fig)
 	
-# Render all the charts
+<span class="stcmt">* Render all the charts</span>
 for g in charts:
 	g.show()
 						   
