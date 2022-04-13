@@ -80,7 +80,7 @@ html {
 <div class="nav nav-stacked affix" id="toc" style = "overflow-wrap:break-word;">
 <div class="well" style = "padding-right:10px; overflow-wrap:break-word;">
 <ul>
-<li><a href="#h-1">Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts:</a>
+<li><a href="#h-1">Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts: Technical Guide</a>
 <ul>
 <ul>
 <li><a href="#h-1-0-1">Overview of Technical Guide</a>
@@ -149,8 +149,7 @@ html {
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 offset-md-1 pull-right">
 
-<h1 id="h-1">Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts:</h1>
-Technical Guide
+<h1 id="h-1">Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts: Technical Guide</h1>
 
 <h3 id="h-1-0-1">Overview of Technical Guide</h3>
 
