@@ -216,6 +216,11 @@ html {
 <p>Compiling these descriptive statistics allows you to see which students are enrolling in different pathways. These descriptive statistics may be presented in a single table, as a series of charts, or some combination of charts and tables. These data points are helpful to contextualize differences in completion rates or other outcomes across pathways and may help your institution develop interventions and supports that are responsive to students&rsquo; identities and needs. We also recommend comparing the characteristics of students enrolled full and part time within pathways to better understand which students are choosing which enrollment option. As we recommend conducting the analyses outlined in this Diagnostic separately for full and part time students, these descriptive statistics also provide context for understanding which students&rsquo; experiences and outcomes are being portrayed by each set of analyses.</p>
 <p>Figure 1.0 offers an example of how to present students&rsquo; credential intentions across pathways, a key consideration when deciding which pathways to compare in your analyses.</p>
 <h3 id="h-1-2-1">Example Visualization 0.1: What credentials do students intend to earn when entering a given pathway? </h3>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.0.1.png">
+</div>
+</div>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows the share of students in each pathway pursuing different credential types. This varies across program. For example, half of all students entering the Health pathway intend to earn an associate degree, while the most comm degree intention among students in Engineering Technology is a diploma. Understanding what credentials student intend to earn helps us anticipate how long it will likely take students to complete and highlights which pathways may be best positioned to share lessons/best practices to support students with each other.</p>
 <p>In this chart, and the charts that follow, the outcome is often a probability or a proportion. Because these values are always a fraction, they naturally exist on a scale of 0-1. These values can also be understood as percentage points if they are multiplied by 100.</p>
@@ -241,6 +246,11 @@ html {
 </ul>
 <h3 id="h-1-3-5">Example Visualization 1.1: What is the likelihood a student in a given pathway will experience a successful outcome? </h3>
 <p>Our first analysis shows whether students&rsquo; likelihood of completion or transfer varies depending on what pathway they pursue. We focus on the first outcome that students achieve to avoid double-counting students who attain more than one milestone (e.g., transfer and subsequent completion). Critically, this is a descriptive analysis that does not account for student background characteristics, program context, or other factors that influence student outcomes. Because these results take no account of which students enroll in which program, they should not be interpreted to mean that one program is outperforming another, but rather should encourage deeper questioning and discussion across pathways.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.1..png">
+</div>
+</div>
 <pre id="stlog-1" class="stcmd"><code>
 <span class="stcmt">/*****************************************</span>
 <span class="stcmt"> Comments about this code</span>
@@ -312,6 +322,11 @@ html {
 <p>This chart shows the probability that a student will have a successful outcome, conditional on their pathway of entry. We see differences across pathway. For example, among students entering the Health pathway, the probability that a student will earn a credential or transfer to another institution is around 50 percent. In contrast, the probability that a student entering Mechanical Repair will complete or transfer is only slightly above 20 percent.</p>
 <h3 id="h-1-3-6">Example Visualization 1.2: What is the likelihood a student in a given pathway will experience a successful outcome, after controlling for their background characteristics? </h3>
 <p>The next piece of this analysis looks at differences in the probability that a student will transfer or complete a credential across pathways while accounting for students&rsquo; background characteristics. This allows us to compare outcomes of students who are observationally the same on a set of variables but who enrolled in different pathways. We include as controls students&rsquo; gender (measured as a binary male/female), age at enrollment, race/ethnicity (disaggregated to Asian, Black, Latina/o/x, White, and other/unknown), Pell dollars awarded in the first year, high school GPA, and mother&rsquo;s education level (less than high school, high school, college or more). You may want to adjust these covariates depending on what is relevant to your context and available in your data.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.2.png">
+</div>
+</div>
 <pre id="stlog-2" class="stcmd"><code>
 <span class="stcmt">* Model: outcomes conditional on baseline student traits</span>
 # delimit ; 
@@ -330,6 +345,11 @@ i.race#i.pathway i.pathway i.institutionid i.cohortyear if cohorttermindex == 1,
 <p>This chart shows how two students, who are the same on all observed characteristics, have differing probabilities of success based on which CTE pathway they choose to enroll in. Similar to the prior chart, the probability of success for students in the Health pathway is about 50 percent. However, we see changes in the probability of success between the unadjusted and adjusted graphs for other programs, like Engineering Technology and Mech Repair. These results suggest that students in Mech Repair do better than we would expect given their observed characteristics, while those in Engineering Tech have a lower probability of success than we would expect just based on background characteristics.</p>
 <h3 id="h-1-3-7">Example Visualization 1.3: What are students' enrollment decisions and success outcomes over time? </h3>
 <p>To go deeper into the question of the extent to which programs are supporting student success, we look at student outcomes over time. We look over term-by-term for students&rsquo; first three years to see what share of students are still enrolled in college, what share have completed a credential or transferred, and the share of students who are no longer enrolled. This analysis can help your institution identify key moments in students&rsquo; experience when they may need additional support to stay on track to a successful outcome.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.3.png">
+</div>
+</div>
 <pre id="stlog-3" class="stcmd"><code>
 <span class="stcmt">* Chart: waterfall view of completion/transfer, unenrollment, and continued enrollment over time</span>
 {
@@ -388,6 +408,11 @@ frame drop working
 <h3 id="h-1-3-8">Example Visualization 1.4: How does the likelihood a student in a given pathway will experience a successful outcome vary across background characteristics? </h3>
 <p>In the fourth analysis of this section, we look at how the probability of success varies across pathways and student background characteristics. Specifically, we look at the adjusted probabilities of transfer and completion for each pathway by gender, mother&rsquo;s educational attainment, and race/ethnicity, across different values of high school GPA, Pell award amounts, and age at entry.</p>
 <p>It&rsquo;s important to think carefully about the implications and interpretation of these probabilities, particularly when looking at those for demographic characteristics. These are not causal estimates- if there are differences by gender in students&rsquo; likelihood of completing, this does not mean that students of one gender are better or more capable students. Instead, you should take this as an opportunity to reflect on the support you offer students and how that support may need to be tailored to different groups so that all students have equitable opportunities to succeed. In what ways is your institution recognizing and leveraging the strengths that each student brings to promote equitable success? For which students does your institution need to continue to improve?</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.4.png">
+</div>
+</div>
 <pre id="stlog-4" class="stcmd"><code>
 <span class="stcmt">* Charts: high school GPA margins</span>
 {
@@ -540,6 +565,11 @@ size(vsmall))
 </ul>
 <h3 id="h-1-4-5">Example Visualization 2.1: How do students move between pathways and towards success over time?</h3>
 <p>Our analysis shows whether students remain enrolled in their original pathway, switched to a different pathway, transferred to a four-year institution, completed any credential, or were not enrolled at the end of the examined time period. To illustrate the students&rsquo; journey, we use an interactive diagram to graphically show the size of the flow of students through the six semesters and the potential outcomes observed in each semester. When you produce this chart in Python (example code will be shared separately), users can hover over any particular flow in the chart to see the exact number of students making that transition.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.2.1.png">
+</div>
+</div>
 <pre id="stlog-5" class="stcmd"><code>
 <pre><code>&lt;span class=&quot;stcmt&quot;&gt;/*****************************************&lt;/span&gt;
 </code></pre>
@@ -654,32 +684,28 @@ save &quot;${path_to_save_collapsed_data}&quot;, replace
 <p><span class="stcmt">/************************************************<strong></span> <span class="stcmt"> Run Sankey diagrams</span> <span class="stcmt"></strong>************************************************/</span></p>
 <p>python:</p>
 <p>import plotly.graph_objects as go import pandas as pd</p>
-<h1><a href="#read-in-preppped-data" id="read-in-preppped-data">Read in preppped data</a></h1>
-<p>df_full = pd.read_stata(&ldquo;${path_to_save_collapsed_data}&rdquo;) df_full.head()</p>
-<h1><a href="#establish-list-to-contain-sankey-charts" id="establish-list-to-contain-sankey-charts">Establish list to contain Sankey charts</a></h1>
-<p>charts = []</p>
-<h1><a href="#establish-dictionary-of-pathway-code-labels-to-be-used-in-chart-titles-if-entry-pathway-vals-label-set-in-stata-above" id="establish-dictionary-of-pathway-code-labels-to-be-used-in-chart-titles-if-entry-pathway-vals-label-set-in-stata-above">Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</a></h1>
-<p>pathway_label_titles = dict() if &lsquo;entry_pathway_label&rsquo; in df_full.columns: for e in sorted(list(df_full.entry_pathway.unique())): pathway_label_titles[e] = list(df_full[df_full[&lsquo;entry_pathway&rsquo;] == e].entry_pathway_label.unique())[0] df_full = df_full.drop(&lsquo;entry_pathway_label&rsquo;, 1) # drop column of labels now that is no longer needed; want numeric indexing statements below to be the same whether entry_pathway_vals defined or not</p>
-<h1><a href="#loop-over-entry-pathway-codes-and-create-a-sankey-chart-for-each-across-all-available-transition-periods" id="loop-over-entry-pathway-codes-and-create-a-sankey-chart-for-each-across-all-available-transition-periods">Loop over entry pathway codes and create a Sankey chart for each, across all available transition periods</a></h1>
-<p>for e in sorted(list(df_full.entry_pathway.unique())): print(&lsquo;Creating Sankey chart for entry pathway: {}&rsquo;.format(e))</p>
-<pre><code># Subset to just the students entering that pathway
+<p><span class="stcmt">* Read in preppped data</span> df_full = pd.read_stata(&ldquo;${path_to_save_collapsed_data}&rdquo;) df_full.head()</p>
+<p><span class="stcmt">* Establish list to contain Sankey charts</span> charts = []</p>
+<p><span class="stcmt">* Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span> pathway_label_titles = dict() if &lsquo;entry_pathway_label&rsquo; in df_full.columns: for e in sorted(list(df_full.entry_pathway.unique())): pathway_label_titles[e] = list(df_full[df_full[&lsquo;entry_pathway&rsquo;] == e].entry_pathway_label.unique())[0] df_full = df_full.drop(&lsquo;entry_pathway_label&rsquo;, 1) # drop column of labels now that is no longer needed; want numeric indexing statements below to be the same whether entry_pathway_vals defined or not</p>
+<p><span class="stcmt">* Loop over entry pathway codes and create a Sankey chart for each, across all available transition periods</span> for e in sorted(list(df_full.entry_pathway.unique())): print(&lsquo;Creating Sankey chart for entry pathway: {}&rsquo;.format(e))</p>
+<pre><code>&lt;span class=&quot;stcmt&quot;&gt;* Subset to just the students entering that pathway&lt;/span&gt;
 df = df_full[df_full['entry_pathway'] == e] 
 
-# Set up dictionary that will be used to do indexing of source and target nodes
+&lt;span class=&quot;stcmt&quot;&gt;* Set up dictionary that will be used to do indexing of source and target nodes&lt;/span&gt;
 d = dict()
 counter = 1
 transitions = sorted(list(df.semester_transition.unique()))
 last_trans = max(transitions)
 for s in transitions: 
 	print('Transition: {}'.format(s))
-	# Subset to just the records for the transition period s
+	&lt;span class=&quot;stcmt&quot;&gt;* Subset to just the records for the transition period s&lt;/span&gt;
 	trans_s_df = df[df['semester_transition'] == s]
-	# Only need the first pathway codes for non-last transitions; the first pathway codes of the next transition are the second pathway codes of the transition before
+	&lt;span class=&quot;stcmt&quot;&gt;* Only need the first pathway codes for non-last transitions; the first pathway codes of the next transition are the second pathway codes of the transition before&lt;/span&gt;
 	if s &amp;lt; last_trans:
 		print(counter)
 		d[counter] = list(trans_s_df.pathway_origin.unique())
 		counter = counter + 1
-	# For the last transition, we do need to add both the first and last pathway codes
+	&lt;span class=&quot;stcmt&quot;&gt;* For the last transition, we do need to add both the first and last pathway codes&lt;/span&gt;
 	else:
 		print(counter)
 		d[counter] = list(trans_s_df.pathway_origin.unique())
@@ -688,7 +714,7 @@ for s in transitions:
 		d[counter] = list(trans_s_df.pathway_target.unique())
 		counter = counter + 1			
 
-# Repackage the contents of the dictionary as tuples that include required indexing bump
+&lt;span class=&quot;stcmt&quot;&gt;* Repackage the contents of the dictionary as tuples that include required indexing bump&lt;/span&gt;
 list_lengths = [len(d[x]) for x in d]
 index_bumps = [] # pathway codes will (and must) appear multiple times in lables_list; have to make sure you index the right one
 for k in d:
@@ -705,23 +731,23 @@ for k in d:
 	final_d[k] = (d[k], index_bumps[k-1])
 print(final_d)
 
-# Next step is to go line by line through data frame, calculating for each row: source node index, target node index, value, accummulating these
-# in three separate lists (the list of node labels will just be all the dictionary pathway list values appended together, in order)
+&lt;span class=&quot;stcmt&quot;&gt;* Next step is to go line by line through data frame, calculating for each row: source node index, target node index, value, accummulating these&lt;/span&gt;
+&lt;span class=&quot;stcmt&quot;&gt;* in three separate lists (the list of node labels will just be all the dictionary pathway list values appended together, in order)&lt;/span&gt;
 labels_list = list()
 source_list = list()
 target_list = list()
 value_list = list()
 for s in transitions:
 	print('Getting info for transition {}'.format(s))
-	# Subset to just the records for the transition period s
+	&lt;span class=&quot;stcmt&quot;&gt;* Subset to just the records for the transition period s&lt;/span&gt;
 	trans_s_df = df[df['semester_transition'] == s]
-	# Now iterate through all rows for that transition
+	&lt;span class=&quot;stcmt&quot;&gt;* Now iterate through all rows for that transition&lt;/span&gt;
 	for r in range(trans_s_df.shape[0]):
 		print('Getting info for row {}'.format(r))
-		# Get the indices of the first and second pathway codes for each transition, using info stored in final_d, including index bump
+		&lt;span class=&quot;stcmt&quot;&gt;* Get the indices of the first and second pathway codes for each transition, using info stored in final_d, including index bump&lt;/span&gt;
 		source_node = final_d[s][0].index(trans_s_df.iat[r, 2]) + final_d[s][1] # first pathway code
 		target_node = final_d[s+1][0].index(trans_s_df.iat[r, 3]) + final_d[s+1][1] # second pathway code
-		# Append values to relevant lists
+		&lt;span class=&quot;stcmt&quot;&gt;* Append values to relevant lists&lt;/span&gt;
 		source_list.append(source_node)
 		target_list.append(target_node)
 		value_list.append(trans_s_df.iat[r, 4])
@@ -731,21 +757,21 @@ for s in transitions:
 		labels_list.extend(final_d[s][0])
 		labels_list.extend(final_d[s+1][0])
 	
-# Convert labels_list to string elements with 'Unenrolled' replacing 99, 'Completer' for 100,
-# 'Transfer' for 101
+&lt;span class=&quot;stcmt&quot;&gt;* Convert labels_list to string elements with 'Unenrolled' replacing 99, 'Completer' for 100,&lt;/span&gt;
+&lt;span class=&quot;stcmt&quot;&gt;* 'Transfer' for 101&lt;/span&gt;
 labels_list_str = [str(x) for x in labels_list]
 labels_list_99 = ['Unenrolled' if x == '99' else x for x in labels_list_str]
 labels_list_100 = ['Completer' if x == '100' else x for x in labels_list_99]
 labels_list_final = ['Transfer' if x == '101' else x for x in labels_list_100]
 
-# Review all newly created lists
+&lt;span class=&quot;stcmt&quot;&gt;* Review all newly created lists&lt;/span&gt;
 print(final_d)
 print(labels_list_final)
 print(source_list)		
 print(target_list)
 print(value_list)
 
-# Create the Sankey chart
+&lt;span class=&quot;stcmt&quot;&gt;* Create the Sankey chart&lt;/span&gt;
 fig = go.Figure(data=[go.Sankey(
 	node = dict(
 		pad = 15,
@@ -765,11 +791,10 @@ else:
 	pathway_title_display_val = &quot;{:.0f}&quot;.format(e)
 fig.update_layout(title_text = &quot;Semester by Semester Movement Across Pathways for Students Who Entered {} Pathway in First Term&quot;.format(pathway_title_display_val), font_size = 15)
 
-# Append Sankey to list of charts
+&lt;span class=&quot;stcmt&quot;&gt;* Append Sankey to list of charts&lt;/span&gt;
 charts.append(fig)
 </code></pre>
-<h1><a href="#render-all-the-sankey-charts" id="render-all-the-sankey-charts">Render all the Sankey charts</a></h1>
-<p>for g in charts: g.show()</p>
+<p><span class="stcmt">* Render all the Sankey charts</span> for g in charts: g.show()</p>
 <p>end</p>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
@@ -803,6 +828,11 @@ charts.append(fig)
 </ul>
 <h3 id="h-1-5-5">Example Visualization 3.1: Which courses represent the biggest impediments to success? </h3>
 <p>This analysis identifies courses that are important for students to complete a pathway. For our analysis, we focused on core content classes in the student&rsquo;s pathway as well as general education classes. You could define the set of potential gatekeeper courses differently; for example, looking specifically at courses required for a credential in a particular pathway. We create an interactive scatterplot that plots the share of students failing a course against the change in probability of completing a credential if the course is failed compared to passed. The size of each point reflects the number of students attempting the course. When interpreting this chart, we can think of large points with a high failure rate and a large associated decrease in probability of completion (e.g., a large point in the top right of the graph) as the most concerning from a student success perspective. When you create this in Python (sample code included separately), you&rsquo;ll have an interactive chart that allows you to scroll over an individual point and see the course title, number of attempters, and the probabilities of completion conditional on passing or failing. Example Visualization 3.1 provides a still image of the interactive chart.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.3.1.png">
+</div>
+</div>
 <pre id="stlog-6" class="stcmd"><code>
 <pre><code>&lt;span class=&quot;stcmt&quot;&gt;/*****************************************&lt;/span&gt;
 </code></pre>
@@ -874,19 +904,13 @@ save &quot;${graph_ready}&quot;, replace &lt;span class=&quot;stcmt&quot;&gt;// 
 <p><span class="stcmt">	 Chart set up</span> <span class="stcmt">	*************************************/</span></p>
 <p><span class="stcmt">* Plotly Scatterplot with tooltip hover</span> python</p>
 <p>import plotly.express as px import numpy as np import pandas as pd</p>
-<h1><a href="#read-in-prepped-data" id="read-in-prepped-data">Read in prepped data</a></h1>
-<p>df = pd.read_stata(&ldquo;${graph_ready}&rdquo;)</p>
-<h1><a href="#add-column-to-be-passed-to-color-argument" id="add-column-to-be-passed-to-color-argument">Add column to be passed to color argument</a></h1>
-<p>df[&lsquo;color_val&rsquo;] = &ldquo;constant&rdquo;</p>
-<h1><a href="#set-up-list-for-accummulating-scatterplot-charts" id="set-up-list-for-accummulating-scatterplot-charts">Set up list for accummulating scatterplot charts</a></h1>
-<p>charts = list()</p>
-<h1><a href="#establish-dictionary-of-pathway-code-labels-to-be-used-in-chart-titles-if-entry-pathway-vals-label-set-in-stata-above" id="establish-dictionary-of-pathway-code-labels-to-be-used-in-chart-titles-if-entry-pathway-vals-label-set-in-stata-above">Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</a></h1>
-<p>pathway_label_titles = dict() if &lsquo;entry_pathway_label&rsquo; in df.columns: for c in sorted(list(df.pathway.unique())): pathway_label_titles[c] = list(df[df[&lsquo;pathway&rsquo;] == c].entry_pathway_label.unique())[0] df = df.drop(&lsquo;entry_pathway_label&rsquo;, 1) # drop column of labels now that it is no longer needed</p>
-<h1><a href="#round-proportion-failing-prob-completer-pass-prob-completer-fail-prob-completer-diff-for-better-display" id="round-proportion-failing-prob-completer-pass-prob-completer-fail-prob-completer-diff-for-better-display">Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</a></h1>
-<p>df[&lsquo;proportion_failing&rsquo;] = np.round(df[&lsquo;proportion_failing&rsquo;], 2) df[&lsquo;prob_completer_pass&rsquo;] = np.round(df[&lsquo;prob_completer_pass&rsquo;], 2) df[&lsquo;prob_completer_fail&rsquo;] = np.round(df[&lsquo;prob_completer_fail&rsquo;], 2) df[&lsquo;prob_completer_diff&rsquo;] = np.round(df[&lsquo;prob_completer_diff&rsquo;], 2)</p>
-<h1><a href="#set-up-the-charts" id="set-up-the-charts">Set up the charts</a></h1>
-<p>for c in sorted(list(df[&lsquo;pathway&rsquo;].unique())): # Subset to data for a single pathway df_display = df[df[&lsquo;pathway&rsquo;] == c] # Set min and max for axes if np.amin(df_display[&lsquo;prob_completer_diff&rsquo;]) &lt; 0: y_min = np.amin(df_display[&lsquo;prob_completer_diff&rsquo;]) - 0.02 else: y_min = 0 if np.amax(df_display[&lsquo;prob_completer_diff&rsquo;]) &lt; 0.5: y_max = 0.5 else: y_max = np.amax(df_display[&lsquo;prob_completer_diff&rsquo;]) + 0.02 x_min = 0 # cannot have less than 0% of students fail a course if np.amax(df_display[&lsquo;proportion_failing&rsquo;]) &lt; 0.6: x_max = 0.6 else: x_max = np.amax(df_display[&lsquo;proportion_failing&rsquo;]) + 0.02</p>
-<pre><code># Create scatterplot
+<p><span class="stcmt">* Read in prepped data</span> df = pd.read_stata(&ldquo;${graph_ready}&rdquo;)</p>
+<p><span class="stcmt">* Add column to be passed to color argument</span> df[&lsquo;color_val&rsquo;] = &ldquo;constant&rdquo;</p>
+<p><span class="stcmt">* Set up list for accummulating scatterplot charts</span> charts = list()</p>
+<p><span class="stcmt">* Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span> pathway_label_titles = dict() if &lsquo;entry_pathway_label&rsquo; in df.columns: for c in sorted(list(df.pathway.unique())): pathway_label_titles[c] = list(df[df[&lsquo;pathway&rsquo;] == c].entry_pathway_label.unique())[0] df = df.drop(&lsquo;entry_pathway_label&rsquo;, 1) # drop column of labels now that it is no longer needed</p>
+<p><span class="stcmt">* Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</span> df[&lsquo;proportion_failing&rsquo;] = np.round(df[&lsquo;proportion_failing&rsquo;], 2) df[&lsquo;prob_completer_pass&rsquo;] = np.round(df[&lsquo;prob_completer_pass&rsquo;], 2) df[&lsquo;prob_completer_fail&rsquo;] = np.round(df[&lsquo;prob_completer_fail&rsquo;], 2) df[&lsquo;prob_completer_diff&rsquo;] = np.round(df[&lsquo;prob_completer_diff&rsquo;], 2)</p>
+<p><span class="stcmt">* Set up the charts</span> for c in sorted(list(df[&lsquo;pathway&rsquo;].unique())): <span class="stcmt">* Subset to data for a single pathway</span> df_display = df[df[&lsquo;pathway&rsquo;] == c] <span class="stcmt">* Set min and max for axes</span> if np.amin(df_display[&lsquo;prob_completer_diff&rsquo;]) &lt; 0: y_min = np.amin(df_display[&lsquo;prob_completer_diff&rsquo;]) - 0.02 else: y_min = 0 if np.amax(df_display[&lsquo;prob_completer_diff&rsquo;]) &lt; 0.5: y_max = 0.5 else: y_max = np.amax(df_display[&lsquo;prob_completer_diff&rsquo;]) + 0.02 x_min = 0 # cannot have less than 0% of students fail a course if np.amax(df_display[&lsquo;proportion_failing&rsquo;]) &lt; 0.6: x_max = 0.6 else: x_max = np.amax(df_display[&lsquo;proportion_failing&rsquo;]) + 0.02</p>
+<pre><code>&lt;span class=&quot;stcmt&quot;&gt;* Create scatterplot&lt;/span&gt;
 fig = px.scatter(df_display,
 				 x = &quot;proportion_failing&quot;, 
 				 y = &quot;prob_completer_diff&quot;,
@@ -924,15 +948,14 @@ fig.update_yaxes(showline = True,
 				 gridwidth = 1,
 				 gridcolor = &quot;rgb(192,192,192)&quot;)
 
-# Highlight y = 0 line for reference if y range extends below 0
+&lt;span class=&quot;stcmt&quot;&gt;* Highlight y = 0 line for reference if y range extends below 0&lt;/span&gt;
 if y_min &amp;lt; 0:
 	fig.add_hline(y=0, line_color=&quot;black&quot;, opacity = 1)
 
-# Append chart to list
+&lt;span class=&quot;stcmt&quot;&gt;* Append chart to list&lt;/span&gt;
 charts.append(fig)
 </code></pre>
-<h1><a href="#render-all-the-charts" id="render-all-the-charts">Render all the charts</a></h1>
-<p>for g in charts: g.show()</p>
+<p><span class="stcmt">* Render all the charts</span> for g in charts: g.show()</p>
 <p>end</p>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
@@ -966,6 +989,11 @@ charts.append(fig)
 </ul>
 <h3 id="h-1-6-5">Example Visualization 4.1: On average, are students attempting and earning credits at a pace necessary to complete a credential in a reasonable timeframe?</h3>
 <p>In the first visualization of this section, we show the average number of credits attempted and earned by students in a given pathway. This analysis is helpful if you notice that your institution has low success rates but are not sure whether the barrier to success is students not enrolling in enough courses or students not passing their courses and accumulating credits. You can see from these line graphs if the slope of the <code>credits attempted' line is steep enough to allow students to earn a credential within a given timeframe (for example, whether students are on pace to attempt 60 credits by the end of their sixth term) as well as to see the difference between the number of college-level credits students are attempting and the number of college-level credits students are earning. As the gap between the two lines grows, the more you may think that the challenge for your institution is providing adequate academic support so that students can pass their courses. If the</code>credits attempted&rsquo; line is flat or not steep enough to reach a given threshold for a credential, your institution may want to examine what information and guidance students are receiving about graduation requirements and recommended credit loads per term.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.1.png">
+</div>
+</div>
 <pre id="stlog-7" class="stcmd"><code>
 <span class="stcmt">/*****************************************</span>
 <span class="stcmt"> Comments about this code</span>
@@ -1000,6 +1028,11 @@ charts.append(fig)
 <p>This chart shows that, across pathways, students are not attempting or accumulating credits at a pace that would allow them to complete an associate degree within two years, even though we saw in Section 1 that most students are pursuing an associate degree. The top line in each of the plots shows the pace at which students need to accumulate credits in order to complete an associate degree in two years; the dotted line shows how many credits student are attempting, on average, and the bottom line shows average credit accumulation. Looking at Health, for example, we see that students are attempting enough credits to be able to earn an associate degree in three years, but that credit accumulation is much slower. This suggests that the pathway may want to consider offering additional academic support to help students earn credits in the courses they attempt.</p>
 <h3 id="h-1-6-6">Example Visualization 4.2: How do students' trajectories of college-level credit accumulation vary by their initial college-level credit accumulation?</h3>
 <p>In the second visualization, we examine the importance of early momentum for longer-term credit accumulation. This visualization shows differences in the pace of college-level credit accumulation across students based on how many college-level credits they earned in their first term. The closer the lines are to each other, the less consequential early credit accumulation would seem to be. This type of analysis can help highlight whether students who accumulate few college-level credits in their first term may need additional support to reach a successful outcome.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.2.png">
+</div>
+</div>
 <pre id="stlog-8" class="stcmd"><code>
 <p><span class="stcmt">* Avg. college-level cumulative credits earned by early momentum</span> preserve</p>
 <p>sum cumcollegecreditsearned if cohorttermindex == 1, detail scalar p25 = r(p25) scalar p75 = r(p75)</p>
@@ -1013,6 +1046,11 @@ charts.append(fig)
 <p>This chart demonstrates the importance of early credit accumulation for students&rsquo; trajectories over their first six terms. For all pathways examined, we see that students who earned the most credits in their first semester have much steeper rates of credit accumulation throughout their first three years than students who earned fewer credits in their first term. We see only small differences between students in above the 75th percentile of credit accumulation and students between the 25th and 75th percentiles, indicating that students do not necessarily need to earn as many credits as possible in their first term, but should experience some early success in their courses.</p>
 <h3 id="h-1-6-7">Example Visualization 4.3: How does students' success in their first semester predict their longer-term success?</h3>
 <p>In the third and final visualization of this section, we plot the share of students who experience a successful outcome within six terms of entering a pathway against the number of credits they earned in their first term. This analysis can highlight the importance of early momentum in predicting longer-term success and help institutions identify whether they might want to provide additional support to students who earn a limited number of credits in their first term.</p>
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.3.png">
+</div>
+</div>
 <pre id="stlog-9" class="stcmd"><code>
 <p><span class="stcmt">/******************************************************</span> <span class="stcmt"> Create completer/transfer rate charts</span> <span class="stcmt">******************************************************/</span></p>
 <p><span class="stcmt">* Data set up for completion/transfer rates by college-level credits earned</span> cap frame drop complete_trans_entry_college_credits frame copy default complete_trans_college_credits frame change complete_trans_college_credits drop if cumcollegecreditsearned &gt; 21 &amp; cohorttermindex == 1 <span class="stcmt">// exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary</span> bys studentid: egen min_cohorttermindex = min(cohorttermindex) drop if min_cohorttermindex != 1 drop min_cohorttermindex gen credit_bin_in_first_term = 0 local lower_bound = 0 forvalues c = 3(3)21 { di in red <code>lower_bound' di in red</code>c&rsquo; table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned) if <code>lower_bound' == 0 { replace credit_bin_in_first_term =</code>c&rsquo; if cohorttermindex == 1 &amp; (cumcollegecreditsearned &lt;= <code>c') } else { replace credit_bin_in_first_term =</code>c&rsquo; if cohorttermindex == 1 &amp; (cumcollegecreditsearned &gt; <code>lower_bound' &amp;amp; cumcollegecreditsearned &amp;lt;=</code>c&rsquo;) } local lower_bound = <code>c' } table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned) bys studentid: egen any_terminating = max(terminating) bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1] collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term) gen credit_type = &quot;college-level&quot; tempfile college_credits save</code>college_credits&rsquo;</p>
