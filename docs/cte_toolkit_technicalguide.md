@@ -188,6 +188,7 @@ The sections below include example visualizations that are based on synthetic da
 </div>
 
 <h3 id="h-1-1-1">Description of Analyses</h3>
+
 #### Are there differences in success rates across pathways? 
 
 In this analysis, we estimate the probability that a student in a given pathway will have a successful outcome event. We defined success in our analyses to be either completion of a credential of any form (associate degree, certificate, etc.) or transfer to another institution (depending on your context, you may want to specify this as transfer to a four-year institution or transfer to any institution). Please refer to the data specification section for more details about what data you will need to conduct this analysis yourself and in what format to conduct this analysis. 
@@ -244,11 +245,11 @@ Many similar charts are possible using results from the same model. Our sample d
 </div>
 </div>
 
-####Are there differences in the timing of success across pathways?
+#### Are there differences in the timing of success across pathways?
 
 A final chart for Section 1 displays the timing of student success, allowing you to compare not just the extent to which students are successful across pathways but the speed with which they achieve a successful outcome. The chart represents each cohort, in each pathway, in each term, as a single bar. The area of the bar in red below the x axis represents the proportion of students no longer enrolled. Above the x axis, the area of the bar represents the proportion of students still enrolled or those who have completed/transferred, with blue and turquoise distinguishing between the two. As the term is incremented, the graph conveys shifts in the proportion of students in each of the possible states (still enrolled, completer/transfer, no longer enrolled). See Example Visualization 1d.
 
-#####Example Visualization 1d
+##### Example Visualization 1d
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
@@ -302,6 +303,7 @@ Also, recall from above that the definition of completion you choose may mean mo
 </div>
 
 <h3 id="h-1-2-1">Description of Analysis</h3>
+
 #### When and why do students transfer across pathways and what are the outcomes of transfer? 
 
 This analysis produces an interactive Sankey diagram showing flows of students across semesters. We start with a student-term level dataset in which students are grouped according to their initial pathway choice, in their entry term. This dataset is then collapsed to the pathway-transition level to include aggregate counts of the number of students moving into, remaining in, or transitioning out of each possible pathway or outcome (unenrolled, still enrolled in first pathway, transferred to each potential pathway, transferred to another institution, or completed a credential) in each term. See example Stata code for Section 2 for one way to approach collapsing the data in this manner. Regardless of the approach you take, it is important to ensure that a consistent number of students is included in the analysis within an entry pathway, across semester transitions -- for example, after a student completes a credential, they continue to be counted in the "completed" category moving forward rather than being dropped from the analysis. Figure 2 illustrates this transformation of the data. 
