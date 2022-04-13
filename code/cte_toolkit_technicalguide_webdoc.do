@@ -1,5 +1,5 @@
 // Change the path in the next line to your top-level working directory
-// cd "C:/repositories/open_sdp_cte_toolkit"
+cd "/Users/reworsha/Downloads/open_sdp_cte_toolkit-master 2"
 
 // Change the path below to the directory where you will store programs
 global programs "./code"
@@ -22,8 +22,8 @@ graph set window fontface "Open Sans"
 webdoc init "$docs/open_sdp_cte_toolkit/docs", md replace ///
 	header(bstheme("simplex", jscript)) grdir("techcompanion_img") logdir("techcompanion_log")
 
-webdoc append "programs\styling.txt"
-webdoc append "programs\ga.html"
+webdoc append "code/styling.txt"
+webdoc append "code/ga.html"
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
@@ -45,8 +45,7 @@ webdoc put <div class="col-xs-12 col-sm-12 col-md-8 offset-md-1 pull-right">
 
 /***
 
-# Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts:
-Technical Guide
+# Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts: Technical Guide
 
 ### Overview of Technical Guide
 
@@ -78,7 +77,18 @@ The sections below include example visualizations that are based on synthetic da
 
 ## Section 1: Data and Analysis Guide
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table1.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 ### Description of Analyses
+
 #### Are there differences in success rates across pathways? 
 
 In this analysis, we estimate the probability that a student in a given pathway will have a successful outcome event. We defined success in our analyses to be either completion of a credential of any form (associate degree, certificate, etc.) or transfer to another institution (depending on your context, you may want to specify this as transfer to a four-year institution or transfer to any institution). Please refer to the data specification section for more details about what data you will need to conduct this analysis yourself and in what format to conduct this analysis. 
@@ -89,9 +99,29 @@ The first multinomial logistic regression model run expresses students' outcomes
 
 ##### Figure 1: Data transformation for predicted probabilities charts
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1.jpg">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 Importantly, you do not want to overwrite the original, student-level data used to fit the model to make these transformations, but rather should try to use the software's working memory to create and temporarily store this new dataset of predicted values. If your software does not allow you to store temporary files, be sure to save your results to disk with a new name so that they are accessible for graphing. Whichever approach you take to generate a matrix of predicted results, we use these results to create a stacked bar chart showing the predicted probability of completion and transfer for each pathway. See Example Visualization 1a.
 
 ##### Example Visualization 1a
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1a.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 This analysis shows whether students' likelihood of completion or transfer varies depending on what pathway they initially pursue. Critically, this is a descriptive analysis that does not account for student background characteristics, program context, or other factors that influence student outcomes. These results should not be interpreted to mean that one program is outperforming another, but rather to encourage deeper questioning and discussion across pathways. 
 
@@ -103,6 +133,16 @@ Like with the first multinomial logistic regression, we fit this model to studen
 
 ##### Example Visualization 1b
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1b.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 By design, this chart looks similar to Example Visualization 1a. The useful information is in comparing how predicted probabilities of completion or transfer shift – or stay the same – after controlling, or "adjusting," for background student traits. If the predicted probabilities remain largely unchanged in a pathway, this is evidence that student factors in the model – race, gender, Pell dollars awarded, etc. – matter less in whether or not a student is successful. If none of the predicted probabilities shift very much across any of the pathways, this is evidence that differences in student success outcomes are potentially due less to which students select into particular pathways. Instead, differences in success could be due more to pathway-specific factors and structures. If predicted probabilities within a pathway do differ after controlling for student traits, this is evidence that the selection of students into the pathway is explaining some of the observed success (or lack thereof). Compare the Engineer Tech pathway in Example Visualization 1a and 1b. After adjusting for student traits with the regression model, the probability of transfer in particular has dropped substantially. In other words, the regression model is suggesting that the probability of transfer among Engineer Tech students is due largely to students more likely to transfer selecting into Engineer Tech.
 
 We can use the same regression model to further investigate, by pathway, which student factors are most associated with which success outcomes. Specifically, we can select one or two of the student traits included in the model, vary these while holding constant all the other traits, and see how predicted probabilities of success change. For illustration, see Example Visualization 1c. This chart uses the regression model to predict the probabilities of completion and transfer within each pathway, for different racial/ethnic groups, with varying high school GPAs, while holding fixed all other traits in the model. There is much we can learn from such a chart. One conclusion is that across pathway and racial/ethnic groups, a better high school GPA is less predictive of transfer than completion. In other words, across pathways and racial/ethnic groups, holding all other traits fixed, imagine two hypothetical students, one with a very good high school GPA and one with a more typical high school GPA. The student with the higher GPA has a much higher predicted probability of completing a credential than the lower-GPA peer, but a more modest predicted advantage in the probability of transfer compared to the lower-GPA peer.
@@ -111,11 +151,31 @@ Many similar charts are possible using results from the same model. Our sample d
 
 ##### Example Visualization 1c
 
-####Are there differences in the timing of success across pathways?
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1c.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
+#### Are there differences in the timing of success across pathways?
 
 A final chart for Section 1 displays the timing of student success, allowing you to compare not just the extent to which students are successful across pathways but the speed with which they achieve a successful outcome. The chart represents each cohort, in each pathway, in each term, as a single bar. The area of the bar in red below the x axis represents the proportion of students no longer enrolled. Above the x axis, the area of the bar represents the proportion of students still enrolled or those who have completed/transferred, with blue and turquoise distinguishing between the two. As the term is incremented, the graph conveys shifts in the proportion of students in each of the possible states (still enrolled, completer/transfer, no longer enrolled). See Example Visualization 1d.
 
-#####Example Visualization 1d
+##### Example Visualization 1d
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1d.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 ### Level of Uniqueness
 
@@ -126,6 +186,16 @@ Only cohorttermindex and pathway values should vary over time for students in th
 We need multiple terms of data for each student in order to create the "waterfall" chart (see Example Visualization 1d), which requires observing a student over time. However, the multinomial logistic regression models only require a single observation per student (e.g., the first term, the term our sample code uses) because all the variables used in the model should be constant for a student over time: an outcome measured after however many terms you decide to include in your analysis, an initial pathway choice, and other covariates fixed at entry.  In other words, you should not fit the regression models for Section 1 using all the observations in the data set, because each student will have multiple rows. See example Stata code for more information.
 
 ### Data File Specification
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table2.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 ### Notes About Regression Specification
 
@@ -150,18 +220,49 @@ Also, recall from above that the definition of completion you choose may mean mo
 
 ## Section 2: Data and Analysis Guide
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table3.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 ### Description of Analysis
+
 #### When and why do students transfer across pathways and what are the outcomes of transfer? 
 
 This analysis produces an interactive Sankey diagram showing flows of students across semesters. We start with a student-term level dataset in which students are grouped according to their initial pathway choice, in their entry term. This dataset is then collapsed to the pathway-transition level to include aggregate counts of the number of students moving into, remaining in, or transitioning out of each possible pathway or outcome (unenrolled, still enrolled in first pathway, transferred to each potential pathway, transferred to another institution, or completed a credential) in each term. See example Stata code for Section 2 for one way to approach collapsing the data in this manner. Regardless of the approach you take, it is important to ensure that a consistent number of students is included in the analysis within an entry pathway, across semester transitions -- for example, after a student completes a credential, they continue to be counted in the "completed" category moving forward rather than being dropped from the analysis. Figure 2 illustrates this transformation of the data. 
 
 ##### Figure 2: Data transformation for Sankey diagram
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.2.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 We recommend setting up your data so that there are two term transitions per year. Depending on the institution's context, this may require rolling summer events into the fall, winter events into the spring semesters, or some other aggregation based on context. This helps smooth out the analysis by limiting the transitions to those relevant to the most students (e.g., at many institutions, fewer students are enrolled over the summer). Or you could include more transitions and code all students who did not enroll for a winter or summer term as remaining in the same pathway, although this may mute patterns of student exit during these terms.
 Once the data are set, we use Python to create the Sankey diagrams. See Example Visualization 2a. The diagram displays the size of each flow within each term transition, scaled to the number of students out of the starting total that the flow represents. Using Python enables interactivity such that you can hover your cursor over any particular flow and see the exact number of students making that transition between pathways/outcomes. 
 While this analysis is useful for showing students' movement across pathways and through outcome events, it is a descriptive, non-causal analysis only. The results should not be interpreted to mean that entering one pathway rather than another causes students to transfer pathways or to ultimately be successful or unsuccessful. Instead, the Sankey charts document students' choices regarding their enrollment over time. 
 
 ##### Example Visualization 2a
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.2a.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 Another limitation of this analysis is that we do not show stacking of credentials or churn between institutions. Once a student has transferred or completed a credential, that classification is carried forward for the remaining terms included in the analysis. Students are coded as "completer" if they earn a credential before transferring and remain with this code for the rest of the analysis, potentially obscuring behavior in which a student earns multiple "stacked" credentials. Similarly, students who transfer to another institution and then re-enroll at your institution are coded as "transfer" as soon as the first transfer event takes place. Such students remain coded as "transfer" for the rest of the analysis, potentially obscuring repeated transferring that is potentially important. However, we do dynamically capture periods of stop out, where a student exits the institution and then re-enrolls; students are not coded as "unenrolled" indefinitely if they return. You should feel free to modify any of these decisions, if another approach would provide more insight in your context. 
 
@@ -170,6 +271,16 @@ Another limitation of this analysis is that we do not show stacking of credentia
 This file should be unique at the studentid-cohorttermindex level. In other words, each row in the data file should represent a unique combination of studentid and cohorttermindex.
 
 ### Data File Specification
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table4.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 ### Note About Student Subpopulations
 
@@ -188,6 +299,16 @@ At this time, to our knowledge, the plotly package does not offer node sorting o
 
 ## Section 3: Data and Analysis Guide
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table5.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 ### Description of Analysis
 
 #### Are there gateway courses that are obstructing completion in some pathways? 
@@ -195,11 +316,32 @@ This analysis investigates core courses that are required for students to comple
 
 ##### Figure 3: Data Transformations for Gatekeeper Course Analysis
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.3.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
+
 We then create an interactive scatterplot that plots the share of students failing a course against the change in probability of completing a credential if the course is failed initially. The size of each point reflects the number of students attempting the course. When interpreting this chart, we can think of large points with a high failure rate and a large decrease in probability of completion (e.g., a large point in the top right of the graph) as the most concerning from a student success perspective. See Example Visualization 3a. When these scatterplots are rendered in the browser, you can scroll over an individual point to see the course title, number of attempters, the probability of completion among those who initially pass, and the probability of completion among those who initially fail. 
 
 Note that because some courses might not be unique to a single pathway (especially general education courses), courses may appear in multiple scatterplots. The information provided is not necessarily redundant, however, because the same course might play a different gatekeeping role in different pathways.
 
 ##### Example Visualization 3a
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.3a.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 ### Level of Uniqueness
 
@@ -207,7 +349,28 @@ This file should be unique at the pathway-course_id level. In other words, each 
 
 ### Data File Specification
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table6.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 ## Section 4: Data and Analysis Guide
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table7.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 
 ### Description of Analysis
 
@@ -217,19 +380,59 @@ We begin this analysis by comparing college-level credit accumulation over time 
 
 ##### Figure 4: Data transformations for analysis of college-level credits earned vs. attempted
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 Once you have your data in the form of the second table in Figure 4, you are ready to graph your results in the form of Example Visualization 4a.
 
 ##### Example Visualization 4a
 
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4a.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
+
 In the second chart, we investigate the importance of early momentum in predicting continued progress. Specifically, we want a chart that plots, by pathway, average college-level credit accumulation among three groups of students: 1) those who were below the 25th percentile in the entry term for college-level credits earned, among other students entering the pathway 2) those who were between the 25th and 75th percentiles and 3) those who were above the 75th percentile. See Example Visualization 4b. 
 
 ##### Example Visualization 4b
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4b.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 To get your data into the form required for this graph, you once again should begin with a student-term-course-level data set. Once again, calculate for each student the number of college-level credits earned in each term. Then create a new variable that assigns each student a value ranging from 1-3, depending on whether they fell below the 25th percentile of college credits earned in the first term among pathway peers; between the 25th and 75th percentiles; or above the 75th percentile. This percentile bin value should be constant for a student across terms for the rest of the analysis. Next, collapse the data further to take the average of college-level credits earned by pathway, by term, by percentile bin. Finally, calculate by pathway, term (with terms in ascending order), and percentile bin the cumulative sum of average college-level credits earned. See example Stata code for Section 4 for one possible approach to this data preparation.
 
 In the final graph, we want to investigate the importance of early credit momentum for eventual completion or transfer within three years. Specifically, we want to investigate whether credits earned in the first term predict student completion and transfer rates within three years of entry. Further, we want to know whether college-level credits or any credits (including developmental) differ in how well they predict completion/transfer rates. See Example Visualization 4c. 
 
 ##### Example Visualization 4c
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4c.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 For data preparation, start once again with a student-term-course-level data set. From this, calculate for each student, in each pathway, the total number of college-level credits earned in the entry term and the total number of credits earned at any level in the entry term. Next, you will need to create a "coarsened" version of each of these variables. We recommend using bins of 3 credits. For example, if Student A earned 3 college-level credits in the entry term and Student B earned 4.5, consider both students to have earned a college-level credit value falling between 3 and 6; they should both have the same value (3, 6, or something else possibly) for the coarsened version of college-level credits earned. Next, merge on an indicator (a variable with a value of 0 or 1) by Student ID for whether a student completed a credential or transferred within three years of entry. Finally, you will need to collapse your data twice – once for each coarsened measure of college-level credits earned and any credits earned. Each collapse should get you the rate of completion/transfer by pathway, by credit bin value. Append the results of each collapse together while creating an additional indicator for whether a given data row is for college-level credits earned or any credits earned. The final data set for graphing should have columns for pathway, credit bin, completion/transfer rate, and an indicator for credit bin type (college-level credits or any credits). Rows should be unique by pathway, credit bin, and credit bin type. See example Stata code for Section 4 for one possible approach to this data preparation.
 
@@ -240,6 +443,16 @@ As with all the analyses in this Diagnostic, these graphs are descriptive, not c
 This file should be unique at the studentid-cohorttermindex level. In other words, each row in the data file should represent a unique combination of studentid and cohorttermindex.
 
 ### Data File Specification
+
+***/
+
+webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
+webdoc put  <div class="container">
+webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table8.png">
+webdoc put </div>
+webdoc put </div> 
+
+/***
 
 #### *This guide was originally created by the Strategic Data Project.*
 
