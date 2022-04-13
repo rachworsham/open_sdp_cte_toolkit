@@ -285,6 +285,11 @@ The results of these analyses can inform further discussions at your institution
 
 Our first analysis shows whether students' likelihood of completion or transfer varies depending on what pathway they pursue. We focus on the first outcome that students achieve to avoid double-counting students who attain more than one milestone (e.g., transfer and subsequent completion). Critically, this is a descriptive analysis that does not account for student background characteristics, program context, or other factors that influence student outcomes. Because these results take no account of which students enroll in which program, they should not be interpreted to mean that one program is outperforming another, but rather should encourage deeper questioning and discussion across pathways. 
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.1..png">
+</div>
+</div>
 <pre id="stlog-1" class="stcmd"><code>
 <span class="stcmt">/*****************************************</span>
 <span class="stcmt"> Comments about this code</span>
@@ -465,6 +470,11 @@ This chart shows the probability that a student will have a successful outcome, 
 
 The next piece of this analysis looks at differences in the probability that a student will transfer or complete a credential across pathways while accounting for students' background characteristics. This allows us to compare outcomes of students who are observationally the same on a set of variables but who enrolled in different pathways. We include as controls students' gender (measured as a binary male/female), age at enrollment, race/ethnicity (disaggregated to Asian, Black, Latina/o/x, White, and other/unknown), Pell dollars awarded in the first year, high school GPA, and mother's education level (less than high school, high school, college or more). You may want to adjust these covariates depending on what is relevant to your context and available in your data. 
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.2.png">
+</div>
+</div>
 <pre id="stlog-2" class="stcmd"><code>
 <span class="stcmt">* Model: outcomes conditional on baseline student traits</span>
 # delimit ; 
@@ -523,6 +533,11 @@ This chart shows how two students, who are the same on all observed characterist
 
 To go deeper into the question of the extent to which programs are supporting student success, we look at student outcomes over time. We look over term-by-term for students' first three years to see what share of students are still enrolled in college, what share have completed a credential or transferred, and the share of students who are no longer enrolled. This analysis can help your institution identify key moments in students' experience when they may need additional support to stay on track to a successful outcome. 
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.3.png">
+</div>
+</div>
 <pre id="stlog-3" class="stcmd"><code>
 <span class="stcmt">* Chart: waterfall view of completion/transfer, unenrollment, and continued enrollment over time</span>
 {
@@ -589,6 +604,11 @@ In the fourth analysis of this section, we look at how the probability of succes
 
 It's important to think carefully about the implications and interpretation of these probabilities, particularly when looking at those for demographic characteristics. These are not causal estimates- if there are differences by gender in students' likelihood of completing, this does not mean that students of one gender are better or more capable students. Instead, you should take this as an opportunity to reflect on the support you offer students and how that support may need to be tailored to different groups so that all students have equitable opportunities to succeed. In what ways is your institution recognizing and leveraging the strengths that each student brings to promote equitable success? For which students does your institution need to continue to improve?
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.4.png">
+</div>
+</div>
 <pre id="stlog-4" class="stcmd"><code>
 <span class="stcmt">* Charts: high school GPA margins</span>
 {
@@ -1192,6 +1212,11 @@ The second section of this Diagnostic pushes you to dig deeper into explanations
 
 Our analysis shows whether students remain enrolled in their original pathway, switched to a different pathway, transferred to a four-year institution, completed any credential, or were not enrolled at the end of the examined time period. To illustrate the students' journey, we use an interactive diagram to graphically show the size of the flow of students through the six semesters and the potential outcomes observed in each semester. When you produce this chart in Python (example code will be shared separately), users can hover over any particular flow in the chart to see the exact number of students making that transition.
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.2.1.png">
+</div>
+</div>
 <pre id="stlog-5" class="stcmd"><code>
 
 	<span class="stcmt">/*****************************************</span>
@@ -1538,6 +1563,11 @@ The third section of this Diagnostic helps institutions explore another potentia
 
 This analysis identifies courses that are important for students to complete a pathway. For our analysis, we focused on core content classes in the student's pathway as well as general education classes. You could define the set of potential gatekeeper courses differently; for example, looking specifically at courses required for a credential in a particular pathway. We create an interactive scatterplot that plots the share of students failing a course against the change in probability of completing a credential if the course is failed compared to passed. The size of each point reflects the number of students attempting the course. When interpreting this chart, we can think of large points with a high failure rate and a large associated decrease in probability of completion (e.g., a large point in the top right of the graph) as the most concerning from a student success perspective. When you create this in Python (sample code included separately), you'll have an interactive chart that allows you to scroll over an individual point and see the course title, number of attempters, and the probabilities of completion conditional on passing or failing. Example Visualization 3.1 provides a still image of the interactive chart.
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.3.1.png">
+</div>
+</div>
 <pre id="stlog-6" class="stcmd"><code>
 
 	<span class="stcmt">/*****************************************</span>
@@ -1762,6 +1792,11 @@ In the final section this Diagnostic, we dive into analyses that will help your 
 
 In the first visualization of this section, we show the average number of credits attempted and earned by students in a given pathway. This analysis is helpful if you notice that your institution has low success rates but are not sure whether the barrier to success is students not enrolling in enough courses or students not passing their courses and accumulating credits. You can see from these line graphs if the slope of the `credits attempted' line is steep enough to allow students to earn a credential within a given timeframe (for example, whether students are on pace to attempt 60 credits by the end of their sixth term) as well as to see the difference between the number of college-level credits students are attempting and the number of college-level credits students are earning. As the gap between the two lines grows, the more you may think that the challenge for your institution is providing adequate academic support so that students can pass their courses. If the `credits attempted' line is flat or not steep enough to reach a given threshold for a credential, your institution may want to examine what information and guidance students are receiving about graduation requirements and recommended credit loads per term. 
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.1.png">
+</div>
+</div>
 <pre id="stlog-7" class="stcmd"><code>
 <span class="stcmt">/*****************************************</span>
 <span class="stcmt"> Comments about this code</span>
@@ -1884,6 +1919,11 @@ This chart shows that, across pathways, students are not attempting or accumulat
 
 In the second visualization, we examine the importance of early momentum for longer-term credit accumulation. This visualization shows differences in the pace of college-level credit accumulation across students based on how many college-level credits they earned in their first term. The closer the lines are to each other, the less consequential early credit accumulation would seem to be. This type of analysis can help highlight whether students who accumulate few college-level credits in their first term may need additional support to reach a successful outcome. 
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.2.png">
+</div>
+</div>
 <pre id="stlog-8" class="stcmd"><code>
 
 <span class="stcmt">* Avg. college-level cumulative credits earned by early momentum</span>
@@ -1928,6 +1968,11 @@ This chart demonstrates the importance of early credit accumulation for students
 
 In the third and final visualization of this section, we plot the share of students who experience a successful outcome within six terms of entering a pathway against the number of credits they earned in their first term. This analysis can highlight the importance of early momentum in predicting longer-term success and help institutions identify whether they might want to provide additional support to students who earn a limited number of credits in their first term.
 
+<div class="navbar navbar-default navbar-fixed-top" id="logo">
+ <div class="container">
+<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.3.png">
+</div>
+</div>
 <pre id="stlog-9" class="stcmd"><code>
 
 <span class="stcmt">/******************************************************</span>
