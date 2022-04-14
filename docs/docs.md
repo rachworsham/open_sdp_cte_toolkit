@@ -291,9 +291,7 @@ Our first analysis shows whether students' likelihood of completion or transfer 
 </div>
 </div>
 <pre id="stlog-1" class="stcmd"><code>
-<span class="stcmt">*****************************************</span>
- <span class="stcmt">*Comments about this code</span>
-<span class="stcmt">*****************************************</span>
+   <span class="stcmt">//Comments about this code</span>
 
 <span class="stcmt">/*/ Data for this analysis code should be set up according to the </span>
 <span class="stcmt">   accompanying data specification guide.</span>
@@ -332,9 +330,7 @@ Our first analysis shows whether students' likelihood of completion or transfer 
 	
 
 
-<span class="stcmt">***************************************</span>
- <span class="stcmt">*Set up and setting filepaths</span>
-<span class="stcmt">***************************************</span>
+<span class="stcmt">// Step 1. Set up and setting filepaths</span>
 
 version 16.1
 clear all
@@ -350,83 +346,73 @@ global saved_graphs <span class="stcmt">///</span>
 
 
 
-<span class="stcmt">***************************************</span>
- <span class="stcmt">*Load data set up according to spec</span>
-<span class="stcmt">***************************************</span>
+<span class="stcmt">// Step 2. Load data set up according to spec</span>
 
 import delimited "${path_to_data}"
 
 
-<span class="stcmt">********************************************</span>
- <span class="stcmt">*Label variables as relevant to institution</span>
-<span class="stcmt">********************************************</span>
+<span class="stcmt">// Label variables as relevant to institution</span>
 
 <span class="stcmt">// set these value labels according to your preferred conventions</span>
-<span class="stcmt">* male</span>
+<span class="stcmt">// male</span>
 label define male_vals 0 "Female" 1 "Male" 
 label values male male_vals
 
-<span class="stcmt">* race</span>
+<span class="stcmt">// race</span>
 label define race_vals 1 "Asian" 2 "Black" 3 "Hispanic" 4 "White" 5 "Other"	
 label values race race_vals
 
-<span class="stcmt">* motheredlevel</span>
+<span class="stcmt">// motheredlevel</span>
 label define edlevel_vals 1 "Middle Sch" 2 "High Sch" 3 "Any College" 4 "NA"	
 label values motheredlevel edlevel_vals
 
-<span class="stcmt">* pathway</span>
+<span class="stcmt">// pathway</span>
 label define pathway_entry_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" 
 label values pathway pathway_entry_vals
-<span class="stcmt">/*this is just a placeholder example; please modify with the full names </span>
-<span class="stcmt">associated with each entry pathway code at your institution */</span>
+<span class="stcmt">//this is just a placeholder example; please modify with the full names associated with each entry pathway code at your institution</span>
 
-<span class="stcmt">******************************************</span>
- <span class="stcmt">*Generate additional variables</span>
-<span class="stcmt">******************************************</span>
+<span class="stcmt">//Step 3. Generate additional variables</span>
 
-<span class="stcmt">* Determine number of terms included in data for each student</span>
+<span class="stcmt">// Determine number of terms included in data for each student</span>
 sum cohorttermindex
 global max_term = r(max)		
 
-<span class="stcmt">* Outcome variable at the student level, across terms</span>
+<span class="stcmt">// Outcome variable at the student level, across terms</span>
 gen outcome = 0
 replace outcome = 1 if pathway == 100 &amp; cohorttermindex == $max_term
 replace outcome = 2 if pathway == 101 &amp; cohorttermindex == $max_term
 bys studentid (cohorttermindex): replace outcome = outcome[$max_term]
 
-<span class="stcmt">* Label outcome</span>
+<span class="stcmt">// Label outcome</span>
 label define outcome_vals 0 "None" 1 "Completion" 2 "Transfer"
 label values outcome outcome_vals
 label var outcome "student outcome after ${max_term} terms"
 
-<span class="stcmt">* Code in an indicator for a terminating event (first completion or first transfer)</span>
+<span class="stcmt">// Code in an indicator for a terminating event (first completion or first transfer)</span>
 gen terminating = inlist(pathway, 100, 101)	
 label var terminating "indicator for a terminating event: first completion or transfer"
 
-<span class="stcmt">* Generate an indicator for non-enrollment</span>
+<span class="stcmt">// Generate an indicator for non-enrollment</span>
 gen nonenrolled = pathway == 99
 label var nonenrolled "indicator for non-enrollment in a term"	
 
-<span class="stcmt">* Generate an entry pathway code for each student</span>
+<span class="stcmt">// Generate an entry pathway code for each student</span>
 bys studentid (cohorttermindex): gen entry_pathway = pathway[1]
 label var entry_pathway "pathway code associated with a student at entry"	
 
-<span class="stcmt">* Label entry pathways</span>
+<span class="stcmt">// Label entry pathways</span>
 label values entry_pathway pathway_entry_vals
 
 
+<span class="stcmt">// Step 3. Run regressions and plot margins</span>
 
-<span class="stcmt">**********************************</span>
- <span class="stcmt">*Run regressions and plot margins</span>
-<span class="stcmt">**********************************		</span>
-
-<span class="stcmt">* Model: outcomes conditional only on initial pathway choice</span>
+<span class="stcmt">//Model: outcomes conditional only on initial pathway choice</span>
 mlogit outcome i.pathway if cohorttermindex == 1, robust 
-<span class="stcmt">/* note that because each student will have multiple rows in the data </span>
-<span class="stcmt">but with covariate values fixed at values observed at entry,</span>
-<span class="stcmt">   we only need to run the regression with the first entry for each student*/</span>
+<span class="stcmt">// note that because each student will have multiple rows in the data </span>
+<span class="stcmt">// but with covariate values fixed at values observed at entry,</span>
+   <span class="stcmt">// we only need to run the regression with the first entry for each student</span>
 	
-<span class="stcmt">* Chart: pathway unadjusted margins</span>
+<span class="stcmt">// Chart: pathway unadjusted margins</span>
 {
 margins pathway, predict(outcome(1)) predict(outcome(2))
 matrix ans = (r(b))'
@@ -476,24 +462,24 @@ The next piece of this analysis looks at differences in the probability that a s
 </div>
 </div>
 <pre id="stlog-2" class="stcmd"><code>
-<span class="stcmt">***************************************</span>
- <span class="stcmt">*Create adjusted outcome model &amp; chart</span>
-<span class="stcmt">***************************************</span>
+<span class="stcmt">// Create adjusted outcome model &amp; chart</span>
 
-<span class="stcmt">* Model: outcomes conditional on baseline student traits</span>
-# delimit ; 
+<span class="stcmt">// Model: outcomes conditional on baseline student traits</span>
+ 
 <span class="stcmt">/*note mi_motheredlevel omitted because missingness is already encoded as </span>
 <span class="stcmt">level 4 of motheredlevel so it's excluded from the full model*/</span>
-mlogit outcome c.age c.age#i.pathway c.hsgpa i.mi_hsgpa c.hsgpa#i.pathway i.male i.male#i.pathway 
-c.pell i.mi_pell c.pell#i.pathway i.motheredlevel i.motheredlevel#i.pathway i.race 
-i.race#i.pathway i.pathway i.institutionid i.cohortyear if cohorttermindex == 1, robust;
-# delimit cr
-<span class="stcmt">/* note that because each student will have multiple rows in the data </span>
-<span class="stcmt">but with covariate values fixed at values observed at entry,</span>
-<span class="stcmt">   we only need to run the regression with the first entry for each student*/</span>
+mlogit outcome c.age c.age#i.pathway c.hsgpa i.mi_hsgpa c.hsgpa#i.pathway <span class="stcmt">///</span>
+i.male i.male#i.pathway c.pell i.mi_pell c.pell#i.pathway <span class="stcmt">///</span>
+i.motheredlevel i.motheredlevel#i.pathway i.race <span class="stcmt">///</span>
+i.race#i.pathway i.pathway i.institutionid <span class="stcmt">///</span>
+i.cohortyear if cohorttermindex == 1, robust;
+
+<span class="stcmt">//note that because each student will have multiple rows in the data </span>
+<span class="stcmt">// but with covariate values fixed at values observed at entry,</span>
+   <span class="stcmt">// we only need to run the regression with the first entry for each student</span>
 
 
-<span class="stcmt">* Chart: pathway adjusted margins</span>
+<span class="stcmt">// Chart: pathway adjusted margins</span>
 {
 margins pathway, predict(outcome(1)) predict(outcome(2))
 matrix ans = (r(b))'	
@@ -543,11 +529,9 @@ To go deeper into the question of the extent to which programs are supporting st
 </div>
 </div>
 <pre id="stlog-3" class="stcmd"><code>
-<span class="stcmt">********************************</span>
- <span class="stcmt">*Create trends over time chart</span>
-<span class="stcmt">********************************</span>
+<span class="stcmt">// Create trends over time chart</span>
 
-<span class="stcmt">* Chart: waterfall view of completion/transfer, unenrollment, and continued enrollment over time</span>
+<span class="stcmt">// Chart: waterfall view of completion/transfer, unenrollment, and continued enrollment over time</span>
 {
 cap frame drop working
 frame create working double(pathway term denominator terminated nonenrolled stillenrolled)
@@ -618,14 +602,12 @@ It's important to think carefully about the implications and interpretation of t
 </div>
 </div>
 <pre id="stlog-4" class="stcmd"><code>
-<span class="stcmt">*************************</span>
- <span class="stcmt">*Create margins plots</span>
-<span class="stcmt">*************************</span>
+<span class="stcmt">// Create margins plots</span>
 
-<span class="stcmt">* Charts: high school GPA margins</span>
+<span class="stcmt">// Charts: high school GPA margins</span>
 {
 	
-<span class="stcmt">* Main high school GPA margins</span>
+<span class="stcmt">// Main high school GPA margins</span>
 margins pathway, at(hsgpa = (2(0.25)4)) predict(outcome(1)) predict(outcome(2))				
 marginsplot, bydimension(pathway) <span class="stcmt">///</span>
 	byopts(title("Adjusted Probability of Completion First or Transfer First" "by High School GPA") <span class="stcmt">///</span>
@@ -638,7 +620,7 @@ marginsplot, bydimension(pathway) <span class="stcmt">///</span>
 	plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
 graph export "${saved_graphs}/4_gpa_1.png", replace
 
-<span class="stcmt">* High school GPA margins by gender</span>
+<span class="stcmt">// High school GPA margins by gender</span>
 margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(1))	
 marginsplot, bydimension(pathway) plotdimension(male) noci <span class="stcmt">///</span>
 	byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
@@ -655,9 +637,8 @@ marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</s
 	ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, <span class="stcmt">///</span>
 	lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
 	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	name(g4_b, replace)	
-	
-	grc1leg2 g4_a g4_b, <span class="stcmt">///</span>
+	name(g4_b, replace)		
+grc1leg2 g4_a g4_b, <span class="stcmt">///</span>
 	title("Adjusted Probability of First Completion/Transfer" "by Gender and High School GPA") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("High School GPA") l1title("Adjusted Probability") position(3) <span class="stcmt">///</span>
@@ -666,7 +647,7 @@ marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</s
 	size(vsmall))
 graph export "${saved_graphs}/4_gpa_2.png", replace
 
-<span class="stcmt">* High school GPA margins by mother level of education</span>
+<span class="stcmt">// High school GPA margins by mother level of education</span>
 margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(1))	
 marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
@@ -685,8 +666,7 @@ marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcm
 	lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
 	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
 	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g4_b, replace)
-	
-	grc1leg2 g4_a g4_b, <span class="stcmt">///</span>
+grc1leg2 g4_a g4_b, <span class="stcmt">///</span>
 	title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and High School GPA") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("High School GPA") l1title("Adjusted Probability") position(3) <span class="stcmt">///</span>
@@ -695,7 +675,7 @@ marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcm
 	size(vsmall))
 graph export "${saved_graphs}/4_gpa_3.png", replace
 
-<span class="stcmt">* High school GPA margins by race/ethnicity</span>
+<span class="stcmt">// High school GPA margins by race/ethnicity</span>
 margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
@@ -716,9 +696,8 @@ marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</s
 	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
 	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
 	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g4_b, replace)	
-	
-    grc1leg2 g4_a g4_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and High School GPA") <span class="stcmt">///</span>
+	name(g4_b, replace)		
+grc1leg2 g4_a g4_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and High School GPA") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
     b1title("High School GPA") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
     note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
@@ -728,10 +707,10 @@ graph export "${saved_graphs}/4_gpa_4.png", replace
 }
 
 
-<span class="stcmt">* Charts: Pell grant margins</span>
+<span class="stcmt">// Charts: Pell grant margins</span>
 {
 
-<span class="stcmt">* Main Pell grant margins </span>
+<span class="stcmt">// Main Pell grant margins </span>
 margins pathway, at(pell = (0(1000)6000)) predict(outcome(1)) predict(outcome(2))
 marginsplot, bydimension(pathway) <span class="stcmt">///</span>
 	byopts(title("Adjusted Probability of Completion First or Transfer First" "by Pell Grant Dollars") <span class="stcmt">///</span>
@@ -745,7 +724,7 @@ marginsplot, bydimension(pathway) <span class="stcmt">///</span>
 	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
 graph export "${saved_graphs}/5_pell_1.png", replace
 
-<span class="stcmt">* Pell grant margins by gender</span>
+<span class="stcmt">// Pell grant margins by gender</span>
 margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
@@ -762,9 +741,8 @@ marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</s
 	ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
 	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
 	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) name(g5_b, replace) 
-	
-	grc1leg2 g5_a g5_b, <span class="stcmt">///</span>
+	lcolor("68 170 153")) name(g5_b, replace) 	
+grc1leg2 g5_a g5_b, <span class="stcmt">///</span>
 	title("Adjusted Probability of First Completion/Transfer" "by Gender and Pell Grant Dollars") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("Pell Dollars Awarded in First Year") l1title("Adjusted Probability") <span class="stcmt">///</span>
@@ -773,7 +751,7 @@ marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</s
 	size(vsmall))	
 graph export "${saved_graphs}/5_pell_2.png", replace
 	
-<span class="stcmt">* Pell grant margins by mother level of education</span>
+<span class="stcmt">// Pell grant margins by mother level of education</span>
 margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
@@ -794,8 +772,7 @@ marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcm
 	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
 	lcolor("68 170 153")) plot3opts(mcolor("136 34 85") <span class="stcmt">///</span>
 	lcolor("136 34 85")) name(g5_b, replace)
-	
-	grc1leg2 g5_a g5_b, <span class="stcmt">///</span>
+grc1leg2 g5_a g5_b, <span class="stcmt">///</span>
 	title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Pell Grant Dollars") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("Pell Dollars Awarded in First Year") <span class="stcmt">///</span>
@@ -805,7 +782,7 @@ marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcm
 	size(vsmall))	
 graph export "${saved_graphs}/5_pell_3.png", replace
 
-<span class="stcmt">* Pell grant margins by race/ethnicity</span>
+<span class="stcmt">// Pell grant margins by race/ethnicity</span>
 margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
@@ -827,8 +804,7 @@ marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</s
 	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
 	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
 	name(g5_b, replace)
-	
-	grc1leg2 g5_a g5_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Pell Grant Dollars") <span class="stcmt">///</span>
+grc1leg2 g5_a g5_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Pell Grant Dollars") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("Pell Dollars Awarded in First Year") <span class="stcmt">///</span>
 	l1title("Adjusted Probability") position(3) lrows(5) <span class="stcmt">///</span>
@@ -840,7 +816,7 @@ graph export "${saved_graphs}/5_pell_4.png", replace
 }	
 
 	
-<span class="stcmt">* Charts: age at entry margins</span>
+<span class="stcmt">// Charts: age at entry margins</span>
 {
 
 <span class="stcmt">* Main age at entry margins</span>
@@ -857,7 +833,7 @@ marginsplot, bydimension(pathway) <span class="stcmt">///</span>
 	plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
 graph export "${saved_graphs}/6_age_1.png", replace	
 
-<span class="stcmt">* Age at entry margins by gender</span>
+<span class="stcmt">// Age at entry margins by gender</span>
 margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) <span class="stcmt">///</span>
@@ -875,8 +851,7 @@ marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</s
 	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
 	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
 	lcolor("68 170 153")) name(g6_b, replace) 
-	
-	grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Gender and Age at Entry") <span class="stcmt">///</span>
+grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Gender and Age at Entry") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("Age at Entry") l1title("Adjusted Probability") <span class="stcmt">///</span>
 	position(3) lrows(2) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
@@ -884,7 +859,7 @@ marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</s
 	size(vsmall))	
 graph export "${saved_graphs}/6_age_2.png", replace
 
-<span class="stcmt">* Age at entry margins by mother level of education</span>
+<span class="stcmt">// Age at entry margins by mother level of education</span>
 margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) <span class="stcmt">///</span>
@@ -904,9 +879,8 @@ marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcm
 	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
 	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
 	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g6_b, replace) 
-	
-    grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Age at Entry") <span class="stcmt">///</span>
+	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g6_b, replace) 	
+grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Age at Entry") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("Age at Entry") l1title("Adjusted Probability") position(3) <span class="stcmt">///</span>
 	lrows(3) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
@@ -914,7 +888,7 @@ marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcm
 	size(vsmall))	
 graph export "${saved_graphs}/6_age_3.png", replace
 
-<span class="stcmt">* Age at entry margins by race/ethnicity</span>
+<span class="stcmt">// Age at entry margins by race/ethnicity</span>
 margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(1))
 marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
 	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
@@ -938,8 +912,7 @@ marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</s
 	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
 	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
 	name(g6_b, replace)	
-	
-	grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Age at Entry") <span class="stcmt">///</span>
+grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Age at Entry") <span class="stcmt">///</span>
 	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
 	b1title("Age at Entry") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
 	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
@@ -949,10 +922,10 @@ graph export "${saved_graphs}/6_age_4.png", replace
 }
 
 
-<span class="stcmt">* Charts: race/ethnicity margins</span>
+<span class="stcmt">// Charts: race/ethnicity margins</span>
 {
 
-<span class="stcmt">* Main race/ethnicity margins</span>
+<span class="stcmt">// Main race/ethnicity margins</span>
 margins pathway, at(race = (1(1)5)) predict(outcome(1)) predict(outcome(2))
 matrix ans = (r(b))'
 cap frame drop working
@@ -991,7 +964,7 @@ graph export "${saved_graphs}/7_race_1.png", replace
 frame change default
 frame drop working
 
-<span class="stcmt">* Race/ethnicity margins by gender	</span>
+<span class="stcmt">// Race/ethnicity margins by gender	</span>
 margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(1))	
 marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) <span class="stcmt">///</span>
 	noci byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) <span class="stcmt">///</span>
@@ -1026,31 +999,32 @@ forvalues i = 1/`: word count `pathways'' {
 	local named_graphs `named_graphs' g7_b`i'
 }
 grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Gender and Race/Ethnicity") <span class="stcmt">///</span>
-l2title("Adjusted Probability") <span class="stcmt">///</span>
-		 l1title("First Transfer                         First Completion", size(small)) <span class="stcmt">///   </span>
-		 graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(7) <span class="stcmt">/// </span>
-		 note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
+	l2title("Adjusted Probability") l1title("First Transfer First Completion", size(small)) <span class="stcmt">///   </span>
+	graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(7) <span class="stcmt">/// </span>
+	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
 graph export "${saved_graphs}/7_race_2.png", replace
 
-<span class="stcmt">* Race/ethnicity margins by mother level of education</span>
+<span class="stcmt">// Race/ethnicity margins by mother level of education</span>
 margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(1))
-marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
-			 plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
-			 plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-			 plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-			 plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-			 plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-			 plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
-			 name(g7_a, replace)
+marginsplot, graphdimension(pathway) bydimension(motheredlevel) <span class="stcmt">///</span>
+	xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
+	plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
+	plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
+	plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
+	plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
+	plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
+	plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
+	name(g7_a, replace)
 margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(2))
-marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
-			 plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
-			 plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-			 plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-			 plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-			 plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-			 plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
-			 name(g7_b, replace)
+marginsplot, graphdimension(pathway) bydimension(motheredlevel) <span class="stcmt">///</span>
+	xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
+	plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
+    plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
+	plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
+	plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
+	plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
+	plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
+	name(g7_b, replace)
 levelsof entry_pathway, local(pathways)
 local named_graphs
 forvalues i = 1/`: word count `pathways'' {
@@ -1059,19 +1033,23 @@ forvalues i = 1/`: word count `pathways'' {
 forvalues i = 1/`: word count `pathways'' {
 	local named_graphs `named_graphs' g7_b`i'
 }	
-grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Race/Ethnicity") l2title("Adjusted Probability") <span class="stcmt">///</span>
-						 l1title("First Transfer                         First Completion", size(small)) <span class="stcmt">///</span>
-						 graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(9) <span class="stcmt">///</span>
-						 note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
+grc1leg2 `named_graphs', <span class="stcmt">///</span>
+	title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Race/Ethnicity") <span class="stcmt">///</span>
+	l2title("Adjusted Probability") <span class="stcmt">///</span>
+	l1title("First Transfer First Completion", size(small)) <span class="stcmt">///</span>
+	graphregion(fcolor(white)) rows(2) lrows(5) position(3) <span class="stcmt">///</span>
+	symxsize(small) labsize(small) xsize(9) <span class="stcmt">///</span>
+	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
+	size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
 graph export "${saved_graphs}/7_race_3.png", replace
 	
 }
 
 
-<span class="stcmt">* Charts: mother's ed.</span>
+<span class="stcmt">// Charts: mother's ed.</span>
 {
 
-<span class="stcmt">* Main mother level of education margins</span>
+<span class="stcmt">// Main mother level of education margins</span>
 margins pathway, at(motheredlevel = (1(1)4)) predict(outcome(1)) predict(outcome(2))
 matrix ans = (r(b))'
 cap frame drop working
@@ -1105,7 +1083,7 @@ graph export "${saved_graphs}/8_mothered_1.png", replace
 frame change default
 frame drop working
 
-<span class="stcmt">* Mother level of education margins by gender</span>
+<span class="stcmt">// Mother level of education margins by gender</span>
 margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(1))
 marginsplot, graphdimension(pathway) bydimension(male) <span class="stcmt">///</span>
 	xdimension(motheredlevel) noci recast(bar) byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
@@ -1137,19 +1115,17 @@ grc1leg2 `named_graphs', <span class="stcmt">///</span>
 	graphregion(fcolor(white)) rows(2) lrows(3) position(3) <span class="stcmt">///</span>
 	symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
 	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall)) 
-	<span class="stcmt">/*the l1title() approach used here is admittedly a little informal, </span>
-<span class="stcmt">	but it is a useful approach given how we needed to set up this graph*/</span>
+	size(vsmall)) <span class="stcmt">//the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
 	
 graph export "${saved_graphs}/8_mothered_2.png", replace
 
 }
 
 
-<span class="stcmt">* Charts: gender margins</span>
+<span class="stcmt">// Charts: gender margins</span>
 {
 
-<span class="stcmt">* Main gender margins</span>
+<span class="stcmt">// Main gender margins</span>
 margins pathway, at(male = (0 1)) predict(outcome(1)) predict(outcome(2))
 matrix ans = (r(b))'
 cap frame drop working
@@ -1237,9 +1213,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 </div>
 <pre id="stlog-5" class="stcmd"><code>
 
-	<span class="stcmt">*****************************************</span>
-	 <span class="stcmt">*Comments about this code</span>
-	<span class="stcmt">*****************************************</span>
+	 <span class="stcmt">//Comments about this code</span>
 	
 	<span class="stcmt">/*/ Data for this analysis code should be set up according to the accompanying data specification guide.</span>
 <span class="stcmt">	</span>
@@ -1252,9 +1226,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 <span class="stcmt">	   python script to run.*/</span>
 	
 
-	<span class="stcmt">***************************************</span>
-	<span class="stcmt">*Set up and setting filepaths</span>
-	<span class="stcmt">***************************************</span>
+	<span class="stcmt">// Set up and setting filepaths</span>
 	
 	version 16.1
 	clear all
@@ -1269,21 +1241,16 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 	"some_directory/perhaps_another_directory/maybe_even_one_more_directory/collapsed_data.dta" 
 
 		
-	<span class="stcmt">***************************************</span>
-	 <span class="stcmt">*Load data set up according to spec</span>
-	<span class="stcmt">***************************************</span>
+	<span class="stcmt">// Load data set up according to spec</span>
 
 	import delimited "${path_to_data}", clear
 	
 	
-	<span class="stcmt">***************************************</span>
-	 <span class="stcmt">*Create label for entry pathway codes</span>
-	<span class="stcmt">***************************************</span>
+	 <span class="stcmt">// Create label for entry pathway codes</span>
 	
-	<span class="stcmt">//label define entry_pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway"</span>
-	
-	<span class="stcmt">//optional, leave commented out if you prefer numeric pathway </span>
-	codes be used in chart titles; otherwise, uncomment and fill out appropriately*/
+	<span class="stcmt">// label define entry_pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway"</span>
+    <span class="stcmt">// optional, leave commented out if you prefer numeric pathway </span>
+	<span class="stcmt">// codes be used in chart titles; otherwise, uncomment and fill out appropriately</span>
 	
 	label dir
 	<span class="stcmt">// this code (regexm) will not run when the code defining entry_pathway_vals remains commented out</span>
@@ -1295,9 +1262,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 	}
 	
 	
-	<span class="stcmt">********************************************</span>
-	 <span class="stcmt">*Collapse data in prep for graphing</span>
-	<span class="stcmt">********************************************</span>
+	<span class="stcmt">// Collapse data in prep for graphing</span>
 	
 	<span class="stcmt">// Identify the number of terms included for students in each </span>
 	initial pathway; should be equal for all students entering that pathway, 
@@ -1320,8 +1285,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 	}
 	di "`initial_pathways_num_terms'"
 	
-	<span class="stcmt">/*Collapsing will include, within each value of initial pathway,</span>
-<span class="stcmt">	a separate collapse for each semester-to-semester transition*/</span>
+	<span class="stcmt">// Collapsing will include, within each value of initial pathway, a separate collapse for each semester-to-semester transition</span>
 	reshape wide pathway, i(studentid) j(cohorttermindex)
 	local overall_counter = 1
 	local pathway_counter = 1
@@ -1357,7 +1321,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 	use `collapsed_results', clear
 	sort entry_pathway semester_transition
 	
-	<span class="stcmt">* Label variables</span>
+	<span class="stcmt">// Label variables</span>
 	label var entry_pathway <span class="stcmt">///</span>
 	"pathway code associated with a student at entry"
 	
@@ -1373,7 +1337,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 	label var num_students <span class="stcmt">///</span>
 	"number of students described"
 	
-	<span class="stcmt">* Generate a variable called entry_pathway_label, if entry_pathway_vals was set above as a label</span>
+	<span class="stcmt">// Generate a variable called entry_pathway_label, if entry_pathway_vals was set above as a label</span>
 	if !missing(`"`entry_pathway_vals_values'"') &amp; !missing(`"`entry_pathway_vals_labels'"') {
 	 if `: word count `entry_pathway_vals_values'' == `: word count `entry_pathway_vals_labels'' {
 	   gen entry_pathway_label = ""
@@ -1393,55 +1357,55 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 		}
 	}
 	
-	<span class="stcmt">* Save out collapsed data</span>
+	<span class="stcmt">// Save out collapsed data</span>
 	save "${path_to_save_collapsed_data}", replace 
 	
 	
-<span class="stcmt">*********************</span>
- <span class="stcmt">*Run Sankey diagrams</span>
-<span class="stcmt">**********************</span>
+	<span class="stcmt">// Run Sankey diagrams</span>
 
-python:
+	python:
 
-import plotly.graph_objects as go
-import pandas as pd
+	import plotly.graph_objects as go
+	import pandas as pd
 
-<span class="stcmt">* Read in preppped data</span>
-df_full = pd.read_stata("${path_to_save_collapsed_data}")
-df_full.head()
+	<span class="stcmt">//  Read in preppped data</span>
+	df_full = pd.read_stata("${path_to_save_collapsed_data}")
+	df_full.head()
 
-<span class="stcmt">* Establish list to contain Sankey charts</span>
-charts = []
+	<span class="stcmt">//  Establish list to contain Sankey charts</span>
+	charts = []
 
-<span class="stcmt">* Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span>
-pathway_label_titles = dict()
-if 'entry_pathway_label' in df_full.columns:
-	for e in sorted(list(df_full.entry_pathway.unique())):
+	<span class="stcmt">//  Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span>
+	pathway_label_titles = dict()
+		if 'entry_pathway_label' in df_full.columns:
+		for e in sorted(list(df_full.entry_pathway.unique())):
 		pathway_label_titles[e] = list(df_full[df_full['entry_pathway'] == e].entry_pathway_label.unique())[0]
-	df_full = df_full.drop('entry_pathway_label', 1) # drop column of labels now that is no longer needed; want numeric indexing statements below to be the same whether entry_pathway_vals defined or not
+		df_full = df_full.drop('entry_pathway_label', 1)
+		<span class="stcmt">// drop column of labels now that is no longer needed; want numeric indexing </span>
+		<span class="stcmt">// statements below to be the same whether entry_pathway_vals defined or not</span>
 		
-<span class="stcmt">* Loop over entry pathway codes and create a Sankey chart for each, across all available transition periods</span>
-for e in sorted(list(df_full.entry_pathway.unique())):
-	print('Creating Sankey chart for entry pathway: {}'.format(e))
+	<span class="stcmt">//  Loop over entry pathway codes and create a Sankey chart for each, across all available transition periods</span>
+	for e in sorted(list(df_full.entry_pathway.unique())):
+		print('Creating Sankey chart for entry pathway: {}'.format(e))
 
-	<span class="stcmt">* Subset to just the students entering that pathway</span>
+	<span class="stcmt">//  Subset to just the students entering that pathway</span>
 	df = df_full[df_full['entry_pathway'] == e] 
 
-	<span class="stcmt">* Set up dictionary that will be used to do indexing of source and target nodes</span>
+	<span class="stcmt">//  Set up dictionary that will be used to do indexing of source and target nodes</span>
 	d = dict()
 	counter = 1
 	transitions = sorted(list(df.semester_transition.unique()))
 	last_trans = max(transitions)
 	for s in transitions: 
 		print('Transition: {}'.format(s))
-		<span class="stcmt">* Subset to just the records for the transition period s</span>
+		<span class="stcmt">//  Subset to just the records for the transition period s</span>
 		trans_s_df = df[df['semester_transition'] == s]
-		<span class="stcmt">* Only need the first pathway codes for non-last transitions; the first pathway codes of the next transition are the second pathway codes of the transition before</span>
+		<span class="stcmt">//  Only need the first pathway codes for non-last transitions; the first pathway codes of the next transition are the second pathway codes of the transition before</span>
 		if s &lt; last_trans:
 			print(counter)
 			d[counter] = list(trans_s_df.pathway_origin.unique())
 			counter = counter + 1
-		<span class="stcmt">* For the last transition, we do need to add both the first and last pathway codes</span>
+		<span class="stcmt">//  For the last transition, we do need to add both the first and last pathway codes</span>
 		else:
 			print(counter)
 			d[counter] = list(trans_s_df.pathway_origin.unique())
@@ -1450,9 +1414,9 @@ for e in sorted(list(df_full.entry_pathway.unique())):
 			d[counter] = list(trans_s_df.pathway_target.unique())
 			counter = counter + 1			
 
-	<span class="stcmt">* Repackage the contents of the dictionary as tuples that include required indexing bump</span>
+	<span class="stcmt">//  Repackage the contents of the dictionary as tuples that include required indexing bump</span>
 	list_lengths = [len(d[x]) for x in d]
-	index_bumps = [] # pathway codes will (and must) appear multiple times in lables_list; have to make sure you index the right one
+	index_bumps = [] <span class="stcmt">// pathway codes will (and must) appear multiple times in lables_list; have to make sure you index the right one</span>
 	for k in d:
 		print('Getting index bump for transition {}'.format(k))
 		if k == 1:
@@ -1467,23 +1431,23 @@ for e in sorted(list(df_full.entry_pathway.unique())):
 		final_d[k] = (d[k], index_bumps[k-1])
 	print(final_d)
 
-	<span class="stcmt">* Next step is to go line by line through data frame, calculating for each row: source node index, target node index, value, accummulating these</span>
-	<span class="stcmt">* in three separate lists (the list of node labels will just be all the dictionary pathway list values appended together, in order)</span>
+	<span class="stcmt">// Next step is to go line by line through data frame, calculating for each row: source node index, target node index, value, accummulating these</span>
+	<span class="stcmt">// in three separate lists (the list of node labels will just be all the dictionary pathway list values appended together, in order)</span>
 	labels_list = list()
 	source_list = list()
 	target_list = list()
 	value_list = list()
 	for s in transitions:
 		print('Getting info for transition {}'.format(s))
-		<span class="stcmt">* Subset to just the records for the transition period s</span>
+		<span class="stcmt">// Subset to just the records for the transition period s</span>
 		trans_s_df = df[df['semester_transition'] == s]
-		<span class="stcmt">* Now iterate through all rows for that transition</span>
+		<span class="stcmt">// Now iterate through all rows for that transition</span>
 		for r in range(trans_s_df.shape[0]):
 			print('Getting info for row {}'.format(r))
-			<span class="stcmt">* Get the indices of the first and second pathway codes for each transition, using info stored in final_d, including index bump</span>
-			source_node = final_d[s][0].index(trans_s_df.iat[r, 2]) + final_d[s][1] # first pathway code
-			target_node = final_d[s+1][0].index(trans_s_df.iat[r, 3]) + final_d[s+1][1] # second pathway code
-			<span class="stcmt">* Append values to relevant lists</span>
+			<span class="stcmt">// Get the indices of the first and second pathway codes for each transition, using info stored in final_d, including index bump</span>
+			source_node = final_d[s][0].index(trans_s_df.iat[r, 2]) + final_d[s][1] <span class="stcmt">// first pathway code</span>
+			target_node = final_d[s+1][0].index(trans_s_df.iat[r, 3]) + final_d[s+1][1] <span class="stcmt">// second pathway code</span>
+			<span class="stcmt">// Append values to relevant lists</span>
 			source_list.append(source_node)
 			target_list.append(target_node)
 			value_list.append(trans_s_df.iat[r, 4])
@@ -1493,21 +1457,21 @@ for e in sorted(list(df_full.entry_pathway.unique())):
 			labels_list.extend(final_d[s][0])
 			labels_list.extend(final_d[s+1][0])
 		
-	<span class="stcmt">* Convert labels_list to string elements with 'Unenrolled' replacing 99, 'Completer' for 100,</span>
-	<span class="stcmt">* 'Transfer' for 101</span>
+	<span class="stcmt">// Convert labels_list to string elements with 'Unenrolled' replacing 99, 'Completer' for 100,</span>
+	<span class="stcmt">// 'Transfer' for 101</span>
 	labels_list_str = [str(x) for x in labels_list]
 	labels_list_99 = ['Unenrolled' if x == '99' else x for x in labels_list_str]
 	labels_list_100 = ['Completer' if x == '100' else x for x in labels_list_99]
 	labels_list_final = ['Transfer' if x == '101' else x for x in labels_list_100]
 	
-	<span class="stcmt">* Review all newly created lists</span>
+	<span class="stcmt">// Review all newly created lists</span>
 	print(final_d)
 	print(labels_list_final)
 	print(source_list)		
 	print(target_list)
 	print(value_list)
 	
-	<span class="stcmt">* Create the Sankey chart</span>
+	<span class="stcmt">// Create the Sankey chart</span>
 	fig = go.Figure(data=[go.Sankey(
 		node = dict(
 			pad = 15,
@@ -1527,11 +1491,11 @@ for e in sorted(list(df_full.entry_pathway.unique())):
 		pathway_title_display_val = "{:.0f}".format(e)
 	fig.update_layout(title_text = "Semester by Semester Movement Across Pathways for Students Who Entered {} Pathway in First Term".format(pathway_title_display_val), font_size = 15)
 
-	<span class="stcmt">* Append Sankey to list of charts</span>
+	<span class="stcmt">// Append Sankey to list of charts</span>
 	charts.append(fig)
 
-<span class="stcmt">* Render all the Sankey charts</span>
-for g in charts:
+	<span class="stcmt">// Render all the Sankey charts</span>
+	for g in charts:
 	g.show()
 		
 end
@@ -1588,9 +1552,7 @@ This analysis identifies courses that are important for students to complete a p
 </div>
 <pre id="stlog-6" class="stcmd"><code>
 
-	<span class="stcmt">*****************************************</span>
-	 <span class="stcmt">*Comments about this code</span>
-	<span class="stcmt">*****************************************</span>
+	 <span class="stcmt">// Comments about this code</span>
 	
 	<span class="stcmt">/*/ Data for this analysis code should be set up according to the accompanying data specification guide.</span>
 <span class="stcmt"></span>
@@ -1603,9 +1565,7 @@ This analysis identifies courses that are important for students to complete a p
 <span class="stcmt">	   python script to run.*/</span>
 	
 	
-	<span class="stcmt">**************************************</span>
-	 <span class="stcmt">*Set up and setting filepaths</span>
-	<span class="stcmt">***************************************</span>
+	 <span class="stcmt">// Set up and setting filepaths</span>
 	
 	version 16.1
 	clear all
@@ -1620,22 +1580,18 @@ This analysis identifies courses that are important for students to complete a p
 	"some_directory/perhaps_another_directory/maybe_even_one_more_directory/graph_ready.dta" 
 	
 	
-	<span class="stcmt">***************************************</span>
-	 <span class="stcmt">*Load data set up according to spec</span>
-	<span class="stcmt">***************************************</span>
+	 <span class="stcmt">// Load data set up according to spec</span>
 
 	import delimited "${path_to_data}", clear
 	
 	
-	<span class="stcmt">***************************************</span>
-	 <span class="stcmt">*Create label for entry pathway codes</span>
-	<span class="stcmt">***************************************	</span>
+	<span class="stcmt">// Create label for entry pathway codes</span>
 	
-	<span class="stcmt">//label define entry_pathway_vals </span>
+	<span class="stcmt">// label define entry_pathway_vals </span>
 	0 "General" 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" 
 	
-	<span class="stcmt">//optional, leave commented out if you prefer numeric pathway codes </span>
-	be used in chart titles; otherwise, uncomment and fill out appropriately*/
+	<span class="stcmt">// optional, leave commented out if you prefer numeric pathway codes </span>
+	<span class="stcmt">// be used in chart titles; otherwise, uncomment and fill out appropriately</span>
 	
 	label dir
 	<span class="stcmt">// this code will not run when the code defining entry_pathway_vals remains commented out</span>
@@ -1663,44 +1619,42 @@ This analysis identifies courses that are important for students to complete a p
 	save "${graph_ready}", replace <span class="stcmt">// if entry_pathway_vals is not uncommented and set above, then this save command just re-saves the intial data, unmodified, as a .dta file</span>
 	
 	
-	<span class="stcmt">**************</span>
-	<span class="stcmt">*Chart set up</span>
-	<span class="stcmt">**************</span>
+	<span class="stcmt">// Chart set up</span>
 	
-<span class="stcmt">* Plotly Scatterplot with tooltip hover</span>
-python
+	<span class="stcmt">// Plotly Scatterplot with tooltip hover</span>
+	python
 
-import plotly.express as px
-import numpy as np
-import pandas as pd
+	import plotly.express as px
+	import numpy as np
+	import pandas as pd
 
-<span class="stcmt">* Read in prepped data</span>
-df = pd.read_stata("${graph_ready}")
+	<span class="stcmt">// Read in prepped data</span>
+	df = pd.read_stata("${graph_ready}")
 
-<span class="stcmt">* Add column to be passed to color argument</span>
-df['color_val'] = "constant"
+	<span class="stcmt">// Add column to be passed to color argument</span>
+	df['color_val'] = "constant"
 
-<span class="stcmt">* Set up list for accummulating scatterplot charts</span>
-charts = list()
+	<span class="stcmt">// Set up list for accummulating scatterplot charts</span>
+	charts = list()
 
-<span class="stcmt">* Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span>
-pathway_label_titles = dict()
-if 'entry_pathway_label' in df.columns:
-	for c in sorted(list(df.pathway.unique())):
+	<span class="stcmt">// Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span>
+	pathway_label_titles = dict()
+	if 'entry_pathway_label' in df.columns:
+		for c in sorted(list(df.pathway.unique())):
 		pathway_label_titles[c] = list(df[df['pathway'] == c].entry_pathway_label.unique())[0]
-	df = df.drop('entry_pathway_label', 1) # drop column of labels now that it is no longer needed
+		df = df.drop('entry_pathway_label', 1) <span class="stcmt">// drop column of labels now that it is no longer needed</span>
 		
-<span class="stcmt">* Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</span>
-df['proportion_failing'] = np.round(df['proportion_failing'], 2)
-df['prob_completer_pass'] = np.round(df['prob_completer_pass'], 2)
-df['prob_completer_fail'] = np.round(df['prob_completer_fail'], 2)
-df['prob_completer_diff'] = np.round(df['prob_completer_diff'], 2)
+	<span class="stcmt">// Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</span>
+	df['proportion_failing'] = np.round(df['proportion_failing'], 2)
+	df['prob_completer_pass'] = np.round(df['prob_completer_pass'], 2)
+	df['prob_completer_fail'] = np.round(df['prob_completer_fail'], 2)
+	df['prob_completer_diff'] = np.round(df['prob_completer_diff'], 2)
 	
-<span class="stcmt">* Set up the charts</span>
-for c in sorted(list(df['pathway'].unique())):
-	<span class="stcmt">* Subset to data for a single pathway</span>
+	<span class="stcmt">// Set up the charts</span>
+	for c in sorted(list(df['pathway'].unique())):
+	<span class="stcmt">// Subset to data for a single pathway</span>
 	df_display = df[df['pathway'] == c]
-	<span class="stcmt">* Set min and max for axes</span>
+	<span class="stcmt">// Set min and max for axes</span>
 	if np.amin(df_display['prob_completer_diff']) &lt; 0:
 		y_min = np.amin(df_display['prob_completer_diff']) - 0.02
 	else:
@@ -1709,59 +1663,59 @@ for c in sorted(list(df['pathway'].unique())):
 		y_max = 0.5
 	else:
 		y_max = np.amax(df_display['prob_completer_diff']) + 0.02
-	x_min = 0 # cannot have less than 0% of students fail a course
+	x_min = 0 <span class="stcmt">// cannot have less than 0% of students fail a course</span>
 	if np.amax(df_display['proportion_failing']) &lt; 0.6:
 		x_max = 0.6
 	else:
 		x_max = np.amax(df_display['proportion_failing']) + 0.02
 	
-	<span class="stcmt">* Create scatterplot</span>
+	<span class="stcmt">// Create scatterplot</span>
 	fig = px.scatter(df_display,
-					 x = "proportion_failing", 
-					 y = "prob_completer_diff",
-					 size = "total_attempters",
-					 hover_name = "course_label",
-					 hover_data = {"total_attempters":True, "prob_completer_pass":True, "prob_completer_fail":True, "prob_completer_diff":False, "proportion_failing":False, "color_val":False},
-					 range_x = [x_min, x_max],
-					 range_y = [y_min, y_max],
-					 labels = {'proportion_failing':'Proportion Students Who Failed Course During First Attempt',
-							   'prob_completer_diff':'Difference in Predicted Probability of First Completion',
-							   'total_attempters':'Number Students Attempting Course at Least Once',
-							   'course_label':'Course Name',
-							   'prob_completer_fail':'Probability of First Completion Conditional on Failing',
-							   'prob_completer_pass':'Probability of First Completion Conditional on Passing'},
-					 color = "color_val",
-					 color_discrete_sequence = ["rgb(51,34,136)"])
+		x = "proportion_failing", 
+		y = "prob_completer_diff",
+	    size = "total_attempters",
+		hover_name = "course_label",
+		hover_data = {"total_attempters":True, "prob_completer_pass":True, "prob_completer_fail":True, "prob_completer_diff":False,  "proportion_failing":False, "color_val":False},
+		range_x = [x_min, x_max],
+		range_y = [y_min, y_max],
+		labels = {'proportion_failing':'Proportion Students Who Failed Course During First Attempt',
+			'prob_completer_diff':'Difference in Predicted Probability of First Completion',
+			'total_attempters':'Number Students Attempting Course at Least Once',
+			'course_label':'Course Name',
+			'prob_completer_fail':'Probability of First Completion Conditional on Failing',
+			'prob_completer_pass':'Probability of First Completion Conditional on Passing'},
+			color = "color_val",
+			color_discrete_sequence = ["rgb(51,34,136)"])
 	if len(pathway_label_titles) &gt; 0:
 		pathway_title_display_val = pathway_label_titles[c]
 	else:
 		pathway_title_display_val = "{:.0f}".format(c)	
-	fig.update_layout(title_text = "Difference in the Probability of First Completion for Those Who Pass, Fail Course on First Attempt: {} Pathway".format(pathway_title_display_val),
+	fig.update_layout(title_text = "Difference in the Probability of First Completion for Those Who Pass, Fail Course on First Attempt: {} Pathway".		format(pathway_title_display_val),
 					  font_size = 15,
 					  plot_bgcolor = "rgba(0,0,0,0)",
 					  showlegend = False)
-	fig.update_xaxes(showline = True,
+		fig.update_xaxes(showline = True,
 					 linewidth = 2,
 					 linecolor = "gray",
 					 showgrid = True,
 					 gridwidth = 1,
 					 gridcolor = "rgb(192,192,192)")
-	fig.update_yaxes(showline = True,
+		fig.update_yaxes(showline = True,
 					 linewidth = 2,
 					 linecolor = "gray",
 					 showgrid = True,
 					 gridwidth = 1,
 					 gridcolor = "rgb(192,192,192)")
 	
-	<span class="stcmt">* Highlight y = 0 line for reference if y range extends below 0</span>
+	<span class="stcmt">// Highlight y = 0 line for reference if y range extends below 0</span>
 	if y_min &lt; 0:
 		fig.add_hline(y=0, line_color="black", opacity = 1)
 
-	<span class="stcmt">* Append chart to list</span>
+	<span class="stcmt">// Append chart to list</span>
 	charts.append(fig)
 	
-<span class="stcmt">* Render all the charts</span>
-for g in charts:
+	<span class="stcmt">// Render all the charts</span>
+	for g in charts:
 	g.show()
 						   
 end
@@ -1816,9 +1770,7 @@ In the first visualization of this section, we show the average number of credit
 </div>
 </div>
 <pre id="stlog-7" class="stcmd"><code>
-<span class="stcmt">*****************************************</span>
- <span class="stcmt">*Comments about this code</span>
-<span class="stcmt">*****************************************</span>
+ <span class="stcmt">// Comments about this code</span>
 
 <span class="stcmt">/*/ Data for this analysis code should be set up according to the accompanying data specification guide.</span>
 <span class="stcmt"></span>
@@ -1831,9 +1783,7 @@ In the first visualization of this section, we show the average number of credit
 <span class="stcmt">   commands to use tempfiles instead and achieve a similar result.*/</span>				
 	
 	
-<span class="stcmt">***************************************</span>
- <span class="stcmt">*Set up and setting filepaths</span>
-<span class="stcmt">***************************************</span>
+<span class="stcmt">// Set up and setting filepaths</span>
 
 version 16.1
 clear all
@@ -1848,64 +1798,56 @@ global saved_graphs <span class="stcmt">///</span>
 "some_directory/perhaps_another_directory/finally_the_directory_where_you_would_like_your_graphs_saved"
 	
 	
-<span class="stcmt">**************************************</span>
-<span class="stcmt">*Load data set up according to spec</span>
-<span class="stcmt">**************************************</span>
+<span class="stcmt">// Load data set up according to spec</span>
 
 import delimited "${path_to_data}", clear		
 	
 	
-<span class="stcmt">********************************************</span>
- <span class="stcmt">*Generate and label an entry pathway</span>
-<span class="stcmt">********************************************	</span>
+ <span class="stcmt">// Generate and label an entry pathway</span>
 
-<span class="stcmt">* Generate an entry pathway code for each student</span>
+<span class="stcmt">// Generate an entry pathway code for each student</span>
 bys studentid (cohorttermindex): gen entry_pathway = pathway[1]
 label var entry_pathway "pathway code associated with a student at entry"	
 
-<span class="stcmt">* Label pathway</span>
+<span class="stcmt">// Label pathway</span>
 <span class="stcmt">// this is just a placeholder example; please modify with the full names associated with each entry pathway code at your institution</span>
 label define pathway_entry_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" 
 label values pathway pathway_entry_vals		
 
 	
-<span class="stcmt">***************************************************************</span>
-<span class="stcmt">*A few additional calculations to complement initial data file</span>
-<span class="stcmt">***************************************************************	</span>
+<span class="stcmt">// A few additional calculations to complement initial data file</span>
 	
-<span class="stcmt">* Generate cumulative college-level credits earned by term</span>
+<span class="stcmt">// Generate cumulative college-level credits earned by term</span>
 bys studentid (cohorttermindex): gen cumcollegecreditsearned = sum(collegecreditsearned)
 label var cumcollegecreditsearned "cumulative college-level credits earned by a student term to term"
 
-<span class="stcmt">* Generate cumulative credits earned by term</span>
+<span class="stcmt">// Generate cumulative credits earned by term</span>
 bys studentid (cohorttermindex): gen cumcreditsearned = sum(creditsearned)
 label var cumcreditsearned "cumulative credits earned by a student term to term, whether college-level or developmental credits"
 
-<span class="stcmt">* Generate cumulative college-level credits attempted by term</span>
+<span class="stcmt">// Generate cumulative college-level credits attempted by term</span>
 bys studentid (cohorttermindex): gen cumcollegecreditsattempted = sum(collegecreditsattempted)
 label var cumcollegecreditsattempted "cumulative college-level credits attempted by a student term to term"
 
-<span class="stcmt">* Determine number of terms included in data for each student</span>
+<span class="stcmt">// Determine number of terms included in data for each student</span>
 sum cohorttermindex
 global max_term = r(max)	
 
-<span class="stcmt">* Generate ideal credits earned and cumulative credits earned amounts</span>
+<span class="stcmt">// Generate ideal credits earned and cumulative credits earned amounts</span>
 gen idealcreditsearned = 0
 label var idealcreditsearned "ideal number of credits a student would earn each term"
 replace idealcreditsearned = 15 if inrange(cohorttermindex, 1, 4)
 bys studentid (cohorttermindex): gen cumidealcreditsearned = sum(idealcreditsearned)
 label var cumidealcreditsearned "cumulative ideal number of credits a student would have earned each term"
 
-<span class="stcmt">* Code in an indicator for a terminating event (first completion or first transfer)</span>
+<span class="stcmt">// Code in an indicator for a terminating event (first completion or first transfer)</span>
 gen terminating = inlist(pathway, 100, 101)	
 label var terminating "indicator for a terminating event: first completion or transfer"
 
 
-<span class="stcmt">*******************************************</span>
- <span class="stcmt">*Create cumulative credit charts</span>
-<span class="stcmt">*******************************************</span>
+<span class="stcmt">// Create cumulative credit charts</span>
 
-<span class="stcmt">* Avg. college-level cumulative credits attempted vs. earned</span>
+<span class="stcmt">// Avg. college-level cumulative credits attempted vs. earned</span>
 preserve
 
 collapse (mean) cumcollegecreditsearned cumcollegecreditsattempted cumidealcreditsearned, by(entry_pathway cohorttermindex)
@@ -1941,11 +1883,9 @@ In the second visualization, we examine the importance of early momentum for lon
 </div>
 </div>
 <pre id="stlog-8" class="stcmd"><code>
-<span class="stcmt">******************************************************</span>
- <span class="stcmt">*Create credits earned by early momentum charts</span>
-<span class="stcmt">******************************************************</span>
+<span class="stcmt">// Create credits earned by early momentum charts</span>
 
-<span class="stcmt">* Avg. college-level cumulative credits earned by early momentum</span>
+<span class="stcmt">// Avg. college-level cumulative credits earned by early momentum</span>
 preserve
 
 sum cumcollegecreditsearned if cohorttermindex == 1, detail
@@ -1994,11 +1934,9 @@ In the third and final visualization of this section, we plot the share of stude
 </div>
 <pre id="stlog-9" class="stcmd"><code>
 
-<span class="stcmt">******************************************************</span>
- <span class="stcmt">*Create completer/transfer rate charts</span>
-<span class="stcmt">******************************************************		</span>
+<span class="stcmt">// Create completer/transfer rate charts</span>
 
-<span class="stcmt">* Data set up for completion/transfer rates by college-level credits earned</span>
+<span class="stcmt">// Data set up for completion/transfer rates by college-level credits earned</span>
 cap frame drop complete_trans_entry_college_credits
 frame copy default complete_trans_college_credits
 frame change complete_trans_college_credits
@@ -2028,7 +1966,7 @@ gen credit_type = "college-level"
 tempfile college_credits
 save `college_credits'	
 
-<span class="stcmt">* Data set up for completion/transfer rates by credits earned in first term, whether credits were college-level or not</span>
+<span class="stcmt">// Data set up for completion/transfer rates by credits earned in first term, whether credits were college-level or not</span>
 cap frame drop complete_trans_credits
 frame copy default complete_trans_credits
 frame change complete_trans_credits
@@ -2056,10 +1994,10 @@ bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_i
 collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)
 gen credit_type = "any"
 
-<span class="stcmt">* Combine data sets for completion/transfer rates by both credit types in first term: any credit and college-level credit</span>
+<span class="stcmt">// Combine data sets for completion/transfer rates by both credit types in first term: any credit and college-level credit</span>
 append using `college_credits'
 
-<span class="stcmt">* Completion/transfer rates by pathway and first-term credit-type bins</span>
+<span class="stcmt">// Completion/transfer rates by pathway and first-term credit-type bins</span>
 twoway (line any_terminating credit_bin_in_first_term <span class="stcmt">///</span>
 	if credit_type == "any", lcolor("51 34 136")) <span class="stcmt">///</span>
 	   (line any_terminating credit_bin_in_first_term <span class="stcmt">///</span>
