@@ -1,7 +1,7 @@
-# Put name of your analysis here
-This repository contains web guides, R code, and sample
-data to help education data analysts answer questions about ***Insert
-goal of analysis here***. This material can also be accessed on the
+# Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts
+This repository contains web guides, Stata code, and sample
+data to help education data analysts answer questions about student success in CTE pathways. 
+This material can also be accessed on the
 OpenSDP website at [opensdp.github.io/analysis](https://opensdp.github.io/analysis).
 
 The code in this repository is based on code from the "Analyze" section of the
@@ -9,14 +9,11 @@ The code in this repository is based on code from the "Analyze" section of the
 
 This repository is organized in the following folder structure:
 
-- `code` contains the R code of the analysis (and renders the guide)
-- `R` contains R functions necessary to complete the analysis
+- `code` contains the Stata code of the analysis 
 - `data` contains data necessary to complete the analysis
-- `img` contains images to format the guides
-- `includes` contains style assets to format the guides
-- `man` contains the manuals and descriptive files of the data
+- `docs` contains CTE Toolkit web guides and images
 
-These materials were originally authored by **YOURE NAME HERE**.
+These materials were originally authored by Chris Avery, Jon Fullerton, Brian Johnson, Adrienne Murphy, Alyssa Reinhart, and Elise Swanson.
 
 [OpenSDP](https://opensdp.github.io) is an online, public repository of analytic
 code, tools, and training intended to foster collaboration among education
