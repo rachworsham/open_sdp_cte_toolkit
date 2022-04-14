@@ -1,562 +1,438 @@
 
-<span class="stcmt">* Charts: high school GPA margins</span>
+<span class="stcmt">// Create margins plots</span>
+
+<span class="stcmt">// Charts: high school GPA margins</span>
+	
 {
+		
+<span class="stcmt">// Main high school GPA margins</span>
 	
-<span class="stcmt">* Main high school GPA margins</span>
 margins pathway, at(hsgpa = (2(0.25)4)) predict(outcome(1)) predict(outcome(2))				
-marginsplot, bydimension(pathway) <span class="stcmt">///</span>
-	byopts(title("Adjusted Probability of Completion First or Transfer First" "by High School GPA") <span class="stcmt">///</span>
-	graphregion(fcolor(white)) imargin(medium) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))) ytitle("Adjusted Probability") xtitle("High School GPA") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) noci legend(order(1 "Completion First" 2 "Transfer First")) <span class="stcmt">///</span>
-	plotregion(margin(zero)) yline(0, lcolor(black)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136"), ) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
+
+marginsplot, bydimension(pathway) byopts(title("Adjusted Probability of Completion First or Transfer First" "by High School GPA") graphregion(fcolor(white)) imargin(medium) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))) ytitle("Adjusted Probability") xtitle("High School GPA") ylabel(0(0.2)1) noci legend(order(1 "Completion First" 2 "Transfer First")) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136"), plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
+	
 graph export "${saved_graphs}/4_gpa_1.png", replace
-
-<span class="stcmt">* High school GPA margins by gender</span>
+	
+<span class="stcmt">// High school GPA margins by gender</span>
+	
 margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(1))	
-marginsplot, bydimension(pathway) plotdimension(male) noci <span class="stcmt">///</span>
-	byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	ytitle("First Completion") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	name(g4_a, replace)	
-
+	
+marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) name(g4_a, replace)	
+	
 margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) <span class="stcmt">///</span>
-	rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, <span class="stcmt">///</span>
-	lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	name(g4_b, replace)	
 	
-	grc1leg2 g4_a g4_b, <span class="stcmt">///</span>
-	title("Adjusted Probability of First Completion/Transfer" "by Gender and High School GPA") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("High School GPA") l1title("Adjusted Probability") position(3) <span class="stcmt">///</span>
-	lrows(2) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))
+marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) name(g4_b, replace)		
+	
+grc1leg2 g4_a g4_b, title("Adjusted Probability of First Completion/Transfer" "by Gender and High School GPA") rows(2) graphregion(fcolor(white)) b1title("High School GPA") l1title("Adjusted Probability") position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))
+	
 graph export "${saved_graphs}/4_gpa_2.png", replace
-
-<span class="stcmt">* High school GPA margins by mother level of education</span>
+	
+<span class="stcmt">// High school GPA margins by mother level of education</span>
+	
 margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(1))	
-marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	legend(order(1 "Middle Sch" 2 "High Sch" 3 "Any College")) <span class="stcmt">///</span>
-	ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) <span class="stcmt">///</span>
-	plotregion(margin(zero)) yline(0, lcolor(black)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g4_a, replace)
-
+	
+marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) legend(order(1 "Middle Sch" 2 "High Sch" 3 "Any College")) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g4_a, replace)
+	
 margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
-	title("")) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, <span class="stcmt">///</span>
-	lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g4_b, replace)
-	
-	grc1leg2 g4_a g4_b, <span class="stcmt">///</span>
-	title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and High School GPA") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("High School GPA") l1title("Adjusted Probability") position(3) <span class="stcmt">///</span>
-	lrows(3) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))
-graph export "${saved_graphs}/4_gpa_3.png", replace
 
-<span class="stcmt">* High school GPA margins by race/ethnicity</span>
-margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) ytitle("First Completion") <span class="stcmt">///</span>
-	xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-    plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-    plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-    plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g4_a, replace)
-margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) <span class="stcmt">///</span>
-    plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g4_b, replace)	
+marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g4_b, replace)
 	
-    grc1leg2 g4_a g4_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and High School GPA") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-    b1title("High School GPA") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-    note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))
+grc1leg2 g4_a g4_b, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and High School GPA") rows(2) graphregion(fcolor(white)) b1title("High School GPA") l1title("Adjusted Probability") position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))
+	
+graph export "${saved_graphs}/4_gpa_3.png", replace
+	
+<span class="stcmt">// High school GPA margins by race/ethnicity</span>
+	
+margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(1))
+	
+marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) yline(0, lcolor(black)) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) plot4opts(mcolor("136 204 238") lcolor("136 204 238")) plot5opts(mcolor("204 102 119") lcolor("204 102 119")) name(g4_a, replace)
+	
+margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(2))
+	
+marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) yline(0, lcolor(black)) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) plot4opts(mcolor("136 204 238") lcolor("136 204 238")) plot5opts(mcolor("204 102 119") lcolor("204 102 119")) name(g4_b, replace)		
+	
+grc1leg2 g4_a g4_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and High School GPA") rows(2) graphregion(fcolor(white)) b1title("High School GPA") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))
+	
 graph export "${saved_graphs}/4_gpa_4.png", replace
 		
 }
-
-
-<span class="stcmt">* Charts: Pell grant margins</span>
+	
+<span class="stcmt">// Charts: Pell grant margins</span>
+	
 {
-
-<span class="stcmt">* Main Pell grant margins </span>
+	
+<span class="stcmt">// Main Pell grant margins </span>
+	
 margins pathway, at(pell = (0(1000)6000)) predict(outcome(1)) predict(outcome(2))
-marginsplot, bydimension(pathway) <span class="stcmt">///</span>
-	byopts(title("Adjusted Probability of Completion First or Transfer First" "by Pell Grant Dollars") <span class="stcmt">///</span>
-	graphregion(fcolor(white)) imargin(medium) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))) <span class="stcmt">///</span>
-	ytitle("Adjusted Probability") xtitle("Pell Dollars Awarded in First Year") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(0(1500)6000) <span class="stcmt">///</span>
-	noci legend(order(1 "Completion First" 2 "Transfer First")) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
+	
+marginsplot, bydimension(pathway) byopts(title("Adjusted Probability of Completion First or Transfer First" "by Pell Grant Dollars") graphregion(fcolor(white)) imargin(medium) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))) ytitle("Adjusted Probability") xtitle("Pell Dollars Awarded in First Year") ylabel(0(0.2)1) xlabel(0(1500)6000) noci legend(order(1 "Completion First" 2 "Transfer First")) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
+	
 graph export "${saved_graphs}/5_pell_1.png", replace
-
-<span class="stcmt">* Pell grant margins by gender</span>
+	
+<span class="stcmt">// Pell grant margins by gender</span>
+	
 margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
-	title("")) ytitle("First Completion") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) name(g5_a, replace)	
 	
+marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) name(g5_a, replace)	
+		
 margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) <span class="stcmt">///</span>
-	imargin(medium) title("")) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) name(g5_b, replace) 
 	
-	grc1leg2 g5_a g5_b, <span class="stcmt">///</span>
-	title("Adjusted Probability of First Completion/Transfer" "by Gender and Pell Grant Dollars") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("Pell Dollars Awarded in First Year") l1title("Adjusted Probability") <span class="stcmt">///</span>
-    position(3) lrows(2) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))	
+marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153")  lcolor("68 170 153")) name(g5_b, replace) 	
+	
+grc1leg2 g5_a g5_b, title("Adjusted Probability of First Completion/Transfer" "by Gender and Pell Grant Dollars") rows(2) graphregion(fcolor(white)) b1title("Pell Dollars Awarded in First Year") l1title("Adjusted Probability") position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))	
+	
 graph export "${saved_graphs}/5_pell_2.png", replace
+		
+<span class="stcmt">// Pell grant margins by mother level of education</span>
 	
-<span class="stcmt">* Pell grant margins by mother level of education</span>
 margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
-	title("")) legend(order(1 "Middle Sch" 2 "High Sch" 3 "Any College")) <span class="stcmt">///</span>
-	ytitle("First Completion") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) plot3opts(mcolor("136 34 85") <span class="stcmt">///</span>
-	lcolor("136 34 85")) name(g5_a, replace)	
 	
+marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) legend(order(1 "Middle Sch" 2 "High Sch" 3 "Any College")) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g5_a, replace)	
+		
 margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
-	title("")) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) plot3opts(mcolor("136 34 85") <span class="stcmt">///</span>
-	lcolor("136 34 85")) name(g5_b, replace)
+
+marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g5_b, replace)
 	
-	grc1leg2 g5_a g5_b, <span class="stcmt">///</span>
-	title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Pell Grant Dollars") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("Pell Dollars Awarded in First Year") <span class="stcmt">///</span>
-	l1title("Adjusted Probability") position(3) lrows(3) <span class="stcmt">///</span>
-	symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))	
+grc1leg2 g5_a g5_b, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Pell Grant Dollars") rows(2) graphregion(fcolor(white)) b1title("Pell Dollars Awarded in First Year") l1title("Adjusted Probability") position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))	
+	
 graph export "${saved_graphs}/5_pell_3.png", replace
-
-<span class="stcmt">* Pell grant margins by race/ethnicity</span>
+	
+<span class="stcmt">// Pell grant margins by race/ethnicity</span>
+	
 margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g5_a, replace)		
 	
+marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) yline(0, lcolor(black)) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) plot4opts(mcolor("136 204 238") lcolor("136 204 238")) plot5opts(mcolor("204 102 119") lcolor("204 102 119")) name(g5_a, replace)		
+		
 margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g5_b, replace)
 	
-	grc1leg2 g5_a g5_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Pell Grant Dollars") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("Pell Dollars Awarded in First Year") <span class="stcmt">///</span>
-	l1title("Adjusted Probability") position(3) lrows(5) <span class="stcmt">///</span>
-	symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))		
+marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) yline(0, lcolor(black)) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) plot4opts(mcolor("136 204 238") lcolor("136 204 238")) plot5opts(mcolor("204 102 119") lcolor("204 102 119")) name(g5_b, replace)
+	
+grc1leg2 g5_a g5_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Pell Grant Dollars") rows(2) graphregion(fcolor(white)) b1title("Pell Dollars Awarded in First Year") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))	
+	
 graph export "${saved_graphs}/5_pell_4.png", replace
-
-}	
-
 	
-<span class="stcmt">* Charts: age at entry margins</span>
+}	
+		
+<span class="stcmt">// Charts: age at entry margins</span>
+	
 {
-
-<span class="stcmt">* Main age at entry margins</span>
+	
+<span class="stcmt">// Main age at entry margins</span>
+	
 margins pathway, at(age = (18(3)36)) predict(outcome(1)) predict(outcome(2))
-marginsplot, bydimension(pathway) <span class="stcmt">///</span>
-	byopts(title("Adjusted Probability of Completion First or Transfer First" "by Student Age at Entry") <span class="stcmt">///</span>
-	graphregion(fcolor(white)) imargin(medium) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))) ytitle("Adjusted Probability") <span class="stcmt">///</span>
-	xtitle("Student Age at Entry") ylabel(0(0.2)1) xlabel(18(3)36) <span class="stcmt">///</span>
-	noci legend(order(1 "Completion First" 2 "Transfer First")) <span class="stcmt">///</span>
-	plotregion(margin(zero)) yline(0, lcolor(black)) <span class="stcmt">/// </span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
+	
+marginsplot, bydimension(pathway) byopts(title("Adjusted Probability of Completion First or Transfer First" "by Student Age at Entry") graphregion(fcolor(white)) imargin(medium) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))) ytitle("Adjusted Probability") xtitle("Student Age at Entry") ylabel(0(0.2)1) xlabel(18(3)36) noci legend(order(1 "Completion First" 2 "Transfer First")) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153"))
+	
 graph export "${saved_graphs}/6_age_1.png", replace	
 
-<span class="stcmt">* Age at entry margins by gender</span>
+<span class="stcmt">// Age at entry margins by gender</span>
+	
 margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) <span class="stcmt">///</span>
-	imargin(medium) title("")) ytitle("First Completion") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) name(g6_a, replace)	
 	
+marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153")  lcolor("68 170 153")) name(g6_a, replace)	
+		
 margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(male) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) <span class="stcmt">///</span>
-	imargin(medium) title("")) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) name(g6_b, replace) 
 	
-	grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Gender and Age at Entry") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("Age at Entry") l1title("Adjusted Probability") <span class="stcmt">///</span>
-	position(3) lrows(2) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))	
+marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("")  ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153")  lcolor("68 170 153")) name(g6_b, replace) 
+	
+grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Gender and Age at Entry") rows(2) graphregion(fcolor(white)) b1title("Age at Entry") l1title("Adjusted Probability") position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))	
+	
 graph export "${saved_graphs}/6_age_2.png", replace
-
-<span class="stcmt">* Age at entry margins by mother level of education</span>
+	
+<span class="stcmt">// Age at entry margins by mother level of education</span>
+	
 margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) <span class="stcmt">///</span>
-	rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	legend(order(1 "Middle Sch" 2 "High Sch" 3 "Any College")) <span class="stcmt">///</span>
-	ytitle("First Completion") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") <span class="stcmt">///</span>
-	lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	name(g6_a, replace)	
 	
+marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) legend(order(1 "Middle Sch" 2 "High Sch" 3 "Any College")) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g6_a, replace)	
+		
 margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(motheredlevel) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) <span class="stcmt">///</span>
-	title("")) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") <span class="stcmt">///</span>
-	lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g6_b, replace) 
 	
-    grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Age at Entry") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("Age at Entry") l1title("Adjusted Probability") position(3) <span class="stcmt">///</span>
-	lrows(3) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))	
+marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) name(g6_b, replace) 	
+	
+grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Age at Entry") rows(2) graphregion(fcolor(white))  b1title("Age at Entry") l1title("Adjusted Probability") position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))	
+	
 graph export "${saved_graphs}/6_age_3.png", replace
-
-<span class="stcmt">* Age at entry margins by race/ethnicity</span>
+	
+<span class="stcmt">// Age at entry margins by race/ethnicity</span>
+	
 margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(1))
-marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) ytitle("First Completion") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-    plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g6_a, replace)	
 	
+marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) yline(0, lcolor(black)) ytitle("First Completion") xtitle("") ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153")) plot3opts(mcolor("136 34 85") lcolor("136 34 85")) plot4opts(mcolor("136 204 238") lcolor("136 204 238")) plot5opts(mcolor("204 102 119") lcolor("204 102 119")) name(g6_a, replace)	
+		
 margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(2))
-marginsplot, bydimension(pathway) plotdimension(race) <span class="stcmt">///</span>
-	noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) <span class="stcmt">///</span>
-	yline(0, lcolor(black)) ytitle("First Transfer") xtitle("") <span class="stcmt">///</span>
-	ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) <span class="stcmt">///</span>
-	plot1opts(mcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(mcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-    plot3opts(mcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	plot4opts(mcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(mcolor("204 102 119") lcolor("204 102 119")) <span class="stcmt">///</span>
-	name(g6_b, replace)	
 	
-	grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Age at Entry") <span class="stcmt">///</span>
-	rows(2) graphregion(fcolor(white)) <span class="stcmt">///</span>
-	b1title("Age at Entry") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall))	
+marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title("")) yline(0, lcolor(black)) ytitle("First Transfer") xtitle("") ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) plot1opts(mcolor("51 34 136") lcolor("51 34 136")) plot2opts(mcolor("68 170 153") lcolor("68 170 153"))  plot3opts(mcolor("136 34 85") lcolor("136 34 85")) plot4opts(mcolor("136 204 238") lcolor("136 204 238")) plot5opts(mcolor("204 102 119") lcolor("204 102 119")) name(g6_b, replace)	
+	
+grc1leg2 g6_a g6_b, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity and Age at Entry") rows(2) graphregion(fcolor(white)) b1title("Age at Entry") l1title("Adjusted Probability") position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall))	
+	
 graph export "${saved_graphs}/6_age_4.png", replace
-	
+		
 }
-
-
-<span class="stcmt">* Charts: race/ethnicity margins</span>
+	
+	
+<span class="stcmt">// Charts: race/ethnicity margins</span>
+	
 {
-
-<span class="stcmt">* Main race/ethnicity margins</span>
+	
+<span class="stcmt">// Main race/ethnicity margins</span>
+	
 margins pathway, at(race = (1(1)5)) predict(outcome(1)) predict(outcome(2))
+	
 matrix ans = (r(b))'
+	
 cap frame drop working
+	
 frame create working
+	
 frame change working
+	
 svmat2 ans, rnames(estimate_name)
+
 order estimate_name ans1
+	
 rename ans1 prediction_
+	
 gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, "^([0-9])")
+	
 destring outcome_level, replace
+	
 gen race_level = ustrregexs(1) if ustrregexm(estimate_name, "predict#([0-9])")
+	
 destring race_level, replace
-label define race_vals 1 "Asian" 2 "Black" 3 "Hispanic" 4 "White" 5 "Other" 
-<span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span>
+	
+label define race_vals 1 "Asian" 2 "Black" 3 "Hispanic" 4 "White" 5 "Other" <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span>
+	
 label values race_level race_vals
+	
 gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, "_at#([0-9]+)")
+	
 destring pathway_level, replace
-label define pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" 
-<span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span>
-label values pathway_level pathway_vals
-drop estimate_name
-order race_level pathway_level outcome_level	
-reshape wide prediction_, i(race_level pathway_level) j(outcome_level)
-
-graph bar (asis) prediction_1 prediction_2, by(pathway_level, <span class="stcmt">///</span>
-	title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity") <span class="stcmt">///</span>
-	b1title("Race/Ethnicity", size(medium)) imargin(medium) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities" "for each outcome are stacked.", size(vsmall)) <span class="stcmt">///</span>
-	graphregion(fcolor(white)) legend(position(3))) <span class="stcmt">///</span>
-	ytitle("Adjusted Probability") over(race_level, label(angle(45))) <span class="stcmt">///</span>
-	stack ylabel(0(0.2)1) legend(order(1 "Completion First" 2 "Transfer First") <span class="stcmt">///</span>
-	rows(2) symxsize(2) size(small) width(35))  <span class="stcmt">/// </span>
-	bar(1, fcolor("51 34 136") lcolor(black)) bar(2, fcolor("68 170 153") lcolor(black))		
-graph export "${saved_graphs}/7_race_1.png", replace		
-
-frame change default
-frame drop working
-
-<span class="stcmt">* Race/ethnicity margins by gender	</span>
-margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(1))	
-marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) <span class="stcmt">///</span>
-	noci byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) <span class="stcmt">///</span>
-	imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) <span class="stcmt">///</span>
-	plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
-	plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-    plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///			 </span>
-	name(g7_a, replace)
 	
-margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(2))
-marginsplot, graphdimension(pathway) bydimension(male) <span class="stcmt">///</span>
-	xdimension(race) noci byopts(title("") l1title("") b1title("") <span class="stcmt">///</span>
-	graphregion(fcolor(white)) imargin(vsmall)) recast(bar) <span class="stcmt">///</span>
-	plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) <span class="stcmt">///</span>
-	plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
-	plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-	plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-	plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-	plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-	plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
-	name(g7_b, replace)
-	
-levelsof entry_pathway, local(pathways)
-local named_graphs
-forvalues i = 1/`: word count `pathways'' {
-	local named_graphs `named_graphs' g7_a`i'
-}
-forvalues i = 1/`: word count `pathways'' {
-	local named_graphs `named_graphs' g7_b`i'
-}
-grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Gender and Race/Ethnicity") <span class="stcmt">///</span>
-l2title("Adjusted Probability") <span class="stcmt">///</span>
-		 l1title("First Transfer                         First Completion", size(small)) <span class="stcmt">///   </span>
-		 graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(7) <span class="stcmt">/// </span>
-		 note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
-graph export "${saved_graphs}/7_race_2.png", replace
-
-<span class="stcmt">* Race/ethnicity margins by mother level of education</span>
-margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(1))
-marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
-			 plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
-			 plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-			 plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-			 plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-			 plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-			 plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
-			 name(g7_a, replace)
-margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(2))
-marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
-			 plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) <span class="stcmt">///</span>
-			 plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-			 plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-			 plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-			 plot4opts(fcolor("136 204 238") lcolor("136 204 238")) <span class="stcmt">///</span>
-			 plot5opts(fcolor("204 102 119") lcolor("204 102 119"))	<span class="stcmt">///					 </span>
-			 name(g7_b, replace)
-levelsof entry_pathway, local(pathways)
-local named_graphs
-forvalues i = 1/`: word count `pathways'' {
-	local named_graphs `named_graphs' g7_a`i'
-}
-forvalues i = 1/`: word count `pathways'' {
-	local named_graphs `named_graphs' g7_b`i'
-}	
-grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Race/Ethnicity") l2title("Adjusted Probability") <span class="stcmt">///</span>
-						 l1title("First Transfer                         First Completion", size(small)) <span class="stcmt">///</span>
-						 graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(9) <span class="stcmt">///</span>
-						 note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
-graph export "${saved_graphs}/7_race_3.png", replace
-	
-}
-
-
-<span class="stcmt">* Charts: mother's ed.</span>
-{
-
-<span class="stcmt">* Main mother level of education margins</span>
-margins pathway, at(motheredlevel = (1(1)4)) predict(outcome(1)) predict(outcome(2))
-matrix ans = (r(b))'
-cap frame drop working
-frame create working
-frame change working
-svmat2 ans, rnames(estimate_name)
-order estimate_name ans1
-rename ans1 prediction_
-gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, "^([0-9])")
-destring outcome_level, replace
-gen mothered_level = ustrregexs(1) if ustrregexm(estimate_name, "predict#([0-9]+)")
-destring mothered_level, replace
-label define edlevel_vals 1 "Middle Sch" 2 "High Sch" 3 "Any College" 4 "NA" <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span>
-label values mothered_level edlevel_vals
-gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, "_at#([0-9]+)")
-destring pathway_level, replace
 label define pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span>
-label values pathway_level pathway_vals
-drop estimate_name
-order mothered_level pathway_level outcome_level	
-reshape wide prediction_, i(mothered_level pathway_level) j(outcome_level)
-graph bar (asis) prediction_1 prediction_2, by(pathway_level, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level") b1title("Mother's Eduation Level") imargin(medium) <span class="stcmt">///</span>
-		note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities" "for each outcome are stacked.", size(vsmall)) <span class="stcmt">///</span>
-		graphregion(fcolor(white))) ytitle("Adjusted Probability") over(mothered_level, relabel(1 `" "Middle" "Sch" "' 2 `" "High" "Sch" "' 3 `" "Any" "College" "') label(labsize(small))) stack ylabel(0(0.2)1) <span class="stcmt">///</span>
-		legend(order(1 "Completion First" 2 "Transfer First")) bar(1, fcolor("51 34 136") lcolor(black)) bar(2, fcolor("68 170 153") lcolor(black))
-graph export "${saved_graphs}/8_mothered_1.png", replace	
-frame change default
-frame drop working
-
-<span class="stcmt">* Mother level of education margins by gender</span>
-margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(1))
-marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
-			 plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) <span class="stcmt">///</span>
-			 plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-			 plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-			 plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///</span>
-			 name(g8_a, replace)
-margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(2))
-marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(small)) <span class="stcmt">///</span>
-			 plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) <span class="stcmt">///</span>
-			 plot1opts(fcolor("51 34 136") lcolor("51 34 136")) <span class="stcmt">///</span>
-			 plot2opts(fcolor("68 170 153") lcolor("68 170 153")) <span class="stcmt">///</span>
-			 plot3opts(fcolor("136 34 85") lcolor("136 34 85")) <span class="stcmt">///				 </span>
-			 name(g8_b, replace)
-levelsof entry_pathway, local(pathways)
-local named_graphs
-forvalues i = 1/`: word count `pathways'' {
-	local named_graphs `named_graphs' g8_a`i'
-}
-forvalues i = 1/`: word count `pathways'' {
-	local named_graphs `named_graphs' g8_b`i'
-}
-grc1leg2 `named_graphs', <span class="stcmt">///</span>
-	title("Adjusted Probability of First Completion/Transfer" "by Gender and Mother's Education Level") <span class="stcmt">///</span>
-	l2title("Adjusted Probability") <span class="stcmt">///</span>
-    l1title("First Transfer First Completion", size(small)) <span class="stcmt">///</span>
-	graphregion(fcolor(white)) rows(2) lrows(3) position(3) <span class="stcmt">///</span>
-	symxsize(small) labsize(small) xsize(7) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", <span class="stcmt">///</span>
-	size(vsmall)) 
-	<span class="stcmt">/*the l1title() approach used here is admittedly a little informal, </span>
-<span class="stcmt">	but it is a useful approach given how we needed to set up this graph*/</span>
 	
-graph export "${saved_graphs}/8_mothered_2.png", replace
-
-}
-
-
-<span class="stcmt">* Charts: gender margins</span>
-{
-
-<span class="stcmt">* Main gender margins</span>
-margins pathway, at(male = (0 1)) predict(outcome(1)) predict(outcome(2))
-matrix ans = (r(b))'
-cap frame drop working
-frame create working
-frame change working
-svmat2 ans, rnames(estimate_name)
-order estimate_name ans1
-rename ans1 prediction_
-gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, "^([0-9])")
-destring outcome_level, replace
-gen male_level = ustrregexs(1) if ustrregexm(estimate_name, "predict#([0-9])")
-destring male_level, replace
-label define male 1 "Female" 2 "Male" 
-<span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span>
-label values male_level male
-gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, "_at#([0-9]+)")
-destring pathway_level, replace
-label define pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" 
-<span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span>
 label values pathway_level pathway_vals
+	
 drop estimate_name
-order male_level pathway_level outcome_level	
-reshape wide prediction_, i(male_level pathway_level) j(outcome_level) 	
-
-graph bar (asis) prediction_1 prediction_2, <span class="stcmt">///</span>
-	by(pathway_level, title("Adjusted Probability of First Completion/Transfer" "by Gender") <span class="stcmt">///</span>
-	b1title("Gender") imargin(medium) <span class="stcmt">///</span>
-	note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities" "for each outcome are stacked.", <span class="stcmt">///</span>
-	size(vsmall)) <span class="stcmt">///</span>
-	graphregion(fcolor(white))) ytitle("Adjusted Probability") <span class="stcmt">///</span>
-	over(male_level) stack ylabel(0(0.2)1) legend(label(1 "Completion First") <span class="stcmt">///</span>
-	label(2 "Transfer First")) xsize(5.5) bar(1, fcolor("51 34 136") lcolor(black)) <span class="stcmt">///</span>
-	bar(2, fcolor("68 170 153") lcolor(black))			
-graph export "${saved_graphs}/9_gender.png", replace
+	
+order race_level pathway_level outcome_level	
+	
+reshape wide prediction_, i(race_level pathway_level) j(outcome_level)
+	
+graph bar (asis) prediction_1 prediction_2, by(pathway_level, title("Adjusted Probability of First Completion/Transfer" "by Race/Ethnicity") b1title("Race/Ethnicity", size(medium)) imargin(medium) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities" "for each outcome are stacked.", size(vsmall)) graphregion(fcolor(white)) legend(position(3))) ytitle("Adjusted Probability") over(race_level, label(angle(45))) stack ylabel(0(0.2)1) legend(order(1 "Completion First" 2 "Transfer First") rows(2) symxsize(2) size(small) width(35)) bar(1, fcolor("51 34 136") lcolor(black)) bar(2, fcolor("68 170 153") lcolor(black))		
+	
+graph export "${saved_graphs}/7_race_1.png", replace		
+	
 frame change default
-frame drop working		
+	
+frame drop working
+	
+<span class="stcmt">// Race/ethnicity margins by gender	</span>
+	
+margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(1))	
+	
+marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) noci byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor("51 34 136") lcolor("51 34 136")) plot2opts(fcolor("68 170 153") lcolor("68 170 153")) plot3opts(fcolor("136 34 85") lcolor("136 34 85")) plot4opts(fcolor("136 204 238") lcolor("136 204 238")) plot5opts(fcolor("204 102 119") lcolor("204 102 119")) name(g7_a, replace)
+		
+margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(2))
+	
+marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) noci byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor("51 34 136") lcolor("51 34 136")) plot2opts(fcolor("68 170 153") lcolor("68 170 153")) plot3opts(fcolor("136 34 85") lcolor("136 34 85")) plot4opts(fcolor("136 204 238") lcolor("136 204 238")) plot5opts(fcolor("204 102 119") lcolor("204 102 119")) name(g7_b, replace)
+		
+levelsof entry_pathway, local(pathways)
+	
+local named_graphs
+	
+forvalues i = 1/`: word count `pathways'' {
+	
+local named_graphs `named_graphs' g7_a`i'
+	
+}
+	
+forvalues i = 1/`: word count `pathways'' {
+	
+local named_graphs `named_graphs' g7_b`i'
+	
+}
+	
+grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Gender and Race/Ethnicity") l2title("Adjusted Probability") l1title("First Transfer First Completion", size(small)) graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
+	
+graph export "${saved_graphs}/7_race_2.png", replace
+	
+<span class="stcmt">// Race/ethnicity margins by mother level of education</span>
+	
+margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(1))
+
+marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor("51 34 136") lcolor("51 34 136")) plot2opts(fcolor("68 170 153") lcolor("68 170 153")) plot3opts(fcolor("136 34 85") lcolor("136 34 85")) plot4opts(fcolor("136 204 238") lcolor("136 204 238"))  plot5opts(fcolor("204 102 119") lcolor("204 102 119")) name(g7_a, replace)
+	
+margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(2))
+	
+marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title("") l1title("") b1title("") rows(1) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor("51 34 136") lcolor("51 34 136")) plot2opts(fcolor("68 170 153") lcolor("68 170 153")) plot3opts(fcolor("136 34 85") lcolor("136 34 85")) plot4opts(fcolor("136 204 238") lcolor("136 204 238")) plot5opts(fcolor("204 102 119") lcolor("204 102 119")) name(g7_b, replace)
+	
+levelsof entry_pathway, local(pathways)
+
+local named_graphs
+
+forvalues i = 1/`: word count `pathways'' {
+
+local named_graphs `named_graphs' g7_a`i'
+	
+}
+	
+forvalues i = 1/`: word count `pathways'' {
+	
+local named_graphs `named_graphs' g7_b`i'
+	
+}	
+	
+grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level and Race/Ethnicity") l2title("Adjusted Probability") l1title("First Transfer First Completion", size(small)) graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(9) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
+	
+graph export "${saved_graphs}/7_race_3.png", replace
+		
+}
+	
+	
+<span class="stcmt">// Charts: mother's ed.</span>
+
+{
+	
+<span class="stcmt">// Main mother level of education margins</span>
+	
+margins pathway, at(motheredlevel = (1(1)4)) predict(outcome(1)) predict(outcome(2))
+	
+matrix ans = (r(b))'
+	
+cap frame drop working
+	
+frame create working
+	
+frame change working
+	
+svmat2 ans, rnames(estimate_name)
+	
+order estimate_name ans1
+
+rename ans1 prediction_
+	
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, "^([0-9])")
+	
+destring outcome_level, replace
+	
+gen mothered_level = ustrregexs(1) if ustrregexm(estimate_name, "predict#([0-9]+)")
+
+destring mothered_level, replace
+	
+label define edlevel_vals 1 "Middle Sch" 2 "High Sch" 3 "Any College" 4 "NA" <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span>
+	
+label values mothered_level edlevel_vals
+	
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, "_at#([0-9]+)")
+	
+destring pathway_level, replace
+	
+label define pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span>
+	
+label values pathway_level pathway_vals
+	
+drop estimate_name
+	
+order mothered_level pathway_level outcome_level	
+	
+reshape wide prediction_, i(mothered_level pathway_level) j(outcome_level)
+	
+graph bar (asis) prediction_1 prediction_2, by(pathway_level, title("Adjusted Probability of First Completion/Transfer" "by Mother's Education Level") b1title("Mother's Eduation Level") imargin(medium) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities" "for each outcome are stacked.", size(vsmall)) graphregion(fcolor(white))) ytitle("Adjusted Probability") over(mothered_level, relabel(1 `" "Middle" "Sch" "' 2 `" "High" "Sch" "' 3 `" "Any" "College" "') label(labsize(small))) stack ylabel(0(0.2)1) legend(order(1 "Completion First" 2 "Transfer First")) bar(1, fcolor("51 34 136") lcolor(black)) bar(2, fcolor("68 170 153") lcolor(black))
+	
+graph export "${saved_graphs}/8_mothered_1.png", replace	
+	
+frame change default
+	
+frame drop working
+	
+<span class="stcmt">// Mother level of education margins by gender</span>
+	
+margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(1))
+	
+marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) plot1opts(fcolor("51 34 136") lcolor("51 34 136"))  plot2opts(fcolor("68 170 153") lcolor("68 170 153")) plot3opts(fcolor("136 34 85") lcolor("136 34 85")) name(g8_a, replace)
+	
+margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(2))
+	
+marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title("") l1title("") b1title("") graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) plot1opts(fcolor("51 34 136") lcolor("51 34 136")) plot2opts(fcolor("68 170 153") lcolor("68 170 153")) plot3opts(fcolor("136 34 85") lcolor("136 34 85")) name(g8_b, replace)
+	
+levelsof entry_pathway, local(pathways)
+	
+local named_graphs
+	
+forvalues i = 1/`: word count `pathways'' {
+	
+local named_graphs `named_graphs' g8_a`i'
 
 }
+	
+forvalues i = 1/`: word count `pathways'' {
+	
+local named_graphs `named_graphs' g8_b`i'
+	
+}
+	
+grc1leg2 `named_graphs', title("Adjusted Probability of First Completion/Transfer" "by Gender and Mother's Education Level") l2title("Adjusted Probability") l1title("First Transfer First Completion", size(small)) graphregion(fcolor(white)) rows(2) lrows(3) position(3) symxsize(small) labsize(small) xsize(7) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.", size(vsmall)) <span class="stcmt">//the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span>
+		
+graph export "${saved_graphs}/8_mothered_2.png", replace
+	
+}
+	
+	
+<span class="stcmt">// Charts: gender margins</span>
+	
+{
+	
+<span class="stcmt">// Main gender margins</span>
+	
+margins pathway, at(male = (0 1)) predict(outcome(1)) predict(outcome(2))
+	
+matrix ans = (r(b))'
+	
+cap frame drop working
+	
+frame create working
+	
+frame change working
+	
+svmat2 ans, rnames(estimate_name)
 
+order estimate_name ans1
+	
+rename ans1 prediction_
+
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, "^([0-9])")
+	
+destring outcome_level, replace
+	
+gen male_level = ustrregexs(1) if ustrregexm(estimate_name, "predict#([0-9])")
+	
+destring male_level, replace
+
+label define male 1 "Female" 2 "Male" <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span>
+	
+label values male_level male
+	
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, "_at#([0-9]+)")
+	
+destring pathway_level, replace
+	
+label define pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway" <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span>
+	
+label values pathway_level pathway_vals
+	
+drop estimate_name
+	
+order male_level pathway_level outcome_level	
+	
+reshape wide prediction_, i(male_level pathway_level) j(outcome_level) 	
+	
+graph bar (asis) prediction_1 prediction_2, by(pathway_level, title("Adjusted Probability of First Completion/Transfer" "by Gender") b1title("Gender") imargin(medium) note("Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities" "for each outcome are stacked.", size(vsmall)) graphregion(fcolor(white))) ytitle("Adjusted Probability") over(male_level) stack ylabel(0(0.2)1) legend(label(1 "Completion First") label(2 "Transfer First")) xsize(5.5) bar(1, fcolor("51 34 136") lcolor(black)) bar(2, fcolor("68 170 153") lcolor(black))			
+	
+graph export "${saved_graphs}/9_gender.png", replace
+	
+frame change default
+	
+frame drop working		
+	
+}
+	
