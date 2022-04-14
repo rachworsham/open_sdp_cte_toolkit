@@ -10,6 +10,8 @@ The code in this repository is based on code from the "Analyze" section of the
 This repository is organized in the following folder structure:
 
 - `code` contains the Stata code of the analysis 
+- - `cte_toolkit_narrative.do` contains all Stata code for the toolkit
+- - `section1.do` - `section4.do` is the State code broken out by toolkit section
 - `data` contains data necessary to complete the analysis
 - `docs` contains CTE Toolkit web guides and images
 - - Do files with a `_webdoc` suffix generate both charts and web guides using the Stata webdoc package
