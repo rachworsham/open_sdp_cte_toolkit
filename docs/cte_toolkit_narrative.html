@@ -252,7 +252,7 @@ html {
 </div>
 </div>
 <pre id="stlog-1" class="stcmd"><code>
-   <span class="stcmt">//Comments about this code</span>
+<span class="stcmt">//Comments about this code</span>
 <p><span class="stcmt">// Data for this analysis code should be set up according to the accompanying data specification guide.</span></p>
 <p><span class="stcmt">// Code below for this analyis should be modified according to your needs. In some places, comments explicitly prompt you to appropriately modify a minimum number of commands for your institution&rsquo;s data, or else the output may not be correct or useful. And of course feel free to modify any other commands, too.</span></p>
 <p><span class="stcmt">// Stata version 16 or higher is required to run the code below, especially the frames-related commands. Earlier versions of Stata can be used if these commands are removed and replaced with similar functionality like tempfiles.</span></p>
@@ -260,87 +260,93 @@ html {
 <p><span class="stcmt">// If you do not already have the user-written Stata command svmat2 installed, please see Stata&rsquo;s website for more guidance on how to install this. The appropriate installation approach might depend on the environment in which you are using Stata.</span></p>
 <p><span class="stcmt">// If you do not alraedy have the user-written Stata command grc1leg2 installed, please type &ldquo;search grc1leg2&rdquo; in the Stata  console for more installation information.</span></p>
 <p><span class="stcmt">// Note that this code does not create margins plots for all pairwise combinations of covariates in the model. Specifically, no plots are created for combinations of two continuous variables. Nor are redundant combinations included (e.g. a margins plot for race/ethnicity and gender is included once in the race/ethnicity graphing section, which appears before the gender graphing section) </span></p>
-<p><span class="stcmt">// Step 1. Set up and setting filepaths</span></p>
-<p>version 16.1</p>
-<p>clear all</p>
-<p>macro drop all</p>
+<p><span class="stcmt">// Step 1. Set up and setting filepaths //</span></p>
+<pre><code>version 16.1
+clear all
+macro drop all		
+</code></pre>
 <p><span class="stcmt">// set path to your saved .csv data file matching spec document</span></p>
-<p>global path_to_data &ldquo;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&rdquo;</p>
+<pre><code>global path_to_data &quot;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&quot; 
+</code></pre>
 <p><span class="stcmt">// set path for where you&rsquo;d like graphs saved on your computer</span></p>
-<p>global saved_graphs &ldquo;some_directory/perhaps_another_directory/finally_the_directory_where_you_would_like_your_graphs_saved&rdquo;</p>
-<p><span class="stcmt">// Step 2. Load data set up according to spec</span></p>
-<p>import delimited &ldquo;${path_to_data}&rdquo;</p>
+<pre><code>global saved_graph &quot;some_directory/perhaps_another_directory/finally_the_directory_where_you_would_like_your_graphs_saved&quot; 
+</code></pre>
+<p><span class="stcmt">// Step 2. Load data set up according to spec //</span></p>
+<pre><code>import delimited &quot;${path_to_data}&quot;
+</code></pre>
 <p><span class="stcmt">// Label variables as relevant to institution- set these value labels according to your preferred conventions</span></p>
 <p><span class="stcmt">// male</span></p>
-<p>label define male_vals 0 &ldquo;Female&rdquo; 1 &ldquo;Male&rdquo;</p>
-<p>label values male male_vals</p>
+<pre><code>label define male_vals 0 &quot;Female&quot; 1 &quot;Male&quot; 
+label values male male_vals
+</code></pre>
 <p><span class="stcmt">// race</span></p>
-<p>label define race_vals 1 &ldquo;Asian&rdquo; 2 &ldquo;Black&rdquo; 3 &ldquo;Hispanic&rdquo; 4 &ldquo;White&rdquo; 5 &ldquo;Other&rdquo;</p>
-<p>label values race race_vals</p>
+<pre><code>label define race_vals 1 &quot;Asian&quot; 2 &quot;Black&quot; 3 &quot;Hispanic&quot; 4 &quot;White&quot; 5 &quot;Other&quot;	
+label values race race_vals
+</code></pre>
 <p><span class="stcmt">// motheredlevel</span></p>
-<p>label define edlevel_vals 1 &ldquo;Middle Sch&rdquo; 2 &ldquo;High Sch&rdquo; 3 &ldquo;Any College&rdquo; 4 &ldquo;NA&rdquo;</p>
-<p>label values motheredlevel edlevel_vals</p>
+<pre><code>label define edlevel_vals 1 &quot;Middle Sch&quot; 2 &quot;High Sch&quot; 3 &quot;Any College&quot; 4 &quot;NA&quot;
+label values motheredlevel edlevel_vals
+</code></pre>
 <p><span class="stcmt">// pathway</span></p>
-<p>label define pathway_entry_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo;</p>
-<p>label values pathway pathway_entry_vals <span class="stcmt">//this is just a placeholder example; please modify with the full names associated with each entry pathway code at your institution</span></p>
-<p><span class="stcmt">//Step 3. Generate additional variables</span></p>
+<pre><code>label define pathway_entry_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot; 
+
+label values pathway pathway_entry_vals//this is just a placeholder example; please modify with the full names associated with each entry pathway code at your institution
+</code></pre>
+<p><span class="stcmt">// Step 3. Generate additional variables //</span></p>
 <p><span class="stcmt">// Determine number of terms included in data for each student</span></p>
-<p>sum cohorttermindex</p>
-<p>global max_term = r(max)</p>
-<p><span class="stcmt">// Outcome variable at the student level, across terms</span></p>
-<p>gen outcome = 0</p>
-<p>replace outcome = 1 if pathway == 100 &amp; cohorttermindex == $max_term</p>
-<p>replace outcome = 2 if pathway == 101 &amp; cohorttermindex == $max_term</p>
-<p>bys studentid (cohorttermindex): replace outcome = outcome[$max_term]</p>
+<pre><code>sum cohorttermindex
+global max_term = r(max)		
+</code></pre>
+<p><span class="stcmt">// Outcome variable at the student level, across terms</span> gen outcome = 0 replace outcome = 1 if pathway == 100 &amp; cohorttermindex == $max_term replace outcome = 2 if pathway == 101 &amp; cohorttermindex == $max_term bys studentid (cohorttermindex): replace outcome = outcome[$max_term]</p>
 <p><span class="stcmt">// Label outcome</span></p>
-<p>label define outcome_vals 0 &ldquo;None&rdquo; 1 &ldquo;Completion&rdquo; 2 &ldquo;Transfer&rdquo;</p>
-<p>label values outcome outcome_vals</p>
-<p>label var outcome &ldquo;student outcome after ${max_term} terms&rdquo;</p>
+<pre><code>label define outcome_vals 0 &quot;None&quot; 1 &quot;Completion&quot; 2 &quot;Transfer&quot;
+label values outcome outcome_vals
+label var outcome &quot;student outcome after ${max_term} terms&quot;
+</code></pre>
 <p><span class="stcmt">// Code in an indicator for a terminating event (first completion or first transfer)</span></p>
-<p>gen terminating = inlist(pathway, 100, 101)</p>
-<p>label var terminating &ldquo;indicator for a terminating event: first completion or transfer&rdquo;</p>
+<pre><code>gen terminating = inlist(pathway, 100, 101)	
+label var terminating &quot;indicator for a terminating event: first completion or transfer&quot;
+</code></pre>
 <p><span class="stcmt">// Generate an indicator for non-enrollment</span></p>
-<p>gen nonenrolled = pathway == 99</p>
-<p>label var nonenrolled &ldquo;indicator for non-enrollment in a term&rdquo;</p>
+<pre><code>gen nonenrolled = pathway == 99
+label var nonenrolled &quot;indicator for non-enrollment in a term&quot;	
+</code></pre>
 <p><span class="stcmt">// Generate an entry pathway code for each student</span></p>
-<p>bys studentid (cohorttermindex): gen entry_pathway = pathway[1]</p>
-<p>label var entry_pathway &ldquo;pathway code associated with a student at entry&rdquo;</p>
+<pre><code>bys studentid (cohorttermindex): gen entry_pathway = pathway[1]
+label var entry_pathway &quot;pathway code associated with a student at entry&quot;	
+</code></pre>
 <p><span class="stcmt">// Label entry pathways</span></p>
-<p>label values entry_pathway pathway_entry_vals</p>
-<p><span class="stcmt">// Step 3. Run regressions and plot margins</span></p>
+<pre><code>label values entry_pathway pathway_entry_vals
+</code></pre>
+<p><span class="stcmt">// Step 4. Run regressions and plot margins //</span></p>
 <p><span class="stcmt">// Model: outcomes conditional only on initial pathway choice</span></p>
-<p>mlogit outcome i.pathway if cohorttermindex == 1, robust <span class="stcmt">// note that because each student will have multiple rows in the data but with covariate values fixed at values observed at entry, we only need to run the regression with the first entry for each student</span></p>
+<pre><code>mlogit outcome i.pathway if cohorttermindex == 1, robust//note that because each student will have multiple rows in the data but with covariate values fixed at values observed at entry, we only need to run the regression with the first entry for each student
+</code></pre>
 <p><span class="stcmt">// Chart: pathway unadjusted margins</span></p>
-<p>{</p>
-<p>margins pathway, predict(outcome(1)) predict(outcome(2))</p>
-<p>matrix ans = (r(b))&rsquo;</p>
-<p>cap frame drop working</p>
-<p>frame create working</p>
-<p>frame change working</p>
-<p>svmat2 ans, rnames(estimate_name)</p>
-<p>order estimate_name ans1</p>
-<p>rename ans1 prediction_</p>
-<p>gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;^([0-9])&rdquo;)</p>
-<p>destring outcome_level, replace</p>
-<p>gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;t.([0-9]+)&rdquo;)</p>
-<p>destring pathway_level, replace</p>
-<p>drop estimate_name</p>
-<p>order outcome_level pathway_level</p>
-<p>reshape wide prediction_, i(pathway_level) j(outcome_level) <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames</span></p>
-<p>label define pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo;</p>
-<p>label values pathway_level pathway_vals</p>
-<p>graph bar (asis) prediction_1 prediction_2, <span class="stcmt">///</span></p>
-<p>title(&ldquo;Probability of Completion First or Transferring First&rdquo; &ldquo;by Pathway&rdquo;) <span class="stcmt">///</span></p>
-<p>ytitle(&ldquo;Probability&rdquo;) b1(&ldquo;Pathway&rdquo;) over(pathway_level) <span class="stcmt">///</span></p>
-<p>stack ylabel(0(0.2)1) graphregion(fcolor(white)) <span class="stcmt">///</span></p>
-<p>legend(label(1 &ldquo;Completion First&rdquo;) label(2 &ldquo;Transfer First&rdquo;)) <span class="stcmt">///</span></p>
-<p>xsize(5.5) note(&ldquo;Note: Probabilities for each outcome are stacked.&rdquo;, <span class="stcmt">///</span></p>
-<p>size(vsmall)) bar(1, fcolor(&ldquo;51 34 136&rdquo;) <span class="stcmt">///</span></p>
-<p>lcolor(black)) bar(2, fcolor(&ldquo;68 170 153&rdquo;) lcolor(black)) <span class="stcmt">// colors chosen for colorblindness accessibility</span></p>
-<p>graph export &ldquo;${saved_graphs}/1_main.png&rdquo;, replace</p>
-<p>frame change default</p>
-<p>frame drop working</p>
-<p>}</p>
+<pre><code>{
+margins pathway, predict(outcome(1)) predict(outcome(2))
+matrix ans = (r(b))'
+cap frame drop working
+frame create working
+frame change working
+svmat2 ans, rnames(estimate_name)
+order estimate_name ans1
+rename ans1 prediction_
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;^([0-9])&quot;)
+destring outcome_level, replace
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;t.([0-9]+)&quot;)
+destring pathway_level, replace
+drop estimate_name
+order outcome_level pathway_level	
+reshape wide prediction_, i(pathway_level) j(outcome_level)//please modify appropriately; unfortunately, value labels do not copy automatically into new frames
+label define pathway_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot; 
+label values pathway_level pathway_vals
+	graph bar (asis) prediction_1 prediction_2,title(&quot;Probability of Completion First or Transferring First&quot; &quot;by Pathway&quot;) ytitle(&quot;Probability&quot;) b1(&quot;Pathway&quot;) over(pathway_level) stack ylabel(0(0.2)1) graphregion(fcolor(white)) legend(label(1 &quot;Completion First&quot;) label(2 &quot;Transfer First&quot;)) xsize(5.5) note(&quot;Note: Probabilities for each outcome are stacked.&quot;, size(vsmall)) bar(1, fcolor(&quot;51 34 136&quot;) lcolor(black)) bar(2, fcolor(&quot;68 170 153&quot;) lcolor(black))//colors chosen for colorblindness accessibility
+	graph export &quot;${saved_graphs}/1_main.png&quot;, replace
+frame change default
+frame drop working		
+}
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows the probability that a student will have a successful outcome, conditional on their pathway of entry. We see differences across pathway. For example, among students entering the Health pathway, the probability that a student will earn a credential or transfer to another institution is around 50 percent. In contrast, the probability that a student entering Mechanical Repair will complete or transfer is only slightly above 20 percent.</p>
@@ -353,33 +359,36 @@ html {
 </div>
 <pre id="stlog-2" class="stcmd"><code>
 <span class="stcmt">// Create adjusted outcome model &amp; chart</span>
-<p><span class="stcmt">// Model: outcomes conditional on baseline student traits</span></p>
+<p><span class="stcmt">// Model: outcomes conditional on baseline student traits //</span></p>
 <p><span class="stcmt">//note mi_motheredlevel omitted because missingness is already encoded as level 4 of motheredlevel so it&rsquo;s excluded from the full model</span></p>
-<p>mlogit outcome c.age c.age#i.pathway c.hsgpa i.mi_hsgpa c.hsgpa#i.pathway i.male i.male#i.pathway c.pell i.mi_pell c.pell#i.pathway i.motheredlevel i.motheredlevel#i.pathway i.race i.race#i.pathway i.pathway i.institutionid i.cohortyear if cohorttermindex == 1, robust</p>
+<pre><code>mlogit outcome c.age c.age#i.pathway c.hsgpa i.mi_hsgpa c.hsgpa#i.pathway i.male i.male#i.pathway c.pell i.mi_pell c.pell#i.pathway i.motheredlevel i.motheredlevel#i.pathway i.race i.race#i.pathway i.pathway i.institutionid i.cohortyear if cohorttermindex == 1, robust
+</code></pre>
 <p><span class="stcmt">//note that because each student will have multiple rows in the data but with covariate values fixed at values observed at entry, we only need to run the regression with the first entry for each student</span></p>
-<p><span class="stcmt">// Chart: pathway adjusted margins</span> {</p>
-<p>margins pathway, predict(outcome(1)) predict(outcome(2))</p>
-<p>matrix ans = (r(b))&rsquo;</p>
-<p>cap frame drop working</p>
-<p>frame create working</p>
-<p>frame change working</p>
-<p>svmat2 ans, rnames(estimate_name)</p>
-<p>order estimate_name ans1</p>
-<p>rename ans1 prediction_</p>
-<p>gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;^([0-9])&rdquo;)</p>
-<p>destring outcome_level, replace</p>
-<p>gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;t.([0-9]+)&rdquo;)</p>
-<p>destring pathway_level, replace</p>
-<p>label define pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames</span></p>
-<p>label values pathway_level pathway_vals</p>
-<p>drop estimate_name</p>
-<p>order outcome_level pathway_level</p>
-<p>reshape wide prediction_, i(pathway_level) j(outcome_level)</p>
-<p>graph bar (asis) prediction_1 prediction_2, title(&ldquo;Adjusted Probability of Completion First&rdquo; &ldquo;or Transferring First by Pathway&rdquo;) ytitle(.  &ldquo;Adjusted Probability&rdquo;) b1(&ldquo;Pathway&rdquo;) over(pathway_level) stack ylabel(0(0.2)1) graphregion(fcolor(white)) legend(label(1 &ldquo;Completion First&rdquo;) label(2 &ldquo;Transfer First&rdquo;)) xsize(5.5) note (&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted&rdquo; &ldquo;probabilities for each outcome are stacked.&rdquo;, size(vsmall)) bar(1, fcolor(&ldquo;51 34 136&rdquo;) lcolor(black)) bar(2, fcolor(&ldquo;68 170 153&rdquo;) lcolor(black))</p>
-<p>graph export &ldquo;${saved_graphs}/2_main_adjusted.png&rdquo;, replace</p>
-<p>frame change default</p>
-<p>frame drop working</p>
-<p>}</p>
+<p><span class="stcmt">// Chart: pathway adjusted margins //</span></p>
+<pre><code>{
+margins pathway, predict(outcome(1)) predict(outcome(2))
+matrix ans = (r(b))'	
+cap frame drop working
+frame create working
+frame change working
+svmat2 ans, rnames(estimate_name)
+order estimate_name ans1
+rename ans1 prediction_
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;^([0-9])&quot;)
+destring outcome_level, replace
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;t.([0-9]+)&quot;)
+destring pathway_level, replace
+label define pathway_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//please modify appropriately; unfortunately, value labels do not copy automatically into new frames
+label values pathway_level pathway_vals
+drop estimate_name
+order outcome_level pathway_level	
+reshape wide prediction_, i(pathway_level) j(outcome_level) 	
+	graph bar (asis) prediction_1 prediction_2, title(&quot;Adjusted Probability of Completion First&quot; &quot;or Transferring First by 	Pathway&quot;) ytitle(&quot;Adjusted Probability&quot;) b1(&quot;Pathway&quot;) over(pathway_level) stack ylabel(0(0.2)1) graphregion(fcolor(white))legend(label(1 &quot;Completion First&quot;) label(2 &quot;Transfer First&quot;)) xsize(5.5) note (&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted&quot; &quot;probabilities for each outcome are stacked.&quot;, size(vsmall)) bar(1, fcolor(&quot;51 34 136&quot;) lcolor(black)) bar(2, fcolor(&quot;68 170 153&quot;) lcolor(black)) 
+	graph export &quot;${saved_graphs}/2_main_adjusted.png&quot;, replace
+frame change default
+frame drop working	
+}
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows how two students, who are the same on all observed characteristics, have differing probabilities of success based on which CTE pathway they choose to enroll in. Similar to the prior chart, the probability of success for students in the Health pathway is about 50 percent. However, we see changes in the probability of success between the unadjusted and adjusted graphs for other programs, like Engineering Technology and Mech Repair. These results suggest that students in Mech Repair do better than we would expect given their observed characteristics, while those in Engineering Tech have a lower probability of success than we would expect just based on background characteristics.</p>
@@ -393,43 +402,43 @@ html {
 <pre id="stlog-3" class="stcmd"><code>
 <span class="stcmt">// Create trends over time chart</span>
 <p><span class="stcmt">// Chart: waterfall view of completion/transfer, unenrollment, and continued enrollment over time</span></p>
-<p>{</p>
-<p>cap frame drop working</p>
-<p>frame create working double(pathway term denominator terminated nonenrolled stillenrolled)</p>
-<p>foreach p in $pathways {</p>
-<p>di _newline(2)</p>
-<p>distinct studentid if entry_pathway == `p&rsquo;</p>
-<p>local denominator = r(ndistinct)</p>
-<p>forvalues i = 1/$max_term {</p>
-<p>preserve</p>
-<p>keep if entry_pathway == <code>p' &amp;amp; cohorttermindex &amp;lt;=</code>i&rsquo;</p>
-<p>bys studentid: egen any_terminating = max(terminating)</p>
-<p>keep studentid entry_pathway pathway any_terminating cohorttermindex</p>
-<p>keep if cohorttermindex == `i&rsquo;</p>
-<p>isid studentid</p>
-<p>count if any_terminating == 1</p>
-<p>local terminated = r(N)</p>
-<p>count if pathway == 99</p>
-<p>local nonenrolled = r(N)</p>
-<p>count if pathway != 99 &amp; any_terminating == 0</p>
-<p>local stillenrolled = r(N)</p>
-<p>restore</p>
-<p>frame post working (<code>p') (</code>i&rsquo;) (<code>denominator') (</code>terminated&rsquo;) (<code>nonenrolled') (</code>stillenrolled&rsquo;)</p>
-<p>}</p>
-<p>}</p>
-<p>frame change working</p>
-<p>foreach s in terminated nonenrolled stillenrolled {</p>
-<p>gen pct_<code>s' =</code>s&rsquo;/denominator</p>
-<p>}</p>
-<p><span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames</span></p>
-<p>label define pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo;</p>
-<p>label values pathway pathway_vals</p>
-<p>gen pct_nonenrolled_neg = -1*pct_nonenrolled <span class="stcmt">// useful for getting this portion of cohort to hang below the x axis</span></p>
-<p>graph bar (asis) pct_stillenrolled pct_terminated pct_nonenrolled_neg, over(term) yline(0, lcolor(gray)) bar(1, fcolor(navy)) bar(2, fcolor(green)) bar(3, fcolor(cranberry)) stack by(pathway, title(&ldquo;First Completion/Transfer Rates by Pathway&rdquo;) b1title(&ldquo;Cohort Term&rdquo;) graphregion(fcolor(white)) legend(position(3)) note(&ldquo;Note: Each stacked bar represents an entire cohort each term.&rdquo;, size(vsmall))) legend(cols(1) label(1 &ldquo;Still Enrolled&rdquo;) label(2 &ldquo;Completer/&rdquo; &ldquo;Transfer&rdquo;) label(3 &ldquo;No Longer&rdquo; &ldquo;Enrolled&rdquo;) size(small) symxsize(small) textwidth(18)) ytitle(&ldquo;Proportion of Cohort&rdquo;) ylabel(-0.5 &ldquo;0.5&rdquo; 0 &ldquo;0&rdquo; 0.5 &ldquo;0.5&rdquo; 1 &ldquo;1&rdquo;) bar(1, fcolor(&ldquo;51 34 136&rdquo;) lcolor(black)) bar(2, fcolor(&ldquo;68 170 153&rdquo;) lcolor(black)) bar(3, fcolor(&ldquo;136 34 85&rdquo;) lcolor(black))</p>
-<p>graph export &ldquo;${saved_graphs}/3_student_status_over_time.png&rdquo;, replace</p>
-<p>frame change default</p>
-<p>frame drop working</p>
-<p>}</p>
+<pre><code>{
+cap frame drop working
+frame create working double(pathway term denominator terminated nonenrolled stillenrolled)
+foreach p in $pathways {
+    di _newline(2)
+	distinct studentid if entry_pathway == `p'
+	local denominator = r(ndistinct)
+	forvalues i = 1/$max_term {
+		preserve
+			keep if entry_pathway == `p' &amp;amp; cohorttermindex &amp;lt;= `i'
+			bys studentid: egen any_terminating = max(terminating)
+			keep studentid entry_pathway pathway any_terminating cohorttermindex
+			keep if cohorttermindex == `i'
+			isid studentid
+			count if any_terminating == 1
+			local terminated = r(N)
+			count if pathway == 99
+			local nonenrolled = r(N)
+			count if pathway != 99 &amp;amp; any_terminating == 0
+			local stillenrolled = r(N)
+		restore 
+		frame post working (`p') (`i') (`denominator') (`terminated') (`nonenrolled')	(`stillenrolled')
+	}	
+}
+frame change working
+foreach s in terminated nonenrolled stillenrolled {
+	gen pct_`s' = `s'/denominator
+}	
+label define pathway_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//please modify appropriately; unfortunately, value labels do not copy automatically into new frames
+label values pathway pathway_vals		
+gen pct_nonenrolled_neg = -1*pct_nonenrolled//useful for getting this portion of cohort to hang below the x axis
+graph bar (asis) pct_stillenrolled pct_terminated pct_nonenrolled_neg, over(term) yline(0, lcolor(gray)) bar(1, fcolor(navy)) bar(2, fcolor(green)) bar(3, fcolor(cranberry)) stack by(pathway, title(&quot;First Completion/Transfer Rates by Pathway&quot;) b1title(&quot;Cohort Term&quot;) graphregion(fcolor(white)) legend(position(3)) note(&quot;Note: Each stacked bar represents an entire cohort each term.&quot;, size(vsmall))) legend(cols(1) label(1 &quot;Still Enrolled&quot;) label(2 &quot;Completer/&quot; &quot;Transfer&quot;) label(3 &quot;No Longer&quot; &quot;Enrolled&quot;) size(small) symxsize(small) textwidth(18)) ytitle(&quot;Proportion of Cohort&quot;) ylabel(-0.5 &quot;0.5&quot; 0 &quot;0&quot; 0.5 &quot;0.5&quot; 1 &quot;1&quot;) bar(1, fcolor(&quot;51 34 136&quot;) lcolor(black)) bar(2, fcolor(&quot;68 170 153&quot;) lcolor(black)) bar(3, fcolor(&quot;136 34 85&quot;) lcolor(black))
+graph export &quot;${saved_graphs}/3_student_status_over_time.png&quot;, replace
+frame change default
+frame drop working		
+}	
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>In this chart, we see the share of students in a particular pathway who are still enrolled in that pathway, who have completed a credential or transferred, and who are no longer enrolled in higher education in that term. For example, in Health we see that in the sixth term, just under half of all students have completed or transferred and just over half are no longer enrolled. In contrast, in IT Tech we see that in the sixth semester about half of all students are no longer enrolled, a little over a quarter have completed or transferred, and just under a quarter are still enrolled.</p>
@@ -444,221 +453,241 @@ html {
 <pre id="stlog-4" class="stcmd"><code>
 <span class="stcmt">// Create margins plots</span>
 <p><span class="stcmt">// Charts: high school GPA margins</span></p>
-<p>{</p>
 <p><span class="stcmt">// Main high school GPA margins</span></p>
-<p>margins pathway, at(hsgpa = (2(0.25)4)) predict(outcome(1)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) byopts(title(&ldquo;Adjusted Probability of Completion First or Transfer First&rdquo; &ldquo;by High School GPA&rdquo;) graphregion(fcolor(white)) imargin(medium) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))) ytitle(&ldquo;Adjusted Probability&rdquo;) xtitle(&ldquo;High School GPA&rdquo;) ylabel(0(0.2)1) noci legend(order(1 &ldquo;Completion First&rdquo; 2 &ldquo;Transfer First&rdquo;)) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;), plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;))</p>
-<p>graph export &ldquo;${saved_graphs}/4_gpa_1.png&rdquo;, replace</p>
+<pre><code>{	
+margins pathway, at(hsgpa = (2(0.25)4)) predict(outcome(1)) predict(outcome(2))				
+	marginsplot, bydimension(pathway) byopts(title(&quot;Adjusted Probability of Completion First or Transfer First&quot; &quot;by High School GPA&quot;) graphregion(fcolor(white)) imargin(medium) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))) ytitle(&quot;Adjusted Probability&quot;) xtitle(&quot;High School GPA&quot;) ylabel(0(0.2)1) noci legend(order(1 &quot;Completion First&quot; 2 &quot;Transfer First&quot;)) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;), plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;))	
+	graph export &quot;${saved_graphs}/4_gpa_1.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// High school GPA margins by gender</span></p>
-<p>margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) name(g4_a, replace)</p>
-<p>margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) name(g4_b, replace)</p>
-<p>grc1leg2 g4_a g4_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Gender and High School GPA&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;High School GPA&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/4_gpa_2.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(1))	
+	marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) name(g4_a, replace)	
+margins pathway, at(male = (0(1)1) hsgpa = (2(0.25)4)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) name(g4_b, replace)
+	grc1leg2 g4_a g4_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Gender and High School GPA&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;High School GPA&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))
+	graph export &quot;${saved_graphs}/4_gpa_2.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// High school GPA margins by mother level of education</span></p>
-<p>margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) legend(order(1 &ldquo;Middle Sch&rdquo; 2 &ldquo;High Sch&rdquo; 3 &ldquo;Any College&rdquo;)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g4_a, replace)</p>
-<p>margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g4_b, replace)</p>
-<p>grc1leg2 g4_a g4_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Mother&rsquo;s Education Level and High School GPA&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;High School GPA&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/4_gpa_3.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(1))	
+	marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) legend(order(1 &quot;Middle Sch&quot; 2 &quot;High Sch&quot; 3 &quot;Any College&quot;)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g4_a, replace)
+margins pathway, at(motheredlevel = (1(1)3) hsgpa = (2(0.25)4)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g4_b, replace)
+	grc1leg2 g4_a g4_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Mother's Education Level and High School GPA&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;High School GPA&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))
+	graph export &quot;${saved_graphs}/4_gpa_3.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// High school GPA margins by race/ethnicity</span></p>
-<p>margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) yline(0, lcolor(black)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(mcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(mcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g4_a, replace)</p>
-<p>margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) yline(0, lcolor(black)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(mcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(mcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g4_b, replace)</p>
-<p>grc1leg2 g4_a g4_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Race/Ethnicity and High School GPA&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;High School GPA&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/4_gpa_4.png&rdquo;, replace</p>
-<p>}</p>
+<pre><code>margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) yline(0, lcolor(black)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(mcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(mcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g4_a, replace)
+margins pathway, at(race = (1(1)5) hsgpa = (2(0.25)4)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) yline(0, lcolor(black)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(2(0.5)4) plotregion(margin(zero)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(mcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(mcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g4_b, replace)		
+	grc1leg2 g4_a g4_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Race/Ethnicity and High School GPA&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;High School GPA&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))
+	graph export &quot;${saved_graphs}/4_gpa_4.png&quot;, replace
+	
+}
+</code></pre>
 <p><span class="stcmt">// Charts: Pell grant margins</span></p>
-<p>{</p>
 <p><span class="stcmt">// Main Pell grant margins </span></p>
-<p>margins pathway, at(pell = (0(1000)6000)) predict(outcome(1)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) byopts(title(&ldquo;Adjusted Probability of Completion First or Transfer First&rdquo; &ldquo;by Pell Grant Dollars&rdquo;) graphregion(fcolor(white)) imargin(medium) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))) ytitle(&ldquo;Adjusted Probability&rdquo;) xtitle(&ldquo;Pell Dollars Awarded in First Year&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) noci legend(order(1 &ldquo;Completion First&rdquo; 2 &ldquo;Transfer First&rdquo;)) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;))</p>
-<p>graph export &ldquo;${saved_graphs}/5_pell_1.png&rdquo;, replace</p>
+<pre><code>{
+margins pathway, at(pell = (0(1000)6000)) predict(outcome(1)) predict(outcome(2))
+	marginsplot, bydimension(pathway) byopts(title(&quot;Adjusted Probability of Completion First or Transfer First&quot; &quot;by Pell Grant Dollars&quot;) graphregion(fcolor(white)) imargin(medium) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))) ytitle(&quot;Adjusted Probability&quot;) xtitle(&quot;Pell Dollars Awarded in First Year&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) noci legend(order(1 &quot;Completion First&quot; 2 &quot;Transfer First&quot;)) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;))
+	graph export &quot;${saved_graphs}/5_pell_1.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// Pell grant margins by gender</span></p>
-<p>margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) name(g5_a, replace)</p>
-<p>margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;)  lcolor(&ldquo;68 170 153&rdquo;)) name(g5_b, replace)</p>
-<p>grc1leg2 g5_a g5_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Gender and Pell Grant Dollars&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;Pell Dollars Awarded in First Year&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/5_pell_2.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) name(g5_a, replace)
+margins pathway, at(male = (0 1) pell = (0(1000)6000)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;)  lcolor(&quot;68 170 153&quot;)) name(g5_b, replace) 		grc1leg2 g5_a g5_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Gender and Pell Grant Dollars&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;Pell Dollars Awarded in First Year&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))	
+	graph export &quot;${saved_graphs}/5_pell_2.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// Pell grant margins by mother level of education</span></p>
-<p>margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) legend(order(1 &ldquo;Middle Sch&rdquo; 2 &ldquo;High Sch&rdquo; 3 &ldquo;Any College&rdquo;)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g5_a, replace)</p>
-<p>margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g5_b, replace)</p>
-<p>grc1leg2 g5_a g5_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Mother&rsquo;s Education Level and Pell Grant Dollars&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;Pell Dollars Awarded in First Year&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/5_pell_3.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) legend(order(1 &quot;Middle Sch&quot; 2 &quot;High Sch&quot; 3 &quot;Any College&quot;)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g5_a, replace)	
+margins pathway, at(motheredlevel = (1(1)3) pell = (0(1000)6000)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g5_b, replace)
+	grc1leg2 g5_a g5_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Mother's Education Level and Pell Grant Dollars&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;Pell Dollars Awarded in First Year&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))	
+	graph export &quot;${saved_graphs}/5_pell_3.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// Pell grant margins by race/ethnicity</span></p>
-<p>margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) yline(0, lcolor(black)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(mcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(mcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g5_a, replace)</p>
-<p>margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) yline(0, lcolor(black)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(mcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(mcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g5_b, replace)</p>
-<p>grc1leg2 g5_a g5_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Race/Ethnicity and Pell Grant Dollars&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;Pell Dollars Awarded in First Year&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/5_pell_4.png&rdquo;, replace</p>
-<p>}</p>
+<pre><code>margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) yline(0, lcolor(black)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(mcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(mcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g5_a, replace)		
+margins pathway, at(race = (1(1)5) pell = (0(1000)6000)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) yline(0, lcolor(black)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(0(1500)6000) plotregion(margin(zero)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(mcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(mcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g5_b, replace)
+	grc1leg2 g5_a g5_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Race/Ethnicity and Pell Grant Dollars&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;Pell Dollars Awarded in First Year&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))	
+	graph export &quot;${saved_graphs}/5_pell_4.png&quot;, replace
+
+}	
+</code></pre>
 <p><span class="stcmt">// Charts: age at entry margins</span></p>
-<p>{</p>
 <p><span class="stcmt">// Main age at entry margins</span></p>
-<p>margins pathway, at(age = (18(3)36)) predict(outcome(1)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) byopts(title(&ldquo;Adjusted Probability of Completion First or Transfer First&rdquo; &ldquo;by Student Age at Entry&rdquo;) graphregion(fcolor(white)) imargin(medium) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))) ytitle(&ldquo;Adjusted Probability&rdquo;) xtitle(&ldquo;Student Age at Entry&rdquo;) ylabel(0(0.2)1) xlabel(18(3)36) noci legend(order(1 &ldquo;Completion First&rdquo; 2 &ldquo;Transfer First&rdquo;)) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;))</p>
-<p>graph export &ldquo;${saved_graphs}/6_age_1.png&rdquo;, replace</p>
+<pre><code>{
+margins pathway, at(age = (18(3)36)) predict(outcome(1)) predict(outcome(2))	
+	marginsplot, bydimension(pathway) byopts(title(&quot;Adjusted Probability of Completion First or Transfer First&quot; &quot;by Student Age at Entry&quot;) graphregion(fcolor(white)) imargin(medium) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))) ytitle(&quot;Adjusted Probability&quot;) xtitle(&quot;Student Age at Entry&quot;) ylabel(0(0.2)1) xlabel(18(3)36) noci legend(order(1 &quot;Completion First&quot; 2 &quot;Transfer First&quot;)) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;))
+	graph export &quot;${saved_graphs}/6_age_1.png&quot;, replace	
+</code></pre>
 <p><span class="stcmt">// Age at entry margins by gender</span></p>
-<p>margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;)  lcolor(&ldquo;68 170 153&rdquo;)) name(g6_a, replace)</p>
-<p>margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;)  ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;)  lcolor(&ldquo;68 170 153&rdquo;)) name(g6_b, replace)</p>
-<p>grc1leg2 g6_a g6_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Gender and Age at Entry&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;Age at Entry&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/6_age_2.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;)  lcolor(&quot;68 170 153&quot;)) name(g6_a, replace)	
+margins pathway, at(male = (0 1) age = (18(3)36)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(male) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;)  ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;)  lcolor(&quot;68 170 153&quot;)) name(g6_b, replace) 
+	grc1leg2 g6_a g6_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Gender and Age at Entry&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;Age at Entry&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(2) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))	
+	graph export &quot;${saved_graphs}/6_age_2.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// Age at entry margins by mother level of education</span></p>
-<p>margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) legend(order(1 &ldquo;Middle Sch&rdquo; 2 &ldquo;High Sch&rdquo; 3 &ldquo;Any College&rdquo;)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g6_a, replace)</p>
-<p>margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g6_b, replace)</p>
-<p>grc1leg2 g6_a g6_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Mother&rsquo;s Education Level and Age at Entry&rdquo;) rows(2) graphregion(fcolor(white))  b1title(&ldquo;Age at Entry&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/6_age_3.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) legend(order(1 &quot;Middle Sch&quot; 2 &quot;High Sch&quot; 3 &quot;Any College&quot;)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g6_a, replace)	
+margins pathway, at(motheredlevel = (1(1)3) age = (18(3)36)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(motheredlevel) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) yline(0, lcolor(black)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g6_b, replace) 	
+	grc1leg2 g6_a g6_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Mother's Education Level and Age at Entry&quot;) rows(2) graphregion(fcolor(white))  b1title(&quot;Age at Entry&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(3) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))	
+	graph export &quot;${saved_graphs}/6_age_3.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// Age at entry margins by race/ethnicity</span></p>
-<p>margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(1))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) yline(0, lcolor(black)) ytitle(&ldquo;First Completion&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(mcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(mcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g6_a, replace)</p>
-<p>margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(2))</p>
-<p>marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&ldquo;&ldquo;)) yline(0, lcolor(black)) ytitle(&ldquo;First Transfer&rdquo;) xtitle(&rdquo;&rdquo;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) plot1opts(mcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(mcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;))  plot3opts(mcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(mcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(mcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g6_b, replace)</p>
-<p>grc1leg2 g6_a g6_b, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Race/Ethnicity and Age at Entry&rdquo;) rows(2) graphregion(fcolor(white)) b1title(&ldquo;Age at Entry&rdquo;) l1title(&ldquo;Adjusted Probability&rdquo;) position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall))</p>
-<p>graph export &ldquo;${saved_graphs}/6_age_4.png&rdquo;, replace</p>
-<p>}</p>
+<pre><code>margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(1))
+	marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) yline(0, lcolor(black)) ytitle(&quot;First Completion&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(mcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(mcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g6_a, replace)	
+margins pathway, at(race = (1(1)5) age = (18(3)36)) predict(outcome(2))
+	marginsplot, bydimension(pathway) plotdimension(race) noci byopts(graphregion(fcolor(white)) rows(1) imargin(medium) title(&quot;&quot;)) yline(0, lcolor(black)) ytitle(&quot;First Transfer&quot;) xtitle(&quot;&quot;) ylabel(0(0.2)1) xlabel(18(6)36) plotregion(margin(zero)) plot1opts(mcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(mcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;))  plot3opts(mcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(mcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(mcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g6_b, replace)	
+	grc1leg2 g6_a g6_b, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Race/Ethnicity and Age at Entry&quot;) rows(2) graphregion(fcolor(white)) b1title(&quot;Age at Entry&quot;) l1title(&quot;Adjusted Probability&quot;) position(3) lrows(5) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))	
+	graph export &quot;${saved_graphs}/6_age_4.png&quot;, replace
+	
+}
+</code></pre>
 <p><span class="stcmt">// Charts: race/ethnicity margins</span></p>
-<p>{</p>
 <p><span class="stcmt">// Main race/ethnicity margins</span></p>
-<p>margins pathway, at(race = (1(1)5)) predict(outcome(1)) predict(outcome(2))</p>
-<p>matrix ans = (r(b))&rsquo;</p>
-<p>cap frame drop working</p>
-<p>frame create working</p>
-<p>frame change working</p>
-<p>svmat2 ans, rnames(estimate_name)</p>
-<p>order estimate_name ans1</p>
-<p>rename ans1 prediction_</p>
-<p>gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;^([0-9])&rdquo;)</p>
-<p>destring outcome_level, replace</p>
-<p>gen race_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;predict#([0-9])&rdquo;)</p>
-<p>destring race_level, replace</p>
-<p>label define race_vals 1 &ldquo;Asian&rdquo; 2 &ldquo;Black&rdquo; 3 &ldquo;Hispanic&rdquo; 4 &ldquo;White&rdquo; 5 &ldquo;Other&rdquo; <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span></p>
-<p>label values race_level race_vals</p>
-<p>gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;_at#([0-9]+)&rdquo;)</p>
-<p>destring pathway_level, replace</p>
-<p>label define pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span></p>
-<p>label values pathway_level pathway_vals</p>
-<p>drop estimate_name</p>
-<p>order race_level pathway_level outcome_level</p>
-<p>reshape wide prediction_, i(race_level pathway_level) j(outcome_level)</p>
-<p>graph bar (asis) prediction_1 prediction_2, by(pathway_level, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Race/Ethnicity&rdquo;) b1title(&ldquo;Race/Ethnicity&rdquo;, size(medium)) imargin(medium) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities&rdquo; &ldquo;for each outcome are stacked.&rdquo;, size(vsmall)) graphregion(fcolor(white)) legend(position(3))) ytitle(&ldquo;Adjusted Probability&rdquo;) over(race_level, label(angle(45))) stack ylabel(0(0.2)1) legend(order(1 &ldquo;Completion First&rdquo; 2 &ldquo;Transfer First&rdquo;) rows(2) symxsize(2) size(small) width(35)) bar(1, fcolor(&ldquo;51 34 136&rdquo;) lcolor(black)) bar(2, fcolor(&ldquo;68 170 153&rdquo;) lcolor(black))</p>
-<p>graph export &ldquo;${saved_graphs}/7_race_1.png&rdquo;, replace</p>
-<p>frame change default</p>
-<p>frame drop working</p>
+<pre><code>{
+margins pathway, at(race = (1(1)5)) predict(outcome(1)) predict(outcome(2))
+matrix ans = (r(b))'
+cap frame drop working
+frame create working
+frame change working
+svmat2 ans, rnames(estimate_name)
+order estimate_name ans1
+rename ans1 prediction_
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;^([0-9])&quot;)
+destring outcome_level, replace
+gen race_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;predict#([0-9])&quot;)
+destring race_level, replace
+label define race_vals 1 &quot;Asian&quot; 2 &quot;Black&quot; 3 &quot;Hispanic&quot; 4 &quot;White&quot; 5 &quot;Other&quot;//unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another
+label values race_level race_vals
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;_at#([0-9]+)&quot;)
+destring pathway_level, replace
+label define pathway_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//please modify appropriately; unfortunately, value labels do not copy automatically into new frames	
+label values pathway_level pathway_vals
+drop estimate_name
+order race_level pathway_level outcome_level	
+reshape wide prediction_, i(race_level pathway_level) j(outcome_level)
+	graph bar (asis) prediction_1 prediction_2, by(pathway_level, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Race/Ethnicity&quot;) b1title(&quot;Race/Ethnicity&quot;, size(medium)) imargin(medium) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities&quot; &quot;for each outcome are stacked.&quot;, size(vsmall)) graphregion(fcolor(white)) legend(position(3))) ytitle(&quot;Adjusted Probability&quot;) over(race_level, label(angle(45))) stack ylabel(0(0.2)1) legend(order(1 &quot;Completion First&quot; 2 &quot;Transfer First&quot;) rows(2) symxsize(2) size(small) width(35)) bar(1, fcolor(&quot;51 34 136&quot;) lcolor(black)) bar(2, fcolor(&quot;68 170 153&quot;) lcolor(black))		
+	graph export &quot;${saved_graphs}/7_race_1.png&quot;, replace		
+frame change default
+frame drop working
+</code></pre>
 <p><span class="stcmt">// Race/ethnicity margins by gender	</span></p>
-<p>margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(1))</p>
-<p>marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) noci byopts(title(&ldquo;&ldquo;) l1title(&rdquo;&rdquo;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(fcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(fcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(fcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(fcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g7_a, replace)</p>
-<p>margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(2))</p>
-<p>marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) noci byopts(title(&ldquo;&ldquo;) l1title(&rdquo;&rdquo;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(fcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(fcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(fcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(fcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g7_b, replace)</p>
-<p>levelsof entry_pathway, local(pathways)</p>
-<p>local named_graphs</p>
-<p>forvalues i = 1/<code>: word count</code>pathways'' {</p>
-<p>local named_graphs <code>named_graphs' g7_a</code>i&rsquo;</p>
-<p>}</p>
-<p>forvalues i = 1/<code>: word count</code>pathways'' {</p>
-<p>local named_graphs <code>named_graphs' g7_b</code>i&rsquo;</p>
-<p>}</p>
-<p>grc1leg2 `named_graphs&rsquo;, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Gender and Race/Ethnicity&rdquo;) l2title(&ldquo;Adjusted Probability&rdquo;) l1title(&ldquo;First Transfer First Completion&rdquo;, size(small)) graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span></p>
-<p>graph export &ldquo;${saved_graphs}/7_race_2.png&rdquo;, replace</p>
+<pre><code>margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(1))	
+	marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) noci byopts(title(&quot;&quot;) l1title(&quot;&quot;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(fcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(fcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(fcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(fcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g7_a, replace)
+margins pathway, at(race = (1(1)5) male = (0 1)) predict(outcome(2))
+	marginsplot, graphdimension(pathway) bydimension(male) xdimension(race) noci byopts(title(&quot;&quot;) l1title(&quot;&quot;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(vsmall)) recast(bar) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(fcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(fcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(fcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(fcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g7_b, replace)
+levelsof entry_pathway, local(pathways)
+local named_graphs
+forvalues i = 1/`: word count `pathways'' {
+	local named_graphs `named_graphs' g7_a`i'
+	}
+forvalues i = 1/`: word count `pathways'' {
+	local named_graphs `named_graphs' g7_b`i'
+	}	
+	grc1leg2 `named_graphs', title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Gender and Race/Ethnicity&quot;) l2title(&quot;Adjusted Probability&quot;) l1title(&quot;First Transfer First Completion&quot;, size(small)) graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall))//the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph
+	graph export &quot;${saved_graphs}/7_race_2.png&quot;, replace
+</code></pre>
 <p><span class="stcmt">// Race/ethnicity margins by mother level of education</span></p>
-<p>margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(1))</p>
-<p>marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title(&ldquo;&ldquo;) l1title(&rdquo;&rdquo;) b1title(&quot;&quot;) rows(1) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(fcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(fcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(fcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;))  plot5opts(fcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g7_a, replace)</p>
-<p>margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(2))</p>
-<p>marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title(&ldquo;&ldquo;) l1title(&rdquo;&rdquo;) b1title(&quot;&quot;) rows(1) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(fcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(fcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) plot4opts(fcolor(&ldquo;136 204 238&rdquo;) lcolor(&ldquo;136 204 238&rdquo;)) plot5opts(fcolor(&ldquo;204 102 119&rdquo;) lcolor(&ldquo;204 102 119&rdquo;)) name(g7_b, replace)</p>
-<p>levelsof entry_pathway, local(pathways)</p>
-<p>local named_graphs</p>
-<p>forvalues i = 1/<code>: word count</code>pathways'' {</p>
-<p>local named_graphs <code>named_graphs' g7_a</code>i&rsquo;</p>
-<p>}</p>
-<p>forvalues i = 1/<code>: word count</code>pathways'' {</p>
-<p>local named_graphs <code>named_graphs' g7_b</code>i&rsquo;</p>
-<p>}</p>
-<p>grc1leg2 `named_graphs&rsquo;, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Mother&rsquo;s Education Level and Race/Ethnicity&rdquo;) l2title(&ldquo;Adjusted Probability&rdquo;) l1title(&ldquo;First Transfer First Completion&rdquo;, size(small)) graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(9) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall)) <span class="stcmt">// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span></p>
-<p>graph export &ldquo;${saved_graphs}/7_race_3.png&rdquo;, replace</p>
-<p>}</p>
+<pre><code>margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(1))
+	marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title(&quot;&quot;) l1title(&quot;&quot;) b1title(&quot;&quot;) rows(1) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(fcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(fcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(fcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;))  plot5opts(fcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g7_a, replace)
+margins pathway, at(race = (1(1)5) motheredlevel = (1(1)3)) predict(outcome(2))
+	marginsplot, graphdimension(pathway) bydimension(motheredlevel) xdimension(race) noci recast(bar) byopts(title(&quot;&quot;) l1title(&quot;&quot;) b1title(&quot;&quot;) rows(1) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(race) plot1opts(fcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(fcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(fcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) plot4opts(fcolor(&quot;136 204 238&quot;) lcolor(&quot;136 204 238&quot;)) plot5opts(fcolor(&quot;204 102 119&quot;) lcolor(&quot;204 102 119&quot;)) name(g7_b, replace)
+levelsof entry_pathway, local(pathways)
+local named_graphs
+forvalues i = 1/`: word count `pathways'' {
+	local named_graphs `named_graphs' g7_a`i'
+	}
+forvalues i = 1/`: word count `pathways'' {
+	local named_graphs `named_graphs' g7_b`i'	
+	}	
+	grc1leg2 `named_graphs', title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Mother's Education Level and Race/Ethnicity&quot;) l2title(&quot;Adjusted Probability&quot;) l1title(&quot;First Transfer First Completion&quot;, size(small)) graphregion(fcolor(white)) rows(2) lrows(5) position(3) symxsize(small) labsize(small) xsize(9) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall)) &lt;span class=&quot;stcmt&quot;&gt;// the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph&lt;/span&gt;
+	graph export &quot;${saved_graphs}/7_race_3.png&quot;, replace		
+}
+</code></pre>
 <p><span class="stcmt">// Charts: mother&rsquo;s ed.</span></p>
-<p>{</p>
 <p><span class="stcmt">// Main mother level of education margins</span></p>
-<p>margins pathway, at(motheredlevel = (1(1)4)) predict(outcome(1)) predict(outcome(2))</p>
-<p>matrix ans = (r(b))&rsquo;</p>
-<p>cap frame drop working</p>
-<p>frame create working</p>
-<p>frame change working</p>
-<p>svmat2 ans, rnames(estimate_name)</p>
-<p>order estimate_name ans1</p>
-<p>rename ans1 prediction_</p>
-<p>gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;^([0-9])&rdquo;)</p>
-<p>destring outcome_level, replace</p>
-<p>gen mothered_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;predict#([0-9]+)&rdquo;)</p>
-<p>destring mothered_level, replace</p>
-<p>label define edlevel_vals 1 &ldquo;Middle Sch&rdquo; 2 &ldquo;High Sch&rdquo; 3 &ldquo;Any College&rdquo; 4 &ldquo;NA&rdquo; <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span></p>
-<p>label values mothered_level edlevel_vals</p>
-<p>gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;_at#([0-9]+)&rdquo;)</p>
-<p>destring pathway_level, replace</p>
-<p>label define pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span></p>
-<p>label values pathway_level pathway_vals</p>
-<p>drop estimate_name</p>
-<p>order mothered_level pathway_level outcome_level</p>
-<p>reshape wide prediction_, i(mothered_level pathway_level) j(outcome_level)</p>
-<p>graph bar (asis) prediction_1 prediction_2, by(pathway_level, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Mother&rsquo;s Education Level&rdquo;) b1title(&ldquo;Mother&rsquo;s Eduation Level&rdquo;) imargin(medium) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities&rdquo; &ldquo;for each outcome are stacked.&rdquo;, size(vsmall)) graphregion(fcolor(white))) ytitle(&ldquo;Adjusted Probability&rdquo;) over(mothered_level, relabel(1 <code>&quot; &quot;Middle&quot; &quot;Sch&quot; &quot;' 2</code>&quot; &ldquo;High&rdquo; &ldquo;Sch&rdquo; &ldquo;&rsquo; 3 `&rdquo; &ldquo;Any&rdquo; &ldquo;College&rdquo; &quot;&rsquo;) label(labsize(small))) stack ylabel(0(0.2)1) legend(order(1 &ldquo;Completion First&rdquo; 2 &ldquo;Transfer First&rdquo;)) bar(1, fcolor(&ldquo;51 34 136&rdquo;) lcolor(black)) bar(2, fcolor(&ldquo;68 170 153&rdquo;) lcolor(black))</p>
-<p>graph export &ldquo;${saved_graphs}/8_mothered_1.png&rdquo;, replace</p>
-<p>frame change default</p>
-<p>frame drop working</p>
+<pre><code>{
+margins pathway, at(motheredlevel = (1(1)4)) predict(outcome(1)) predict(outcome(2))
+matrix ans = (r(b))'	
+cap frame drop working
+frame create working
+frame change working
+svmat2 ans, rnames(estimate_name)
+order estimate_name ans1
+rename ans1 prediction_
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;^([0-9])&quot;)
+destring outcome_level, replace
+gen mothered_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;predict#([0-9]+)&quot;)
+destring mothered_level, replace
+label define edlevel_vals 1 &quot;Middle Sch&quot; 2 &quot;High Sch&quot; 3 &quot;Any College&quot; 4 &quot;NA&quot;//unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another
+label values mothered_level edlevel_vals
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;_at#([0-9]+)&quot;)
+destring pathway_level, replace
+label define pathway_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//please modify appropriately; unfortunately, value labels do not copy automatically into new frames	
+label values pathway_level pathway_vals
+drop estimate_name
+order mothered_level pathway_level outcome_level	
+reshape wide prediction_, i(mothered_level pathway_level) j(outcome_level)
+	graph bar (asis) prediction_1 prediction_2, by(pathway_level, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Mother's Education Level&quot;) b1title(&quot;Mother's Eduation Level&quot;) imargin(medium) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities&quot; &quot;for each outcome are stacked.&quot;, size(vsmall)) graphregion(fcolor(white))) ytitle(&quot;Adjusted Probability&quot;) over(mothered_level, relabel(1 `&quot; &quot;Middle&quot; &quot;Sch&quot; &quot;' 2 `&quot; &quot;High&quot; &quot;Sch&quot; &quot;' 3 `&quot; &quot;Any&quot; &quot;College&quot; &quot;') label(labsize(small))) stack ylabel(0(0.2)1) legend(order(1 &quot;Completion First&quot; 2 &quot;Transfer First&quot;)) bar(1, fcolor(&quot;51 34 136&quot;) lcolor(black)) bar(2, fcolor(&quot;68 170 153&quot;) lcolor(black))
+	graph export &quot;${saved_graphs}/8_mothered_1.png&quot;, replace	
+frame change default	
+frame drop working
+</code></pre>
 <p><span class="stcmt">// Mother level of education margins by gender</span></p>
-<p>margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(1))</p>
-<p>marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title(&ldquo;&ldquo;) l1title(&rdquo;&rdquo;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) plot1opts(fcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;))  plot2opts(fcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(fcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g8_a, replace)</p>
-<p>margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(2))</p>
-<p>marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title(&ldquo;&ldquo;) l1title(&rdquo;&rdquo;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) plot1opts(fcolor(&ldquo;51 34 136&rdquo;) lcolor(&ldquo;51 34 136&rdquo;)) plot2opts(fcolor(&ldquo;68 170 153&rdquo;) lcolor(&ldquo;68 170 153&rdquo;)) plot3opts(fcolor(&ldquo;136 34 85&rdquo;) lcolor(&ldquo;136 34 85&rdquo;)) name(g8_b, replace)</p>
-<p>levelsof entry_pathway, local(pathways)</p>
-<p>local named_graphs</p>
-<p>forvalues i = 1/<code>: word count</code>pathways'' {</p>
-<p>local named_graphs <code>named_graphs' g8_a</code>i&rsquo;</p>
-<p>}</p>
-<p>forvalues i = 1/<code>: word count</code>pathways'' {</p>
-<p>local named_graphs <code>named_graphs' g8_b</code>i&rsquo;</p>
-<p>}</p>
-<p>grc1leg2 `named_graphs&rsquo;, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Gender and Mother&rsquo;s Education Level&rdquo;) l2title(&ldquo;Adjusted Probability&rdquo;) l1title(&ldquo;First Transfer First Completion&rdquo;, size(small)) graphregion(fcolor(white)) rows(2) lrows(3) position(3) symxsize(small) labsize(small) xsize(7) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&rdquo;, size(vsmall)) <span class="stcmt">//the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph</span></p>
-<p>graph export &ldquo;${saved_graphs}/8_mothered_2.png&rdquo;, replace</p>
-<p>}</p>
+<pre><code>margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(1))
+	marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title(&quot;&quot;) l1title(&quot;&quot;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) plot1opts(fcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;))  plot2opts(fcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(fcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g8_a, replace)
+margins pathway, at(male = (0 1) motheredlevel = (1(1)3)) predict(outcome(2))
+	marginsplot, graphdimension(pathway) bydimension(male) xdimension(motheredlevel) noci recast(bar) byopts(title(&quot;&quot;) l1title(&quot;&quot;) b1title(&quot;&quot;) graphregion(fcolor(white)) imargin(small)) plotopts(ylabel(0(0.2)1) xlabel(,angle(45)) plotregion(margin(zero))) plotdimension(motheredlevel) plot1opts(fcolor(&quot;51 34 136&quot;) lcolor(&quot;51 34 136&quot;)) plot2opts(fcolor(&quot;68 170 153&quot;) lcolor(&quot;68 170 153&quot;)) plot3opts(fcolor(&quot;136 34 85&quot;) lcolor(&quot;136 34 85&quot;)) name(g8_b, replace)
+levelsof entry_pathway, local(pathways)
+local named_graphs
+forvalues i = 1/`: word count `pathways'' {
+	local named_graphs `named_graphs' g8_a`i'
+	}
+forvalues i = 1/`: word count `pathways'' {
+	local named_graphs `named_graphs' g8_b`i'
+	}
+	grc1leg2 `named_graphs', title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Gender and Mother's Education Level&quot;) l2title(&quot;Adjusted Probability&quot;) l1title(&quot;First Transfer First Completion&quot;, size(small)) graphregion(fcolor(white)) rows(2) lrows(3) position(3) symxsize(small) labsize(small) xsize(7) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort.&quot;, size(vsmall)) &lt;span class=&quot;stcmt&quot;&gt;//the l1title() approach used here is admittedly a little informal, but it is a useful approach given how we needed to set up this graph&lt;/span&gt;
+	graph export &quot;${saved_graphs}/8_mothered_2.png&quot;, replace	
+}
+</code></pre>
 <p><span class="stcmt">// Charts: gender margins</span></p>
-<p>{</p>
 <p><span class="stcmt">// Main gender margins</span></p>
-<p>margins pathway, at(male = (0 1)) predict(outcome(1)) predict(outcome(2))</p>
-<p>matrix ans = (r(b))&rsquo;</p>
-<p>cap frame drop working</p>
-<p>frame create working</p>
-<p>frame change working</p>
-<p>svmat2 ans, rnames(estimate_name)</p>
-<p>order estimate_name ans1</p>
-<p>rename ans1 prediction_</p>
-<p>gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;^([0-9])&rdquo;)</p>
-<p>destring outcome_level, replace</p>
-<p>gen male_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;predict#([0-9])&rdquo;)</p>
-<p>destring male_level, replace</p>
-<p>label define male 1 &ldquo;Female&rdquo; 2 &ldquo;Male&rdquo; <span class="stcmt">// unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another</span></p>
-<p>label values male_level male</p>
-<p>gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &ldquo;_at#([0-9]+)&rdquo;)</p>
-<p>destring pathway_level, replace</p>
-<p>label define pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; <span class="stcmt">// please modify appropriately; unfortunately, value labels do not copy automatically into new frames	</span></p>
-<p>label values pathway_level pathway_vals</p>
-<p>drop estimate_name</p>
-<p>order male_level pathway_level outcome_level</p>
-<p>reshape wide prediction_, i(male_level pathway_level) j(outcome_level)</p>
-<p>graph bar (asis) prediction_1 prediction_2, by(pathway_level, title(&ldquo;Adjusted Probability of First Completion/Transfer&rdquo; &ldquo;by Gender&rdquo;) b1title(&ldquo;Gender&rdquo;) imargin(medium) note(&ldquo;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities&rdquo; &ldquo;for each outcome are stacked.&rdquo;, size(vsmall)) graphregion(fcolor(white))) ytitle(&ldquo;Adjusted Probability&rdquo;) over(male_level) stack ylabel(0(0.2)1) legend(label(1 &ldquo;Completion First&rdquo;) label(2 &ldquo;Transfer First&rdquo;)) xsize(5.5) bar(1, fcolor(&ldquo;51 34 136&rdquo;) lcolor(black)) bar(2, fcolor(&ldquo;68 170 153&rdquo;) lcolor(black))</p>
-<p>graph export &ldquo;${saved_graphs}/9_gender.png&rdquo;, replace</p>
-<p>frame change default</p>
-<p>frame drop working</p>
-<p>}</p>
+<pre><code>{
+margins pathway, at(male = (0 1)) predict(outcome(1)) predict(outcome(2))
+matrix ans = (r(b))'
+cap frame drop working
+frame create working
+frame change working
+svmat2 ans, rnames(estimate_name)
+order estimate_name ans1
+rename ans1 prediction_
+gen outcome_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;^([0-9])&quot;)
+destring outcome_level, replace
+gen male_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;predict#([0-9])&quot;)
+destring male_level, replace
+label define male 1 &quot;Female&quot; 2 &quot;Male&quot;//unfortunately these value labels must be re-copied from above; value labels created in one frame are not accessible in another
+label values male_level male
+gen pathway_level = ustrregexs(1) if ustrregexm(estimate_name, &quot;_at#([0-9]+)&quot;)
+destring pathway_level, replace
+label define pathway_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//please modify appropriately; unfortunately, value labels do not copy automatically into new frames	
+label values pathway_level pathway_vals
+drop estimate_name
+order male_level pathway_level outcome_level	
+reshape wide prediction_, i(male_level pathway_level) j(outcome_level) 	
+	graph bar (asis) prediction_1 prediction_2, by(pathway_level, title(&quot;Adjusted Probability of First Completion/Transfer&quot; &quot;by Gender&quot;) b1title(&quot;Gender&quot;) imargin(medium) note(&quot;Note: A regression model adjusts probabilities to account for student demographic traits, institution, and cohort. Adjusted probabilities&quot; &quot;for each outcome are stacked.&quot;, size(vsmall)) graphregion(fcolor(white))) ytitle(&quot;Adjusted Probability&quot;) over(male_level) stack ylabel(0(0.2)1) legend(label(1 &quot;Completion First&quot;) label(2 &quot;Transfer First&quot;)) xsize(5.5) bar(1, fcolor(&quot;51 34 136&quot;) lcolor(black)) bar(2, fcolor(&quot;68 170 153&quot;) lcolor(black))			
+	graph export &quot;${saved_graphs}/9_gender.png&quot;, replace	
+frame change default
+frame drop working			
+}
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows how students&rsquo; probability of success changes at different levels of high school GPA, disaggregated by students&rsquo; race/ethnicity. Looking at the first row, we see positive associations between GPA and likelihood of completion for students in all pathways and from all racial/ethnic groups. However, there are differences across groups that highlight areas where additional scrutiny and work may be needed to offer equitable opportunities for success. For example, in IT Tech (the third graph), we see that at all points of the GPA range, White students have a higher probability of completing a credential than students of any other race/ethnicity. In Mech Repair, the slope of the line relating GPA and likelihood of completion is much steeper for White students than Black or Latina/o/x students, so while students with lower GPAs have similar probabilities of success, when we look at students with higher GPAs White students have much higher completion rates than students from any other group. This suggests institutions may not be meeting students&rsquo; non-academic needs or may not be fully leveraging the academic ability of all of their students.</p>
@@ -700,221 +729,229 @@ html {
 <p><span class="stcmt">// Code below for this analyis should be modified according to your needs. In some places, comments explicitly prompt you to appropriately modify a minimum number of commands for your institution&rsquo;s data, or else the output may not be correct or useful. And of course feel free to modify any other commands, too.	</span></p>
 <p><span class="stcmt">// Stata version 16 or higher is required to run the code below because of the python components. Earliear versions of Stata cannot interact with python. If you do not have access to version 16, you can copy the python code to a separate python script to run.</span></p>
 <p><span class="stcmt">// Set up and setting filepaths</span></p>
-<p>version 16.1</p>
-<p>clear all</p>
-<p>macro drop all</p>
+<pre><code>version 16.1
+clear all
+macro drop all
+</code></pre>
 <p><span class="stcmt">// set path to your saved .csv data file matching spec document	</span></p>
-<p>global path_to_data &ldquo;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&rdquo;</p>
+<pre><code>global path_to_data &quot;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&quot; 
+</code></pre>
 <p><span class="stcmt">// set path for where to save a collapsd data set that will actually be used for graphing</span></p>
-<p>global path_to_save_collapsed_data &ldquo;some_directory/perhaps_another_directory/maybe_even_one_more_directory/collapsed_data.dta&rdquo;</p>
+<pre><code>global path_to_save_collapsed_data &quot;some_directory/perhaps_another_directory/maybe_even_one_more_directory/collapsed_data.dta&quot; 
+</code></pre>
 <p><span class="stcmt">// Load data set up according to spec</span></p>
-<p>import delimited &ldquo;${path_to_data}&rdquo;, clear</p>
+<pre><code>import delimited &quot;${path_to_data}&quot;, clear
+</code></pre>
 <p><span class="stcmt">// Create label for entry pathway codes</span></p>
 <p><span class="stcmt">// label define entry_pathway_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; optional, leave commented out if you prefer numeric pathway codes be used in chart titles; otherwise, uncomment and fill out appropriately</span></p>
-<p>label dir</p>
-<p>if regexm(&ldquo;`r(names)&rsquo;&rdquo;, &ldquo;entry_pathway_vals&rdquo;) { <span class="stcmt">// this code (regexm) will not run when the code defining entry_pathway_vals remains commented out</span></p>
-<p>ssc install labutil2 <span class="stcmt">// this quickly installs additional Stata commands used just below</span></p>
-<p>labellist entry_pathway_vals</p>
-<p>local entry_pathway_vals_labels `r(entry_pathway_vals_labels)&rsquo;</p>
-<p>local entry_pathway_vals_values `r(entry_pathway_vals_values)&rsquo;</p>
-<p>}</p>
+<pre><code>label dir
+if regexm(&quot;`r(names)'&quot;, &quot;entry_pathway_vals&quot;) {//this code (regexm) will not run when the code defining entry_pathway_vals remains commented out
+	ssc install labutil2 &lt;span class=&quot;stcmt&quot;&gt;// this quickly installs additional Stata commands used just below&lt;/span&gt;
+	labellist entry_pathway_vals
+	local entry_pathway_vals_labels `r(entry_pathway_vals_labels)'
+	local entry_pathway_vals_values `r(entry_pathway_vals_values)'
+	}
+</code></pre>
 <p><span class="stcmt">// Collapse data in prep for graphing</span></p>
 <p><span class="stcmt">// Identify the number of terms included for students in each initial pathway; should be equal for all students entering that pathway, even if multiple entering cohorts are included, though it can differ across initial pathways*/</span></p>
-<p>local initial_pathways_num_terms</p>
-<p>levelsof pathway if cohorttermindex == 1, local(initial_pathways)</p>
-<p>foreach p in `initial_pathways&rsquo; {</p>
-<p>preserve</p>
-<p>bys studentid (cohorttermindex): gen initial_pathway = pathway[1]</p>
-<p>keep if initial_pathway == `p&rsquo;</p>
-<p>bys studentid: gen record_count = _N</p>
-<p>distinct record_count</p>
-<p>assert r(ndistinct) == 1 <span class="stcmt">// making sure that indeed each student for a specific initial pathway has same number of terms included</span></p>
-<p>levelsof record_count, local(rec_count)</p>
-<p>drop initial_pathway record_count</p>
-<p>restore</p>
-<pre><code>local initial_pathways_num_terms `initial_pathways_num_terms' `rec_count'
+<pre><code>local initial_pathways_num_terms
+levelsof pathway if cohorttermindex == 1, local(initial_pathways)
+foreach p in `initial_pathways' {
+	preserve
+	bys studentid (cohorttermindex): gen initial_pathway = pathway[1]
+	keep if initial_pathway == `p'
+	bys studentid: gen record_count = _N
+	distinct record_count
+	assert r(ndistinct) == 1//making sure that indeed each student for a specific initial pathway has same number of terms included
+	levelsof record_count, local(rec_count)
+	drop initial_pathway record_count
+	restore
+	local initial_pathways_num_terms `initial_pathways_num_terms' `rec_count'
+	}
+di &quot;`initial_pathways_num_terms'&quot;
 </code></pre>
-<p>}</p>
-<p>di &ldquo;`initial_pathways_num_terms&rsquo;&rdquo;</p>
 <p><span class="stcmt">// Collapsing will include, within each value of initial pathway, a separate collapse for each semester-to-semester transition</span></p>
-<p>reshape wide pathway, i(studentid) j(cohorttermindex)</p>
-<p>local overall_counter = 1</p>
-<p>local pathway_counter = 1</p>
-<p>foreach p in `initial_pathways&rsquo; {</p>
-<p>di _newline(3)</p>
-<p>di in red &ldquo;Pathway: `p&rsquo;&rdquo;</p>
-<p>local num_of_collapses = <code>: word</code>pathway_counter&rsquo; of `initial_pathways_num_terms'' - 1</p>
-<p>di in red &ldquo;Number of collapses: `num_of_collapses&rsquo;&rdquo;</p>
-<p>forvalues i = 1/`num_of_collapses&rsquo; {</p>
-<p>di in red &ldquo;Collapse number: `i&rsquo;&rdquo;</p>
-<p>preserve</p>
-<p>keep if pathway1 == `p&rsquo;</p>
-<p>local first = `i&rsquo;</p>
-<p>local second = `i&rsquo; + 1</p>
-<p>collapse (count) num_students = studentid, by(pathway<code>first' pathway</code>second&rsquo;)</p>
-<p>rename (pathway<code>first' pathway</code>second&rsquo;) (pathway_origin pathway_target)</p>
-<p>gen semester_transition = `i&rsquo;</p>
-<p>gen entry_pathway = `p&rsquo;</p>
-<p>order entry_pathway semester_transition pathway_origin pathway_target num_students</p>
-<p>if `overall_counter&rsquo; == 1 {</p>
-<p>tempfile collapsed_results</p>
-<p>save `collapsed_results&rsquo;</p>
-<p>}</p>
-<p>else if `overall_counter&rsquo; &gt; 1 {</p>
-<p>append using `collapsed_results&rsquo;</p>
-<p>save `collapsed_results&rsquo;, replace</p>
-<p>}</p>
-<p>restore</p>
-<p>local overall_counter = `overall_counter&rsquo; + 1</p>
-<p>}</p>
-<p>local pathway_counter = `pathway_counter&rsquo; + 1</p>
-<p>}</p>
-<p>use `collapsed_results&rsquo;, clear</p>
-<p>sort entry_pathway semester_transition</p>
+<pre><code>reshape wide pathway, i(studentid) j(cohorttermindex)
+local overall_counter = 1
+local pathway_counter = 1
+foreach p in `initial_pathways' {
+	di _newline(3)
+	di in red &quot;Pathway: `p'&quot;
+	local num_of_collapses = `: word `pathway_counter' of `initial_pathways_num_terms'' - 1
+	di in red &quot;Number of collapses: `num_of_collapses'&quot;
+	forvalues i = 1/`num_of_collapses' {		
+		di in red &quot;Collapse number: `i'&quot;
+		preserve
+		keep if pathway1 == `p'
+		local first = `i' 
+		local second = `i' + 1				
+		collapse (count) num_students = studentid, by(pathway`first' pathway`second')
+		rename (pathway`first' pathway`second') (pathway_origin pathway_target)
+		gen semester_transition = `i'
+		gen entry_pathway = `p'
+		order entry_pathway semester_transition pathway_origin pathway_target num_students
+			if `overall_counter' == 1 {
+				tempfile collapsed_results
+				save `collapsed_results'								
+			} 
+			else if `overall_counter' &amp;gt; 1 {
+				append using `collapsed_results'
+				save `collapsed_results', replace
+			}
+		restore
+		local overall_counter = `overall_counter' + 1
+	}
+	local pathway_counter = `pathway_counter' + 1
+}
+use `collapsed_results', clear
+sort entry_pathway semester_transition
+</code></pre>
 <p><span class="stcmt">// Label variables</span></p>
-<p>label var entry_pathway &ldquo;pathway code associated with a student at entry&rdquo;</p>
-<p>label var semester_transition &ldquo;the semester-to-semester transition index (max will be one less than number of semesters included for that initial pathway)&rdquo;</p>
-<p>label var pathway_origin &ldquo;pathway code associated with a student for the origin term of a transition&rdquo;</p>
-<p>label var pathway_target &ldquo;pathway code associated with a student for the next term of a transition&rdquo;</p>
-<p>label var num_students &ldquo;number of students described&rdquo;</p>
+<pre><code>label var entry_pathway &quot;pathway code associated with a student at entry&quot;
+label var semester_transition &quot;the semester-to-semester transition index (max will be one less than number of semesters included for that initial pathway)&quot;
+label var pathway_origin &quot;pathway code associated with a student for the origin term of a transition&quot;
+label var pathway_target &quot;pathway code associated with a student for the next term of a transition&quot;
+label var num_students &quot;number of students described&quot;
+</code></pre>
 <p><span class="stcmt">// Generate a variable called entry_pathway_label, if entry_pathway_vals was set above as a label</span></p>
-<p>if !missing(<code>&quot;</code>entry_pathway_vals_values&rsquo;&ldquo;&lsquo;) &amp; !missing(<code>&quot;</code>entry_pathway_vals_labels&rsquo;&rdquo;&rsquo;) {</p>
-<p>if <code>: word count</code>entry_pathway_vals_values'' == <code>: word count</code>entry_pathway_vals_labels'' {</p>
-<p>gen entry_pathway_label = &quot;&quot;</p>
-<p>label var entry_pathway_label &ldquo;pathway code label associated with a student at entry&rdquo;</p>
-<p>order entry_pathway_label, after(entry_pathway)</p>
-<p>forvalues i = 1/<code>: word count</code>entry_pathway_vals_values'' {</p>
-<p>replace entry_pathway_label = <code>&quot;</code>: word <code>i' of</code>entry_pathway_vals_labels''&quot;&rsquo; <span class="stcmt">///</span></p>
-<p>if entry_pathway == <code>: word</code>i&rsquo; of `entry_pathway_vals_values''</p>
-<p>}</p>
-<p>replace entry_pathway_label = subinstr(entry_pathway_label, `&quot;&quot;&quot;&rsquo;, &quot;&quot;, .)</p>
-<p>assert !missing(entry_pathway_label)</p>
-<p>}</p>
-<p>else {</p>
-<p>di in red &ldquo;The number of entry pathway code values and entry pathway label values does not match.&rdquo;</p>
-<p>exit</p>
-<p>}</p>
-<p>}</p>
+<pre><code>if !missing(`&quot;`entry_pathway_vals_values'&quot;') &amp;amp; !missing(`&quot;`entry_pathway_vals_labels'&quot;') {
+    if `: word count `entry_pathway_vals_values'' == `: word count `entry_pathway_vals_labels'' {
+	    gen entry_pathway_label = &quot;&quot;
+		label var entry_pathway_label &quot;pathway code label associated with a student at entry&quot;
+		order entry_pathway_label, after(entry_pathway)
+		forvalues i = 1/`: word count `entry_pathway_vals_values'' {
+		    replace entry_pathway_label = `&quot;`: word `i' of `entry_pathway_vals_labels''&quot;' if entry_pathway == `: word `i' of `entry_pathway_vals_values''
+		}
+		replace entry_pathway_label = subinstr(entry_pathway_label, `&quot;&quot;&quot;', &quot;&quot;, .)
+		assert !missing(entry_pathway_label)
+	} 
+	else {
+	    di in red &quot;The number of entry pathway code values and entry pathway label values does not match.&quot;
+		exit
+	}
+}
+</code></pre>
 <p><span class="stcmt">// Save out collapsed data</span></p>
-<p>save &ldquo;${path_to_save_collapsed_data}&rdquo;, replace</p>
+<pre><code>save &quot;${path_to_save_collapsed_data}&quot;, replace 
+</code></pre>
 <p><span class="stcmt">// Run Sankey diagrams</span></p>
-<p>python:</p>
-<p>import plotly.graph_objects as go</p>
-<p>import pandas as pd</p>
+<pre><code>python:
+import plotly.graph_objects as go
+import pandas as pd
+</code></pre>
 <p><span class="stcmt">//  Read in preppped data</span></p>
-<p>df_full = pd.read_stata(&ldquo;${path_to_save_collapsed_data}&rdquo;)</p>
-<p>df_full.head()</p>
+<pre><code>df_full = pd.read_stata(&quot;${path_to_save_collapsed_data}&quot;)
+df_full.head()
+</code></pre>
 <p><span class="stcmt">//  Establish list to contain Sankey charts</span></p>
-<p>charts = []</p>
+<pre><code>charts = []
+</code></pre>
 <p><span class="stcmt">//  Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span></p>
-<p>pathway_label_titles = dict()</p>
-<p>if &lsquo;entry_pathway_label&rsquo; in df_full.columns:</p>
-<p>for e in sorted(list(df_full.entry_pathway.unique())):</p>
-<p>pathway_label_titles[e] = list(df_full[df_full[&lsquo;entry_pathway&rsquo;] == e].entry_pathway_label.unique())[0]</p>
-<p>df_full = df_full.drop(&lsquo;entry_pathway_label&rsquo;, 1) <span class="stcmt">// drop column of labels now that is no longer needed; want numeric indexing statements below to be the same whether entry_pathway_vals defined or not</span></p>
+<pre><code>pathway_label_titles = dict()
+if 'entry_pathway_label' in df_full.columns:
+for e in sorted(list(df_full.entry_pathway.unique())):
+	pathway_label_titles[e] = list(df_full[df_full['entry_pathway'] == e].entry_pathway_label.unique())[0]
+	df_full = df_full.drop('entry_pathway_label', 1)//drop column of labels now that is no longer needed; want numeric indexing statements below to be the same whether entry_pathway_vals defined or not
+</code></pre>
 <p><span class="stcmt">//  Loop over entry pathway codes and create a Sankey chart for each, across all available transition periods</span></p>
-<p>for e in sorted(list(df_full.entry_pathway.unique())):</p>
-<p>print(&lsquo;Creating Sankey chart for entry pathway: {}&rsquo;.format(e))</p>
-<p><span class="stcmt">//  Subset to just the students entering that pathway</span></p>
-<p>df = df_full[df_full[&lsquo;entry_pathway&rsquo;] == e]</p>
-<p><span class="stcmt">//  Set up dictionary that will be used to do indexing of source and target nodes</span></p>
-<p>d = dict()</p>
-<p>counter = 1</p>
-<p>transitions = sorted(list(df.semester_transition.unique()))</p>
-<p>last_trans = max(transitions)</p>
-<p>for s in transitions:</p>
-<p>print(&lsquo;Transition: {}&rsquo;.format(s))</p>
-<p><span class="stcmt">//  Subset to just the records for the transition period s</span></p>
-<p>trans_s_df = df[df[&lsquo;semester_transition&rsquo;] == s]</p>
-<p><span class="stcmt">//  Only need the first pathway codes for non-last transitions; the first pathway codes of the next transition are the second pathway codes of the transition before</span></p>
-<p>if s &lt; last_trans:</p>
-<p>print(counter)</p>
-<p>d[counter] = list(trans_s_df.pathway_origin.unique())</p>
-<p>counter = counter + 1</p>
-<p><span class="stcmt">//  For the last transition, we do need to add both the first and last pathway codes</span></p>
-<p>else:</p>
-<p>print(counter)</p>
-<p>d[counter] = list(trans_s_df.pathway_origin.unique())</p>
-<p>counter = counter + 1</p>
-<p>print(counter)</p>
-<p>d[counter] = list(trans_s_df.pathway_target.unique())</p>
-<p>counter = counter + 1</p>
-<p><span class="stcmt">//  Repackage the contents of the dictionary as tuples that include required indexing bump</span></p>
-<p>list_lengths = [len(d[x]) for x in d]</p>
-<p>index_bumps = [] <span class="stcmt">// pathway codes will (and must) appear multiple times in lables_list; have to make sure you index the right one</span></p>
-<p>for k in d:</p>
-<p>print(&lsquo;Getting index bump for transition {}&rsquo;.format(k))</p>
-<p>if k == 1:</p>
-<p>index_bumps.append(0)</p>
-<p>elif k == 2:</p>
-<p>index_bumps.append(list_lengths[0])</p>
-<p>elif k &gt; 2:</p>
-<p>index_bumps.append(sum(list_lengths[0:(k-1)]))</p>
-<p>final_d = dict()</p>
-<p>for k in d:</p>
-<p>print(&lsquo;Setting up final tuple for transition {}&rsquo;.format(k))</p>
-<p>final_d[k] = (d[k], index_bumps[k-1])</p>
-<p>print(final_d)</p>
-<p><span class="stcmt">// Next step is to go line by line through data frame, calculating for each row: source node index, target node index, value, accummulating these in three separate lists (the list of node labels will just be all the dictionary pathway list values appended together, in order)</span></p>
-<p>labels_list = list()</p>
-<p>source_list = list()</p>
-<p>target_list = list()</p>
-<p>value_list = list()</p>
-<p>for s in transitions:</p>
-<p>print(&lsquo;Getting info for transition {}&rsquo;.format(s))</p>
-<p><span class="stcmt">// Subset to just the records for the transition period s</span></p>
-<p>trans_s_df = df[df[&lsquo;semester_transition&rsquo;] == s]</p>
-<p><span class="stcmt">// Now iterate through all rows for that transition</span></p>
-<p>for r in range(trans_s_df.shape[0]):</p>
-<p>print(&lsquo;Getting info for row {}&rsquo;.format(r))</p>
-<p><span class="stcmt">// Get the indices of the first and second pathway codes for each transition, using info stored in final_d, including index bump</span></p>
-<p>source_node = final_d[s][0].index(trans_s_df.iat[r, 2]) + final_d[s][1] <span class="stcmt">// first pathway code</span></p>
-<p>target_node = final_d[s+1][0].index(trans_s_df.iat[r, 3]) + final_d[s+1][1] <span class="stcmt">// second pathway code</span></p>
-<p><span class="stcmt">// Append values to relevant lists</span></p>
-<p>source_list.append(source_node)</p>
-<p>target_list.append(target_node)</p>
-<p>value_list.append(trans_s_df.iat[r, 4])</p>
-<p>if s &lt; last_trans:</p>
-<p>labels_list.extend(final_d[s][0])</p>
-<p>else:</p>
-<p>labels_list.extend(final_d[s][0])</p>
-<p>labels_list.extend(final_d[s+1][0])</p>
-<p><span class="stcmt">// Convert labels_list to string elements with &lsquo;Unenrolled&rsquo; replacing 99, &lsquo;Completer&rsquo; for 100, &lsquo;Transfer&rsquo; for 101</span></p>
-<p>labels_list_str = [str(x) for x in labels_list]</p>
-<p>labels_list_99 = [&lsquo;Unenrolled&rsquo; if x == &lsquo;99&rsquo; else x for x in labels_list_str]</p>
-<p>labels_list_100 = [&lsquo;Completer&rsquo; if x == &lsquo;100&rsquo; else x for x in labels_list_99]</p>
-<p>labels_list_final = [&lsquo;Transfer&rsquo; if x == &lsquo;101&rsquo; else x for x in labels_list_100]</p>
+<pre><code>for e in sorted(list(df_full.entry_pathway.unique())):
+	print('Creating Sankey chart for entry pathway: {}'.format(e))
+df = df_full[df_full['entry_pathway'] == e]//Subset to just the students entering that pathway
+d = dict()//Set up dictionary that will be used to do indexing of source and target nodes
+counter = 1
+transitions = sorted(list(df.semester_transition.unique()))
+last_trans = max(transitions)
+for s in transitions: 
+	print('Transition: {}'.format(s))
+	trans_s_df = df[df['semester_transition'] == s]//Subset to just the records for the transition period s
+	if s &amp;lt; last_trans://Only need the first pathway codes for non-last transitions; the first pathway codes of the next transition are the second pathway codes of the transition before
+		print(counter)
+		d[counter] = list(trans_s_df.pathway_origin.unique())
+		counter = counter + 1
+	else://For the last transition, we do need to add both the first and last pathway codes
+		print(counter)
+		d[counter] = list(trans_s_df.pathway_origin.unique())
+		counter = counter + 1
+		print(counter)
+		d[counter] = list(trans_s_df.pathway_target.unique())
+		counter = counter + 1			
+
+list_lengths = [len(d[x]) for x in d]//Repackage the contents of the dictionary as tuples that include required indexing bump
+index_bumps = []//pathway codes will (and must) appear multiple times in lables_list; have to make sure you index the right one
+for k in d:
+	print('Getting index bump for transition {}'.format(k))
+	if k == 1:
+		index_bumps.append(0)
+	elif k == 2:
+		index_bumps.append(list_lengths[0])
+	elif k &amp;gt; 2:
+		index_bumps.append(sum(list_lengths[0:(k-1)])) 
+final_d = dict()	
+for k in d:
+	print('Setting up final tuple for transition {}'.format(k))
+	final_d[k] = (d[k], index_bumps[k-1])
+print(final_d)
+</code></pre>
+<p><span class="stcmt">//Next step is to go line by line through data frame, calculating for each row: source node index, target node index, value, accummulating these in three separate lists (the list of node labels will just be all the dictionary pathway list values appended together, in order)</span></p>
+<pre><code>labels_list = list()
+source_list = list()
+target_list = list()
+value_list = list()
+for s in transitions:
+	print('Getting info for transition {}'.format(s))
+	trans_s_df = df[df['semester_transition'] == s]//Subset to just the records for the transition period s
+	for r in range(trans_s_df.shape[0])://Now iterate through all rows for that transition
+		print('Getting info for row {}'.format(r))//Get the indices of the first and second pathway codes for each transition, using info stored in final_d, including index bump
+		source_node = final_d[s][0].index(trans_s_df.iat[r, 2]) + final_d[s][1]//first pathway code
+		target_node = final_d[s+1][0].index(trans_s_df.iat[r, 3]) + final_d[s+1][1]//second pathway code
+		source_list.append(source_node)//Append values to relevant lists
+		target_list.append(target_node)
+		value_list.append(trans_s_df.iat[r, 4])
+	if s &amp;lt; last_trans:
+		labels_list.extend(final_d[s][0])
+	else:
+		labels_list.extend(final_d[s][0])
+		labels_list.extend(final_d[s+1][0])
+labels_list_str = [str(x) for x in labels_list]//Convert labels_list to string elements with 'Unenrolled' replacing 99, 'Completer' for 100,'Transfer' for 101
+labels_list_99 = ['Unenrolled' if x == '99' else x for x in labels_list_str]
+labels_list_100 = ['Completer' if x == '100' else x for x in labels_list_99]
+labels_list_final = ['Transfer' if x == '101' else x for x in labels_list_100]
+</code></pre>
 <p><span class="stcmt">// Review all newly created lists</span></p>
-<p>print(final_d)</p>
-<p>print(labels_list_final)</p>
-<p>print(source_list)</p>
-<p>print(target_list)</p>
-<p>print(value_list)</p>
-<p><span class="stcmt">// Create the Sankey chart</span></p>
-<p>fig = go.Figure(data=[go.Sankey(</p>
-<p>node = dict(</p>
-<p>pad = 15,</p>
-<p>thickness = 20,</p>
-<p>line = dict(color = &ldquo;black&rdquo;, width = 0.5),</p>
-<p>label = labels_list_final,</p>
-<p>color = &ldquo;rgb(51,34,136)&rdquo;</p>
-<p>),</p>
-<p>link = dict(</p>
-<p>source = source_list,</p>
-<p>target = target_list,</p>
-<p>value = value_list</p>
-<p>))])</p>
-<p>if len(pathway_label_titles) &gt; 0:</p>
-<p>pathway_title_display_val = pathway_label_titles[e]</p>
-<p>else:</p>
-<p>pathway_title_display_val = &ldquo;{:.0f}&rdquo;.format(e)</p>
-<p>fig.update_layout(title_text = &ldquo;Semester by Semester Movement Across Pathways for Students Who Entered {} Pathway in First Term&rdquo;.format(pathway_title_display_val), font_size = 15)</p>
+<pre><code>print(final_d)
+print(labels_list_final)
+print(source_list)		
+print(target_list)
+print(value_list)
+</code></pre>
+<p><span class="stcmt">//Create the Sankey chart</span></p>
+<pre><code>fig = go.Figure(data=[go.Sankey(
+	node = dict(
+		pad = 15,
+		thickness = 20,
+		line = dict(color = &quot;black&quot;, width = 0.5),
+		label = labels_list_final,
+		color = &quot;rgb(51,34,136)&quot;
+	),
+	link = dict(
+		source = source_list,
+		target = target_list,
+		value = value_list
+	))])
+if len(pathway_label_titles) &amp;gt; 0:
+	pathway_title_display_val = pathway_label_titles[e]
+else:
+	pathway_title_display_val = &quot;{:.0f}&quot;.format(e)
+fig.update_layout(title_text = &quot;Semester by Semester Movement Across Pathways for Students Who Entered {} Pathway in First Term&quot;.format(pathway_title_display_val), font_size = 15)
+</code></pre>
 <p><span class="stcmt">// Append Sankey to list of charts</span></p>
-<p>charts.append(fig)</p>
-<p><span class="stcmt">// Render all the Sankey charts</span></p>
-<p>for g in charts:</p>
-<p>g.show()</p>
-<p>end</p>
+<pre><code>charts.append(fig)
+</code></pre>
+<p><span class="stcmt">//Render all the Sankey charts</span></p>
+<pre><code>for g in charts:
+	g.show()	
+end
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows how students transition between pathways over time. Each of the blue vertical lines represents a transition point- from their initial enrollment to the end of their sixth term. The example chart focuses on students who begin enrolled in IT Tech. Most students remain enrolled in this pathway and have completed by the end of their sixth semester, although a sizeable share exits after the second and third semesters. We also see a share of students switching to other pathways, primarily Electrical Tech and Business. These students are still enrolled after six terms but have not completed a credential or transferred.</p>
@@ -958,129 +995,141 @@ html {
 <p><span class="stcmt">// Code below for this analyis should be modified according to your needs. In some places, comments explicitly prompt you to appropriately modify a minimum number of commands for your institution&rsquo;s data, or else the output may not be correct or useful. And of course feel free to modify any other commands, too.	</span></p>
 <p><span class="stcmt">// Stata version 16 or higher is required to run the code below because of the python components. Earliear versions of Stata cannot interact with python. If you do not have access to version 16, you can copy the python code to a separate python script to run.</span></p>
 <p><span class="stcmt">// Set up and setting filepaths</span></p>
-<p>version 16.1</p>
-<p>clear all</p>
-<p>macro drop all</p>
+<pre><code>version 16.1
+clear all
+macro drop all
+</code></pre>
 <p><span class="stcmt">// set path to your saved .csv data file matching spec document</span></p>
-<p>global path_to_data &ldquo;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&rdquo;</p>
+<pre><code>global path_to_data &quot;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&quot; 
+</code></pre>
 <p><span class="stcmt">// set path to where you&rsquo;d like to save an intermediate .dta data file before final analysis</span></p>
-<p>global graph_ready &ldquo;some_directory/perhaps_another_directory/maybe_even_one_more_directory/graph_ready.dta&rdquo;</p>
+<pre><code>global graph_ready &quot;some_directory/perhaps_another_directory/maybe_even_one_more_directory/graph_ready.dta&quot; 
+</code></pre>
 <p><span class="stcmt">// Load data set up according to spec</span></p>
-<p>import delimited &ldquo;${path_to_data}&rdquo;, clear</p>
+<pre><code>import delimited &quot;${path_to_data}&quot;, clear
+</code></pre>
 <p><span class="stcmt">// Create label for entry pathway codes</span></p>
-<p>label define entry_pathway_vals 0 &ldquo;General&rdquo; 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; <span class="stcmt">// optional, leave commented out if you prefer numeric pathway codes be used in chart titles; otherwise, uncomment and fill out appropriately</span></p>
-<p>label dir</p>
-<p><span class="stcmt">// this code will not run when the code defining entry_pathway_vals remains commented out</span></p>
-<p>if regexm(&ldquo;`r(names)&rsquo;&rdquo;, &ldquo;entry_pathway_vals&rdquo;) {</p>
-<p>ssc install labutil2 <span class="stcmt">// this quickly installs additional Stata commands used just below</span></p>
-<p>labellist entry_pathway_vals</p>
-<p>local entry_pathway_vals_labels `r(entry_pathway_vals_labels)&rsquo;</p>
-<p>local entry_pathway_vals_values `r(entry_pathway_vals_values)&rsquo;</p>
-<p>if <code>: word count</code>entry_pathway_vals_values'' == <code>: word count</code>entry_pathway_vals_labels''</p>
-<p>{</p>
-<p>gen entry_pathway_label = &quot;&quot;</p>
-<p>label var entry_pathway_label &ldquo;pathway code label associated with a student at entry&rdquo;</p>
-<p>order entry_pathway_label, after(pathway)</p>
-<p>forvalues i = 1/<code>: word count</code>entry_pathway_vals_values'' {</p>
-<p>replace entry_pathway_label = <code>&quot;</code>: word <code>i' of</code>entry_pathway_vals_labels''&quot;&rsquo; if pathway == <code>: word</code>i&rsquo; of `entry_pathway_vals_values''</p>
-<p>}</p>
-<p>replace entry_pathway_label = subinstr(entry_pathway_label, `&quot;&quot;&quot;&rsquo;, &quot;&quot;, .)</p>
-<p>assert !missing(entry_pathway_label)</p>
-<p>}</p>
-<p>else {</p>
-<p>di in red &ldquo;The number of entry pathway code values and entry pathway label values does not match.&rdquo;</p>
-<p>exit</p>
-<p>}</p>
-<p>}</p>
-<p>save &ldquo;${graph_ready}&rdquo;, replace <span class="stcmt">// if entry_pathway_vals is not uncommented and set above, then this save command just re-saves the intial data, unmodified, as a .dta file</span></p>
+<pre><code>label define entry_pathway_vals 0 &quot;General&quot; 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//optional, leave commented out if you prefer numeric pathway codes be used in chart titles; otherwise, uncomment and fill out appropriately
+label dir
+if regexm(&quot;`r(names)'&quot;, &quot;entry_pathway_vals&quot;) {//this code will not run when the code defining entry_pathway_vals remains commented out
+	ssc install labutil2//this quickly installs additional Stata commands used just below
+	labellist entry_pathway_vals
+	local entry_pathway_vals_labels `r(entry_pathway_vals_labels)'
+	local entry_pathway_vals_values `r(entry_pathway_vals_values)'		
+    if `: word count `entry_pathway_vals_values'' == `: word count `entry_pathway_vals_labels'' {
+	    gen entry_pathway_label = &quot;&quot;
+		label var entry_pathway_label &quot;pathway code label associated with a student at entry&quot;
+		order entry_pathway_label, after(pathway)
+		forvalues i = 1/`: word count `entry_pathway_vals_values'' {
+		    replace entry_pathway_label = `&quot;`: word `i' of `entry_pathway_vals_labels''&quot;' if pathway == `: word `i' of `entry_pathway_vals_values''
+		}
+		replace entry_pathway_label = subinstr(entry_pathway_label, `&quot;&quot;&quot;', &quot;&quot;, .)
+		assert !missing(entry_pathway_label)
+	} 
+	else {
+	    di in red &quot;The number of entry pathway code values and entry pathway label values does not match.&quot;
+		exit
+	}		
+}
+save &quot;${graph_ready}&quot;, replace//if entry_pathway_vals is not uncommented and set above, then this save command just re-saves the intial data, unmodified, as a .dta file
+</code></pre>
 <p><span class="stcmt">// Chart set up</span></p>
 <p><span class="stcmt">// Plotly Scatterplot with tooltip hover</span></p>
-<p>python</p>
-<p>import plotly.express as px</p>
-<p>import numpy as np</p>
-<p>import pandas as pd</p>
+<pre><code>python
+import plotly.express as px
+import numpy as np
+import pandas as pd
+</code></pre>
 <p><span class="stcmt">// Read in prepped data</span></p>
-<p>df = pd.read_stata(&ldquo;${graph_ready}&rdquo;)</p>
+<pre><code>df = pd.read_stata(&quot;${graph_ready}&quot;)
+</code></pre>
 <p><span class="stcmt">// Add column to be passed to color argument</span></p>
-<p>df[&lsquo;color_val&rsquo;] = &ldquo;constant&rdquo;</p>
+<pre><code>df['color_val'] = &quot;constant&quot;
+</code></pre>
 <p><span class="stcmt">// Set up list for accummulating scatterplot charts</span></p>
-<p>charts = list()</p>
-<p><span class="stcmt">// Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span></p>
-<p>pathway_label_titles = dict()</p>
-<p>if &lsquo;entry_pathway_label&rsquo; in df.columns:</p>
-<p>for c in sorted(list(df.pathway.unique())):</p>
-<p>pathway_label_titles[c] = list(df[df[&lsquo;pathway&rsquo;] == c].entry_pathway_label.unique())[0]</p>
-<p>df = df.drop(&lsquo;entry_pathway_label&rsquo;, 1) <span class="stcmt">// drop column of labels now that it is no longer needed</span></p>
-<p><span class="stcmt">// Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</span></p>
-<p>df[&lsquo;proportion_failing&rsquo;] = np.round(df[&lsquo;proportion_failing&rsquo;], 2)</p>
-<p>df[&lsquo;prob_completer_pass&rsquo;] = np.round(df[&lsquo;prob_completer_pass&rsquo;], 2)</p>
-<p>df[&lsquo;prob_completer_fail&rsquo;] = np.round(df[&lsquo;prob_completer_fail&rsquo;], 2)</p>
-<p>df[&lsquo;prob_completer_diff&rsquo;] = np.round(df[&lsquo;prob_completer_diff&rsquo;], 2)</p>
+<pre><code>charts = list()
+</code></pre>
+<p><span class="stcmt">//Establish dictionary of pathway code labels to be used in chart titles, if entry_pathway_vals label set in Stata above</span></p>
+<pre><code>pathway_label_titles = dict()
+	if 'entry_pathway_label' in df.columns:
+		for c in sorted(list(df.pathway.unique())):
+		pathway_label_titles[c] = list(df[df['pathway'] == c].entry_pathway_label.unique())[0]
+	df = df.drop('entry_pathway_label', 1)//drop column of labels now that it is no longer needed
+</code></pre>
+<p><span class="stcmt">//Round proportion_failing, prob_completer_pass, prob_completer_fail, prob_completer_diff for better display</span></p>
+<pre><code>df['proportion_failing'] = np.round(df['proportion_failing'], 2)
+df['prob_completer_pass'] = np.round(df['prob_completer_pass'], 2)
+df['prob_completer_fail'] = np.round(df['prob_completer_fail'], 2)
+df['prob_completer_diff'] = np.round(df['prob_completer_diff'], 2)
+</code></pre>
 <p><span class="stcmt">// Set up the charts</span></p>
-<p>for c in sorted(list(df[&lsquo;pathway&rsquo;].unique())):</p>
-<p><span class="stcmt">// Subset to data for a single pathway</span></p>
-<p>df_display = df[df[&lsquo;pathway&rsquo;] == c]</p>
-<p><span class="stcmt">// Set min and max for axes</span></p>
-<p>if np.amin(df_display[&lsquo;prob_completer_diff&rsquo;]) &lt; 0:</p>
-<p>y_min = np.amin(df_display[&lsquo;prob_completer_diff&rsquo;]) - 0.02</p>
-<p>else:</p>
-<p>y_min = 0</p>
-<p>if np.amax(df_display[&lsquo;prob_completer_diff&rsquo;]) &lt; 0.5:</p>
-<p>y_max = 0.5</p>
-<p>else:</p>
-<p>y_max = np.amax(df_display[&lsquo;prob_completer_diff&rsquo;]) + 0.02</p>
-<p>x_min = 0 <span class="stcmt">// cannot have less than 0% of students fail a course</span></p>
-<p>if np.amax(df_display[&lsquo;proportion_failing&rsquo;]) &lt; 0.6:</p>
-<p>x_max = 0.6</p>
-<p>else:</p>
-<p>x_max = np.amax(df_display[&lsquo;proportion_failing&rsquo;]) + 0.02</p>
+<pre><code>for c in sorted(list(df['pathway'].unique())):
+	df_display = df[df['pathway'] == c]//Subset to data for a single pathway
+	if np.amin(df_display['prob_completer_diff']) &amp;lt; 0://Set min and max for axes
+		y_min = np.amin(df_display['prob_completer_diff']) - 0.02
+	else:
+		y_min = 0
+	if np.amax(df_display['prob_completer_diff']) &amp;lt; 0.5:
+		y_max = 0.5
+	else:
+		y_max = np.amax(df_display['prob_completer_diff']) + 0.02
+	x_min = 0 # cannot have less than 0% of students fail a course
+	if np.amax(df_display['proportion_failing']) &amp;lt; 0.6:
+		x_max = 0.6
+	else:
+		x_max = np.amax(df_display['proportion_failing']) + 0.02
+</code></pre>
 <p><span class="stcmt">// Create scatterplot</span></p>
-<p>fig = px.scatter(df_display,</p>
-<p>x = &ldquo;proportion_failing&rdquo;,</p>
-<p>y = &ldquo;prob_completer_diff&rdquo;,</p>
-<p>size = &ldquo;total_attempters&rdquo;,</p>
-<p>hover_name = &ldquo;course_label&rdquo;,</p>
-<p>hover_data = {&ldquo;total_attempters&rdquo;:True, &ldquo;prob_completer_pass&rdquo;:True, &ldquo;prob_completer_fail&rdquo;:True, &ldquo;prob_completer_diff&rdquo;:False,  &ldquo;proportion_failing&rdquo;:False, &ldquo;color_val&rdquo;:False},</p>
-<p>range_x = [x_min, x_max],</p>
-<p>range_y = [y_min, y_max],</p>
-<p>labels = {&lsquo;proportion_failing&rsquo;:&lsquo;Proportion Students Who Failed Course During First Attempt&rsquo;,</p>
-<p>&lsquo;prob_completer_diff&rsquo;:&lsquo;Difference in Predicted Probability of First Completion&rsquo;,</p>
-<p>&lsquo;total_attempters&rsquo;:&lsquo;Number Students Attempting Course at Least Once&rsquo;,</p>
-<p>&lsquo;course_label&rsquo;:&lsquo;Course Name&rsquo;,</p>
-<p>&lsquo;prob_completer_fail&rsquo;:&lsquo;Probability of First Completion Conditional on Failing&rsquo;,</p>
-<p>&lsquo;prob_completer_pass&rsquo;:&lsquo;Probability of First Completion Conditional on Passing&rsquo;},</p>
-<p>color = &ldquo;color_val&rdquo;,</p>
-<p>color_discrete_sequence = [&ldquo;rgb(51,34,136)&rdquo;])</p>
-<p>if len(pathway_label_titles) &gt; 0:</p>
-<p>pathway_title_display_val = pathway_label_titles[c]</p>
-<p>else:</p>
-<p>pathway_title_display_val = &ldquo;{:.0f}&rdquo;.format(c)</p>
-<p>fig.update_layout(title_text = &ldquo;Difference in the Probability of First Completion for Those Who Pass, Fail Course on First Attempt: {} Pathway&rdquo;.</p>
-<p>format(pathway_title_display_val),</p>
-<p>font_size = 15,</p>
-<p>plot_bgcolor = &ldquo;rgba(0,0,0,0)&rdquo;,</p>
-<p>showlegend = False)</p>
-<p>fig.update_xaxes(showline = True,</p>
-<p>linewidth = 2,</p>
-<p>linecolor = &ldquo;gray&rdquo;,</p>
-<p>showgrid = True,</p>
-<p>gridwidth = 1,</p>
-<p>gridcolor = &ldquo;rgb(192,192,192)&rdquo;)</p>
-<p>fig.update_yaxes(showline = True,</p>
-<p>linewidth = 2,</p>
-<p>linecolor = &ldquo;gray&rdquo;,</p>
-<p>showgrid = True,</p>
-<p>gridwidth = 1,</p>
-<p>gridcolor = &ldquo;rgb(192,192,192)&rdquo;)</p>
+<pre><code>fig = px.scatter(df_display,
+				 x = &quot;proportion_failing&quot;, 
+				 y = &quot;prob_completer_diff&quot;,
+				 size = &quot;total_attempters&quot;,
+				 hover_name = &quot;course_label&quot;,
+				 hover_data = {&quot;total_attempters&quot;:True, &quot;prob_completer_pass&quot;:True, &quot;prob_completer_fail&quot;:True, &quot;prob_completer_diff&quot;:False, &quot;proportion_failing&quot;:False, &quot;color_val&quot;:False},
+				 range_x = [x_min, x_max],
+				 range_y = [y_min, y_max],
+				 labels = {'proportion_failing':'Proportion Students Who Failed Course During First Attempt',
+						   'prob_completer_diff':'Difference in Predicted Probability of First Completion',
+						   'total_attempters':'Number Students Attempting Course at Least Once',
+						   'course_label':'Course Name',
+						   'prob_completer_fail':'Probability of First Completion Conditional on Failing',
+						   'prob_completer_pass':'Probability of First Completion Conditional on Passing'},
+				 color = &quot;color_val&quot;,
+				 color_discrete_sequence = [&quot;rgb(51,34,136)&quot;])
+if len(pathway_label_titles) &amp;gt; 0:
+	pathway_title_display_val = pathway_label_titles[c]
+else:
+	pathway_title_display_val = &quot;{:.0f}&quot;.format(c)	
+fig.update_layout(title_text = &quot;Difference in the Probability of First Completion for Those Who Pass, Fail Course on First Attempt: {} Pathway&quot;.format(pathway_title_display_val),
+				  font_size = 15,
+				  plot_bgcolor = &quot;rgba(0,0,0,0)&quot;,
+				  showlegend = False)
+fig.update_xaxes(showline = True,
+				 linewidth = 2,
+				 linecolor = &quot;gray&quot;,
+				 showgrid = True,
+				 gridwidth = 1,
+				 gridcolor = &quot;rgb(192,192,192)&quot;)
+fig.update_yaxes(showline = True,
+				 linewidth = 2,
+				 linecolor = &quot;gray&quot;,
+				 showgrid = True,
+				 gridwidth = 1,
+				 gridcolor = &quot;rgb(192,192,192)&quot;)
+</code></pre>
 <p><span class="stcmt">// Highlight y = 0 line for reference if y range extends below 0</span></p>
-<p>if y_min &lt; 0:</p>
-<p>fig.add_hline(y=0, line_color=&ldquo;black&rdquo;, opacity = 1)</p>
+<pre><code>if y_min &amp;lt; 0:
+	fig.add_hline(y=0, line_color=&quot;black&quot;, opacity = 1)
+</code></pre>
 <p><span class="stcmt">// Append chart to list</span></p>
-<p>charts.append(fig)</p>
+<pre><code>charts.append(fig)
+</code></pre>
 <p><span class="stcmt">// Render all the charts</span></p>
-<p>for g in charts:</p>
-<p>g.show()</p>
-<p>end</p>
+<pre><code>for g in charts:
+g.show()
+					   
+end
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows the extent to which students in the IT Tech pathway may be impeded by gatekeeper courses. In the scatterplot, we see that a number of courses associates with IT Tech (for example, courses in the IT department) have failure rates above 40% and that in most cases course failure is related to a change in likelihood of completion of 20 percentage points or more. These size of the points indicate that many students in the pathway are attempting these courses, so large groups of students may be derailed by these courses.</p>
@@ -1124,51 +1173,64 @@ html {
 <p><span class="stcmt">// Code below for this analyis should be modified according to your needs. In some places, comments explicitly prompt you to appropriately modify a minimum number of commands for your institution&rsquo;s data, or else the output may not be correct or useful. And of course feel free to modify any other commands, too.	</span></p>
 <p><span class="stcmt">// Stata version 16 or higher is required to run the code below because of the frames commands. Earliear versions of Stata do not allow for different frames. If you do not have access to version 16, you can modify the appropriate commands to use tempfiles instead and achieve a similar result.			</span></p>
 <p><span class="stcmt">// Set up and setting filepaths</span></p>
-<p>version 16.1</p>
-<p>clear all</p>
-<p>macro drop all</p>
+<pre><code>version 16.1
+clear all
+macro drop all		
+</code></pre>
 <p><span class="stcmt">// set path to your saved .csv data file matching spec document</span></p>
-<p>global path_to_data &ldquo;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&rdquo;</p>
+<pre><code>global path_to_data &quot;some_directory/perhaps_another_directory/maybe_even_one_more_directory/your_data.csv&quot; 
+</code></pre>
 <p><span class="stcmt">// set path for where you&rsquo;d like graphs saved on your computer		</span></p>
-<p>global saved_graphs &ldquo;some_directory/perhaps_another_directory/finally_the_directory_where_you_would_like_your_graphs_saved&rdquo;</p>
+<pre><code>global saved_graphs &quot;some_directory/perhaps_another_directory/finally_the_directory_where_you_would_like_your_graphs_saved&quot;
+</code></pre>
 <p><span class="stcmt">// Load data set up according to spec</span></p>
-<p>import delimited &ldquo;${path_to_data}&rdquo;, clear</p>
+<pre><code>import delimited &quot;${path_to_data}&quot;, clear		
+</code></pre>
 <p><span class="stcmt">// Generate and label an entry pathway</span></p>
 <p><span class="stcmt">// Generate an entry pathway code for each student</span></p>
-<p>bys studentid (cohorttermindex): gen entry_pathway = pathway[1]</p>
-<p>label var entry_pathway &ldquo;pathway code associated with a student at entry&rdquo;</p>
+<pre><code>bys studentid (cohorttermindex): gen entry_pathway = pathway[1]
+label var entry_pathway &quot;pathway code associated with a student at entry&quot;	
+</code></pre>
 <p><span class="stcmt">// Label pathway</span></p>
-<p>label define pathway_entry_vals 1 &ldquo;Some Pathway&rdquo; 2 &ldquo;Another Pathway&rdquo; 3 &ldquo;One More Pathway&rdquo; <span class="stcmt">// this is just a placeholder example; please modify with the full names associated with each entry pathway code at your institution</span></p>
-<p>label values pathway pathway_entry_vals</p>
+<pre><code>label define pathway_entry_vals 1 &quot;Some Pathway&quot; 2 &quot;Another Pathway&quot; 3 &quot;One More Pathway&quot;//this is just a placeholder example; please modify with the full names associated with each entry pathway code at your institution
+label values pathway pathway_entry_vals		
+</code></pre>
 <p><span class="stcmt">// A few additional calculations to complement initial data file</span></p>
 <p><span class="stcmt">// Generate cumulative college-level credits earned by term</span></p>
-<p>bys studentid (cohorttermindex): gen cumcollegecreditsearned = sum(collegecreditsearned)</p>
-<p>label var cumcollegecreditsearned &ldquo;cumulative college-level credits earned by a student term to term&rdquo;</p>
+<pre><code>bys studentid (cohorttermindex): gen cumcollegecreditsearned = sum(collegecreditsearned)
+label var cumcollegecreditsearned &quot;cumulative college-level credits earned by a student term to term&quot;
+</code></pre>
 <p><span class="stcmt">// Generate cumulative credits earned by term</span></p>
-<p>bys studentid (cohorttermindex): gen cumcreditsearned = sum(creditsearned)</p>
-<p>label var cumcreditsearned &ldquo;cumulative credits earned by a student term to term, whether college-level or developmental credits&rdquo;</p>
+<pre><code>bys studentid (cohorttermindex): gen cumcreditsearned = sum(creditsearned)
+label var cumcreditsearned &quot;cumulative credits earned by a student term to term, whether college-level or developmental credits&quot;
+</code></pre>
 <p><span class="stcmt">// Generate cumulative college-level credits attempted by term</span></p>
-<p>bys studentid (cohorttermindex): gen cumcollegecreditsattempted = sum(collegecreditsattempted)</p>
-<p>label var cumcollegecreditsattempted &ldquo;cumulative college-level credits attempted by a student term to term&rdquo;</p>
+<pre><code>bys studentid (cohorttermindex): gen cumcollegecreditsattempted = sum(collegecreditsattempted)
+label var cumcollegecreditsattempted &quot;cumulative college-level credits attempted by a student term to term&quot;
+</code></pre>
 <p><span class="stcmt">// Determine number of terms included in data for each student</span></p>
-<p>sum cohorttermindex</p>
-<p>global max_term = r(max)</p>
+<pre><code>sum cohorttermindex
+global max_term = r(max)	
+</code></pre>
 <p><span class="stcmt">// Generate ideal credits earned and cumulative credits earned amounts</span></p>
-<p>gen idealcreditsearned = 0</p>
-<p>label var idealcreditsearned &ldquo;ideal number of credits a student would earn each term&rdquo;</p>
-<p>replace idealcreditsearned = 15 if inrange(cohorttermindex, 1, 4)</p>
-<p>bys studentid (cohorttermindex): gen cumidealcreditsearned = sum(idealcreditsearned)</p>
-<p>label var cumidealcreditsearned &ldquo;cumulative ideal number of credits a student would have earned each term&rdquo;</p>
+<pre><code>gen idealcreditsearned = 0
+label var idealcreditsearned &quot;ideal number of credits a student would earn each term&quot;
+replace idealcreditsearned = 15 if inrange(cohorttermindex, 1, 4)
+bys studentid (cohorttermindex): gen cumidealcreditsearned = sum(idealcreditsearned)
+label var cumidealcreditsearned &quot;cumulative ideal number of credits a student would have earned each term&quot;
+</code></pre>
 <p><span class="stcmt">// Code in an indicator for a terminating event (first completion or first transfer)</span></p>
-<p>gen terminating = inlist(pathway, 100, 101)</p>
-<p>label var terminating &ldquo;indicator for a terminating event: first completion or transfer&rdquo;</p>
+<pre><code>gen terminating = inlist(pathway, 100, 101)	
+label var terminating &quot;indicator for a terminating event: first completion or transfer&quot;
+</code></pre>
 <p><span class="stcmt">// Create cumulative credit charts</span></p>
 <p><span class="stcmt">// Avg. college-level cumulative credits attempted vs. earned</span></p>
-<p>preserve</p>
-<p>collapse (mean) cumcollegecreditsearned cumcollegecreditsattempted cumidealcreditsearned, by(entry_pathway cohorttermindex)</p>
-<p>twoway (line cumcollegecreditsearned cohorttermindex, lcolor(&ldquo;51 34 136&rdquo;)) (line cumcollegecreditsattempted cohorttermindex, lcolor(&ldquo;68 170 153&rdquo;) lpattern(dash)) (line cumidealcreditsearned cohorttermindex, lcolor(&ldquo;136 34 85&rdquo;)), by(entry_pathway, graphregion(fcolor(white)) imargin(medium) title(&ldquo;Average Cumulative College-Level Credits&rdquo; &ldquo;Attempted vs. Earned&rdquo;) note(&ldquo;Note: College-level credit counts exclude developmental coursework.&rdquo;, size(vsmall))) legend(label(1 &ldquo;Earned&rdquo;) label(2 &ldquo;Attempted&rdquo;) label(3 &ldquo;On-Track&rdquo;)) yline(0, lcolor(black)) plotregion(margin(zero)) ytitle(&ldquo;Avg. Cumulative College-Level Credits&rdquo;) xtitle(&ldquo;Cohort Term&rdquo;) ylabel(0(15)60) xlabel(1(1)${max_term}) <span class="stcmt">// colors specifically chosen to be colorblind accessible</span></p>
-<p>graph export &ldquo;${saved_graphs}/1_avg_cum_college-level_credits_attempted_vs_earned.png&rdquo;, replace</p>
-<p>restore</p>
+<pre><code>preserve
+collapse (mean) cumcollegecreditsearned cumcollegecreditsattempted cumidealcreditsearned, by(entry_pathway cohorttermindex)
+	twoway (line cumcollegecreditsearned cohorttermindex, lcolor(&quot;51 34 136&quot;)) (line cumcollegecreditsattempted cohorttermindex, lcolor(&quot;68 170 153&quot;) lpattern(dash)) (line cumidealcreditsearned cohorttermindex, lcolor(&quot;136 34 85&quot;)), by(entry_pathway, graphregion(fcolor(white)) imargin(medium) title(&quot;Average Cumulative College-Level Credits&quot; &quot;Attempted vs. Earned&quot;) note(&quot;Note: College-level credit counts exclude developmental coursework.&quot;, size(vsmall))) legend(label(1 &quot;Earned&quot;) label(2 &quot;Attempted&quot;) label(3 &quot;On-Track&quot;)) yline(0, lcolor(black)) plotregion(margin(zero)) ytitle(&quot;Avg. Cumulative College-Level Credits&quot;) xtitle(&quot;Cohort Term&quot;) ylabel(0(15)60) xlabel(1(1)${max_term})//colors specifically chosen to be colorblind accessible
+	graph export &quot;${saved_graphs}/1_avg_cum_college-level_credits_attempted_vs_earned.png&quot;, replace
+restore	
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart shows that, across pathways, students are not attempting or accumulating credits at a pace that would allow them to complete an associate degree within two years, even though we saw in Section 1 that most students are pursuing an associate degree. The top line in each of the plots shows the pace at which students need to accumulate credits in order to complete an associate degree in two years; the dotted line shows how many credits student are attempting, on average, and the bottom line shows average credit accumulation. Looking at Health, for example, we see that students are attempting enough credits to be able to earn an associate degree in three years, but that credit accumulation is much slower. This suggests that the pathway may want to consider offering additional academic support to help students earn credits in the courses they attempt.</p>
@@ -1182,22 +1244,23 @@ html {
 <pre id="stlog-8" class="stcmd"><code>
 <span class="stcmt">// Create credits earned by early momentum charts</span>
 <p><span class="stcmt">// Avg. college-level cumulative credits earned by early momentum</span></p>
-<p>preserve</p>
-<p>sum cumcollegecreditsearned if cohorttermindex == 1, detail</p>
-<p>scalar p25 = r(p25)</p>
-<p>scalar p75 = r(p75)</p>
-<p>gen bin = 0</p>
-<p>replace bin = 1 if cohorttermindex == 1 &amp; cumcollegecreditsearned &lt;= p25</p>
-<p>replace bin = 2 if cohorttermindex == 1 &amp; (cumcollegecreditsearned &gt; p25 &amp; cumcollegecreditsearned &lt;= p75)</p>
-<p>replace bin = 3 if cohorttermindex == 1 &amp; cumcollegecreditsearned &gt; p75</p>
-<p>bys studentid (cohorttermindex): replace bin = bin[1]</p>
-<p>assert !missing(bin)</p>
-<p>label define early_credits_bin 1 &ldquo;&lt; 25th Percentile&rdquo; 2 &ldquo;25th - 75th Percentile&rdquo; 3 &ldquo;&gt; 75th Percentile&rdquo;</p>
-<p>label values bin early_credits_bin</p>
-<p>collapse (mean) cumcollegecreditsearned, by(entry_pathway cohorttermindex bin)</p>
-<p>twoway (line cumcollegecreditsearned cohorttermindex if bin == 1, lcolor(&ldquo;51 34 136&rdquo;)) (line cumcollegecreditsearned cohorttermindex if bin == 2, lcolor(&ldquo;68 170 153&rdquo;)) (line cumcollegecreditsearned cohorttermindex if bin == 3, lcolor(&ldquo;136 34 85&rdquo;)), by(entry_pathway, title(&ldquo;Average College-Level Credit Accummulation&rdquo; &ldquo;by Entry Term College-Level Credits Earned&rdquo;) graphregion(fcolor(white)) note(&ldquo;Note: College-level credit counts exclude developmental coursework.&rdquo;, size(vsmall)) imargin(medium)) xtitle(&ldquo;Cohort Term&rdquo;) ytitle(&ldquo;Avg. College-Level Credit Accumulation&rdquo;) legend(title(&ldquo;Entry Term College-Level Credits Earned Percentile&rdquo;, size(small)) label(1 &ldquo;&lt; 25th&rdquo;) label(2 &ldquo;25th - 75th&rdquo;) label(3 &ldquo;&gt; 75th&rdquo;)) xlabel(1(1)${max_term}) yline(0, lcolor(black)) plotregion(margin(zero))</p>
-<p>graph export &ldquo;${saved_graphs}/2_avg_cum_college-level_credits_by_early_momentum.png&rdquo;, replace</p>
-<p>restore</p>
+<pre><code>preserve
+sum cumcollegecreditsearned if cohorttermindex == 1, detail
+scalar p25 = r(p25)
+scalar p75 = r(p75)
+gen bin = 0
+replace bin = 1 if cohorttermindex == 1 &amp;amp; cumcollegecreditsearned &amp;lt;= p25
+replace bin = 2 if cohorttermindex == 1 &amp;amp; (cumcollegecreditsearned &amp;gt; p25 &amp;amp; cumcollegecreditsearned &amp;lt;= p75)
+replace bin = 3 if cohorttermindex == 1 &amp;amp; cumcollegecreditsearned &amp;gt; p75
+bys studentid (cohorttermindex): replace bin = bin[1]
+assert !missing(bin)
+label define early_credits_bin 1 &quot;&amp;lt; 25th Percentile&quot; 2 &quot;25th - 75th Percentile&quot; 3 &quot;&amp;gt; 75th Percentile&quot;
+label values bin early_credits_bin
+collapse (mean) cumcollegecreditsearned, by(entry_pathway cohorttermindex bin)
+	twoway (line cumcollegecreditsearned cohorttermindex if bin == 1, lcolor(&quot;51 34 136&quot;)) (line cumcollegecreditsearned cohorttermindex if bin == 2, lcolor(&quot;68 170 153&quot;)) (line cumcollegecreditsearned cohorttermindex if bin == 3, lcolor(&quot;136 34 85&quot;)), by(entry_pathway, title(&quot;Average College-Level Credit Accummulation&quot; &quot;by Entry Term College-Level Credits Earned&quot;) graphregion(fcolor(white)) note(&quot;Note: College-level credit counts exclude developmental coursework.&quot;, size(vsmall)) imargin(medium)) xtitle(&quot;Cohort Term&quot;) ytitle(&quot;Avg. College-Level Credit Accumulation&quot;) legend(title(&quot;Entry Term College-Level Credits Earned Percentile&quot;, size(small)) label(1 &quot;&amp;lt; 25th&quot;) label(2 &quot;25th - 75th&quot;) label(3 &quot;&amp;gt; 75th&quot;)) xlabel(1(1)${max_term}) yline(0, lcolor(black)) plotregion(margin(zero))
+	graph export &quot;${saved_graphs}/2_avg_cum_college-level_credits_by_early_momentum.png&quot;, replace
+restore
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart demonstrates the importance of early credit accumulation for students&rsquo; trajectories over their first six terms. For all pathways examined, we see that students who earned the most credits in their first semester have much steeper rates of credit accumulation throughout their first three years than students who earned fewer credits in their first term. We see only small differences between students in above the 75th percentile of credit accumulation and students between the 25th and 75th percentiles, indicating that students do not necessarily need to earn as many credits as possible in their first term, but should experience some early success in their courses.</p>
@@ -1211,66 +1274,70 @@ html {
 <pre id="stlog-9" class="stcmd"><code>
 <span class="stcmt">// Create completer/transfer rate charts</span>
 <p><span class="stcmt">// Data set up for completion/transfer rates by college-level credits earned</span></p>
-<p>cap frame drop complete_trans_entry_college_credits</p>
-<p>frame copy default complete_trans_college_credits</p>
-<p>frame change complete_trans_college_credits</p>
-<p>drop if cumcollegecreditsearned &gt; 21 &amp; cohorttermindex == 1 <span class="stcmt">// exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary</span></p>
-<p>bys studentid: egen min_cohorttermindex = min(cohorttermindex)</p>
-<p>drop if min_cohorttermindex != 1</p>
-<p>drop min_cohorttermindex</p>
-<p>gen credit_bin_in_first_term = 0</p>
-<p>local lower_bound = 0</p>
-<p>forvalues c = 3(3)21 {</p>
-<p>di in red `lower_bound&rsquo;</p>
-<p>di in red `c&rsquo;</p>
-<p>table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned)</p>
-<p>if `lower_bound&rsquo; == 0 {</p>
-<p>replace credit_bin_in_first_term = <code>c' if cohorttermindex == 1 &amp;amp; (cumcollegecreditsearned &amp;lt;=</code>c&rsquo;)</p>
-<p>}</p>
-<p>else {</p>
-<p>replace credit_bin_in_first_term = <code>c' if cohorttermindex == 1 &amp;amp; (cumcollegecreditsearned &amp;gt;</code>lower_bound&rsquo; &amp; cumcollegecreditsearned &lt;=`c&rsquo;)</p>
-<p>}</p>
-<p>local lower_bound = `c&rsquo;</p>
-<p>}</p>
-<p>table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned)</p>
-<p>bys studentid: egen any_terminating = max(terminating)</p>
-<p>bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1]</p>
-<p>collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)</p>
-<p>gen credit_type = &ldquo;college-level&rdquo;</p>
-<p>tempfile college_credits</p>
-<p>save `college_credits&rsquo;</p>
+<pre><code>cap frame drop complete_trans_entry_college_credits
+frame copy default complete_trans_college_credits
+frame change complete_trans_college_credits
+drop if cumcollegecreditsearned &amp;gt; 21 &amp;amp; cohorttermindex == 1//exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary
+bys studentid: egen min_cohorttermindex = min(cohorttermindex)
+drop if min_cohorttermindex != 1
+drop min_cohorttermindex
+gen credit_bin_in_first_term = 0
+local lower_bound = 0
+forvalues c = 3(3)21 {
+	di in red `lower_bound'
+	di in red `c'
+	table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned)
+	if `lower_bound' == 0 {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp;amp; (cumcollegecreditsearned &amp;lt;= `c')
+	} 
+	else {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp;amp; (cumcollegecreditsearned &amp;gt; `lower_bound' &amp;amp; cumcollegecreditsearned &amp;lt;=`c')
+	}
+	local lower_bound = `c'
+}
+table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcollegecreditsearned max cumcollegecreditsearned)
+bys studentid: egen any_terminating = max(terminating)
+bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1]
+collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)
+gen credit_type = &quot;college-level&quot;
+tempfile college_credits
+save `college_credits'	
+</code></pre>
 <p><span class="stcmt">// Data set up for completion/transfer rates by credits earned in first term, whether credits were college-level or not</span></p>
-<p>cap frame drop complete_trans_credits</p>
-<p>frame copy default complete_trans_credits</p>
-<p>frame change complete_trans_credits</p>
-<p>drop if cumcreditsearned &gt; 21 &amp; cohorttermindex == 1 <span class="stcmt">// exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary</span></p>
-<p>bys studentid: egen min_cohorttermindex = min(cohorttermindex)</p>
-<p>drop if min_cohorttermindex != 1</p>
-<p>drop min_cohorttermindex</p>
-<p>gen credit_bin_in_first_term = 0</p>
-<p>local lower_bound = 0</p>
-<p>forvalues c = 3(3)21 {</p>
-<p>di in red `lower_bound&rsquo;</p>
-<p>di in red `c&rsquo;</p>
-<p>table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcreditsearned max cumcreditsearned)</p>
-<p>if `lower_bound&rsquo; == 0 {</p>
-<p>replace credit_bin_in_first_term = <code>c' if cohorttermindex == 1 &amp;amp; (cumcreditsearned &amp;lt;=</code>c&rsquo;)</p>
-<p>}</p>
-<p>else {</p>
-<p>replace credit_bin_in_first_term = <code>c' if cohorttermindex == 1 &amp;amp; (cumcreditsearned &amp;gt;</code>lower_bound&rsquo; &amp; cumcreditsearned &lt;=`c&rsquo;)</p>
-<p>}</p>
-<p>local lower_bound = `c&rsquo;</p>
-<p>}</p>
-<p>table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcreditsearned max cumcreditsearned)</p>
-<p>bys studentid: egen any_terminating = max(terminating)</p>
-<p>bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1]</p>
-<p>collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)</p>
-<p>gen credit_type = &ldquo;any&rdquo;</p>
+<pre><code>cap frame drop complete_trans_credits
+frame copy default complete_trans_credits
+frame change complete_trans_credits
+drop if cumcreditsearned &amp;gt; 21 &amp;amp; cohorttermindex == 1//exclude students who earned more than 21 college credits in their first term as outliers; though this threshold is somewhat arbitrary
+bys studentid: egen min_cohorttermindex = min(cohorttermindex)
+drop if min_cohorttermindex != 1
+drop min_cohorttermindex
+gen credit_bin_in_first_term = 0
+local lower_bound = 0
+forvalues c = 3(3)21 {
+	di in red `lower_bound'
+	di in red `c'
+	table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcreditsearned max cumcreditsearned)
+	if `lower_bound' == 0 {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp;amp; (cumcreditsearned &amp;lt;= `c')
+	} 
+	else {
+		replace credit_bin_in_first_term = `c' if cohorttermindex == 1 &amp;amp; (cumcreditsearned &amp;gt; `lower_bound' &amp;amp; cumcreditsearned &amp;lt;=`c')
+	}
+	local lower_bound = `c'
+}
+table credit_bin_in_first_term if cohorttermindex == 1, c(min cumcreditsearned max cumcreditsearned)
+bys studentid: egen any_terminating = max(terminating)
+bys studentid (cohorttermindex): replace credit_bin_in_first_term = credit_bin_in_first_term[1]
+collapse (mean) any_terminating, by(entry_pathway credit_bin_in_first_term)
+gen credit_type = &quot;any&quot;
+</code></pre>
 <p><span class="stcmt">// Combine data sets for completion/transfer rates by both credit types in first term: any credit and college-level credit</span></p>
-<p>append using `college_credits&rsquo;</p>
+<pre><code>append using `college_credits'
+</code></pre>
 <p><span class="stcmt">// Completion/transfer rates by pathway and first-term credit-type bins</span></p>
-<p>twoway (line any_terminating credit_bin_in_first_term if credit_type == &ldquo;any&rdquo;, lcolor(&ldquo;51 34 136&rdquo;)) (line any_terminating credit_bin_in_first_term  if credit_type == &ldquo;college-level&rdquo;, lcolor(&ldquo;68 170 153&rdquo;)), by(entry_pathway, graphregion(fcolor(white)) title(&ldquo;First Completion/Transfer Rates by Pathway&rdquo; &ldquo;and Entry Term Credits Earned&rdquo;) imargin(medium) note(&ldquo;Note: Credits earned in the first term are grouped into three-credit intervals, labeled by the maximum of the interval. Developmental&rdquo; &ldquo;credits are included in the Any Credits sum, but not the College-Level sum.&rdquo;, size(vsmall))) xtitle(&ldquo;Credits Earned in First Term&rdquo;) ytitle(&ldquo;3 Yr. First Completion/Transfer Rate&rdquo;) ylabel(0(0.2)1.05)  xlabel(3(3)21) plotregion(margin(zero)) yline(0, lcolor(black))  legend(label(1 &ldquo;Any Credits&rdquo;) label(2 &ldquo;College-Level Credits&rdquo;))</p>
-<p>graph export &ldquo;${saved_graphs}/3_student_status_at_6_terms_by_entry_term_credits_earned.png&rdquo;, replace</p>
+<pre><code>twoway (line any_terminating credit_bin_in_first_term if credit_type == &quot;any&quot;, lcolor(&quot;51 34 136&quot;)) (line any_terminating credit_bin_in_first_term  if credit_type == &quot;college-level&quot;, lcolor(&quot;68 170 153&quot;)), by(entry_pathway, graphregion(fcolor(white)) title(&quot;First Completion/Transfer Rates by Pathway&quot; &quot;and Entry Term Credits Earned&quot;) imargin(medium) note(&quot;Note: Credits earned in the first term are grouped into three-credit intervals, labeled by the maximum of the interval. Developmental&quot; &quot;credits are included in the Any Credits sum, but not the College-Level sum.&quot;, size(vsmall))) xtitle(&quot;Credits Earned in First Term&quot;) ytitle(&quot;3 Yr. First Completion/Transfer Rate&quot;) ylabel(0(0.2)1.05)  xlabel(3(3)21) plotregion(margin(zero)) yline(0, lcolor(black))  legend(label(1 &quot;Any Credits&quot;) label(2 &quot;College-Level Credits&quot;))
+graph export &quot;${saved_graphs}/3_student_status_at_6_terms_by_entry_term_credits_earned.png&quot;, replace
+</code></pre>
 </code></pre>
 <h4><a href="#understanding-the-chart" id="understanding-the-chart">Understanding the Chart</a></h4>
 <p>This chart highlights the importance of early credit accumulation in predicting longer-term credential completion. Across all pathways, we see that students who earn more credits in their first term are more likely to complete within six terms than students who earn fewer credits. For example, in the Mech Repair program shown in the bottom right panel, almost 60% of students who earn 12 college-level credits in their first semester complete a credential within six terms, compared to roughly 15% of students who earned 3 credits in their first term. While earning college-level credits is most strongly related to credential completion, earning any credits (including developmental) is positively correlated with three-year completion rates in all pathways.</p>
