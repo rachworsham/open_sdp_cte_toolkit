@@ -185,9 +185,7 @@ html {
 <h1 id="h-1">Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts </h1>
 #### *Stata Version*
 
-Prepared by: *Chris Avery, Jon Fullerton, Brian Johnson, Adrienne Murphy, Alyssa Reinhart, and Elise Swanson
-
-*Authors listed alphabetically. The authors would also like to thank members of our Advisory Board- Joel McKelvey, Sue Mukherjee, Christopher Leake, and Jessica Cunningham, as well as Miriam Greenberg and the SDP CTE Fellows for their feedback and guidance throughout the development of the diagnostic. 
+This Diagnostic was created with support from the ECMC Foundation. This Diagnostic was prepared by Chris Avery, Jon Fullerton, Brian Johnson, Adrienne Murphy, Alyssa Reinhart, and Elise Swanson (listed alphabetically). The authors would also like to thank members of our Advisory Board- Joel McKelvey, Sue Mukherjee, Christopher Leake, and Jessica Cunningham, as well as Miriam Greenberg and the ECMCF SDP CTE Fellows for their feedback and guidance throughout the development of the diagnostic 
 
 <h2 id="h-1-1">Introduction</h2>
 <h3 id="h-1-1-1">Background and Context</h3>
