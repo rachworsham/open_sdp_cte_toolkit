@@ -183,7 +183,7 @@ The sections below include example visualizations that are based on synthetic da
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table1.png">
+<img src="docs/techcompanion_img/techcompanion.table1.png">
 </div>
 </div>
 
@@ -201,7 +201,7 @@ The first multinomial logistic regression model run expresses students' outcomes
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1.jpg">
+<img src="docs/techcompanion_img/techcompanion.1.jpg">
 </div>
 </div>
 
@@ -211,7 +211,7 @@ Importantly, you do not want to overwrite the original, student-level data used 
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1a.png">
+<img src="docs/techcompanion_img/techcompanion.1a.png">
 </div>
 </div>
 
@@ -227,7 +227,7 @@ Like with the first multinomial logistic regression, we fit this model to studen
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1b.png">
+<img src="docs/techcompanion_img/techcompanion.1b.png">
 </div>
 </div>
 
@@ -241,7 +241,7 @@ Many similar charts are possible using results from the same model. Our sample d
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1c.png">
+<img src="docs/techcompanion_img/techcompanion.1c.png">
 </div>
 </div>
 
@@ -253,7 +253,7 @@ A final chart for Section 1 displays the timing of student success, allowing you
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.1d.png">
+<img src="docs/techcompanion_img/techcompanion.1d.png">
 </div>
 </div>
 
@@ -269,7 +269,7 @@ We need multiple terms of data for each student in order to create the "waterfal
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table2.png">
+<img src="docs/techcompanion_img/techcompanion.table2.png">
 </div>
 </div>
 
@@ -298,7 +298,7 @@ Also, recall from above that the definition of completion you choose may mean mo
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table3.png">
+<img src="docs/techcompanion_img/techcompanion.table3.png">
 </div>
 </div>
 
@@ -312,7 +312,7 @@ This analysis produces an interactive Sankey diagram showing flows of students a
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.2.png">
+<img src="docs/techcompanion_img/techcompanion.2.png">
 </div>
 </div>
 
@@ -324,7 +324,7 @@ While this analysis is useful for showing students' movement across pathways and
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.2a.png">
+<img src="docs/techcompanion_img/techcompanion.2a.png">
 </div>
 </div>
 
@@ -338,7 +338,7 @@ This file should be unique at the studentid-cohorttermindex level. In other word
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table4.png">
+<img src="docs/techcompanion_img/techcompanion.table4.png">
 </div>
 </div>
 
@@ -361,7 +361,7 @@ At this time, to our knowledge, the plotly package does not offer node sorting o
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table5.png">
+<img src="docs/techcompanion_img/techcompanion.table5.png">
 </div>
 </div>
 
@@ -374,7 +374,7 @@ This analysis investigates core courses that are required for students to comple
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.3.png">
+<img src="docs/techcompanion_img/techcompanion.3.png">
 </div>
 </div>
 
@@ -387,7 +387,7 @@ Note that because some courses might not be unique to a single pathway (especial
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.3a.png">
+<img src="docs/techcompanion_img/techcompanion.3a.png">
 </div>
 </div>
 
@@ -399,7 +399,7 @@ This file should be unique at the pathway-course_id level. In other words, each 
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table6.png">
+<img src="docs/techcompanion_img/techcompanion.table6.png">
 </div>
 </div>
 
@@ -407,7 +407,7 @@ This file should be unique at the pathway-course_id level. In other words, each 
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table7.png">
+<img src="docs/techcompanion_img/techcompanion.table7.png">
 </div>
 </div>
 
@@ -422,7 +422,7 @@ We begin this analysis by comparing college-level credit accumulation over time 
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4.png">
+<img src="docs/techcompanion_img/techcompanion.4.png">
 </div>
 </div>
 
@@ -432,7 +432,7 @@ Once you have your data in the form of the second table in Figure 4, you are rea
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4a.png">
+<img src="docs/techcompanion_img/techcompanion.4a.png">
 </div>
 </div>
 
@@ -442,7 +442,7 @@ In the second chart, we investigate the importance of early momentum in predicti
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4b.png">
+<img src="docs/techcompanion_img/techcompanion.4b.png">
 </div>
 </div>
 
@@ -454,7 +454,7 @@ In the final graph, we want to investigate the importance of early credit moment
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.4c.png">
+<img src="docs/techcompanion_img/techcompanion.4c.png">
 </div>
 </div>
 
@@ -470,7 +470,7 @@ This file should be unique at the studentid-cohorttermindex level. In other word
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/b3533ec2a9a2fa7af720b3527681ad0e3ea1e445/docs/techcompanion_img/techcompanion.table8.png">
+<img src="docs/techcompanion_img/techcompanion.table8.png">
 </div>
 </div>
 

@@ -1,5 +1,5 @@
 // Change the path in the next line to your top-level working directory
-cd "/Users/reworsha/Dropbox/My Mac (SOE-RAWORSH-ML)/Desktop/Harvard Important/cte/open_sdp_cte_toolkit-master 2"
+cd ""
 
 // Change the path below to the directory where you will store programs
 global programs "./code"
@@ -48,9 +48,7 @@ webdoc put <div class="col-xs-12 col-sm-12 col-md-8 offset-md-1 pull-right">
 # Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts 
 #### *Stata Version*
 
-Prepared by: *Chris Avery, Jon Fullerton, Brian Johnson, Adrienne Murphy, Alyssa Reinhart, and Elise Swanson
-
-*Authors listed alphabetically. The authors would also like to thank members of our Advisory Board- Joel McKelvey, Sue Mukherjee, Christopher Leake, and Jessica Cunningham, as well as Miriam Greenberg and the SDP CTE Fellows for their feedback and guidance throughout the development of the diagnostic. 
+This Diagnostic was created with support from the ECMC Foundation. This Diagnostic was prepared by Chris Avery, Jon Fullerton, Brian Johnson, Adrienne Murphy, Alyssa Reinhart, and Elise Swanson (listed alphabetically). The authors would also like to thank members of our Advisory Board- Joel McKelvey, Sue Mukherjee, Christopher Leake, and Jessica Cunningham, as well as Miriam Greenberg and the ECMCF SDP CTE Fellows for their feedback and guidance throughout the development of the diagnostic 
 
 ## Introduction
 ### Background and Context
@@ -109,7 +107,7 @@ Figure 1.0 offers an example of how to present students' credential intentions a
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.0.1.png">
+webdoc put <img src= "docs/narrative_img/narrative.0.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -156,7 +154,7 @@ Our first analysis shows whether students' likelihood of completion or transfer 
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.1..png">
+webdoc put <img src= "docs/narrative_img/narrative.1.1..png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -305,7 +303,7 @@ The next piece of this analysis looks at differences in the probability that a s
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.2.png">
+webdoc put <img src= "docs/narrative_img/narrative.1.2.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -363,7 +361,7 @@ To go deeper into the question of the extent to which programs are supporting st
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.3.png">
+webdoc put <img src= "docs/narrative_img/narrative.1.3.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -428,7 +426,7 @@ It's important to think carefully about the implications and interpretation of t
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.4.png">
+webdoc put <img src= "docs/narrative_img/narrative.1.4.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -746,7 +744,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.2.1.png">
+webdoc put <img src= "docs/narrative_img/narrative.2.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1058,7 +1056,7 @@ This analysis identifies courses that are important for students to complete a p
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.3.1.png">
+webdoc put <img src= "docs/narrative_img/narrative.3.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1276,7 +1274,7 @@ In the first visualization of this section, we show the average number of credit
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.1.png">
+webdoc put <img src= "docs/narrative_img/narrative.4.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1382,7 +1380,7 @@ In the second visualization, we examine the importance of early momentum for lon
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.2.png">
+webdoc put <img src= "docs/narrative_img/narrative.4.2.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1426,7 +1424,7 @@ In the third and final visualization of this section, we plot the share of stude
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.3.png">
+webdoc put <img src= "docs/narrative_img/narrative.4.3.png">
 webdoc put </div>
 webdoc put </div> 
 
