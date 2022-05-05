@@ -107,7 +107,7 @@ Figure 1.0 offers an example of how to present students' credential intentions a
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.0.1.png">
+webdoc put <img src= "narrative_img/narrative.0.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -154,7 +154,7 @@ Our first analysis shows whether students' likelihood of completion or transfer 
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.1.1..png">
+webdoc put <img src= "narrative_img/narrative.1.1..png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -303,7 +303,7 @@ The next piece of this analysis looks at differences in the probability that a s
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.1.2.png">
+webdoc put <img src= "narrative_img/narrative.1.2.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -361,7 +361,7 @@ To go deeper into the question of the extent to which programs are supporting st
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.1.3.png">
+webdoc put <img src= "narrative_img/narrative.1.3.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -426,7 +426,7 @@ It's important to think carefully about the implications and interpretation of t
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.1.4.png">
+webdoc put <img src= "narrative_img/narrative.1.4.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -744,7 +744,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.2.1.png">
+webdoc put <img src= "narrative_img/narrative.2.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1056,7 +1056,7 @@ This analysis identifies courses that are important for students to complete a p
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.3.1.png">
+webdoc put <img src= "narrative_img/narrative.3.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1274,7 +1274,7 @@ In the first visualization of this section, we show the average number of credit
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.4.1.png">
+webdoc put <img src= "narrative_img/narrative.4.1.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1380,7 +1380,7 @@ In the second visualization, we examine the importance of early momentum for lon
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.4.2.png">
+webdoc put <img src= "narrative_img/narrative.4.2.png">
 webdoc put </div>
 webdoc put </div> 
 
@@ -1424,7 +1424,7 @@ In the third and final visualization of this section, we plot the share of stude
 
 webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
 webdoc put  <div class="container">
-webdoc put <img src= "docs/narrative_img/narrative.4.3.png">
+webdoc put <img src= "narrative_img/narrative.4.3.png">
 webdoc put </div>
 webdoc put </div> 
 
