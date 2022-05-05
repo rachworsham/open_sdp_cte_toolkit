@@ -242,7 +242,7 @@ Figure 1.0 offers an example of how to present students' credential intentions a
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.0.1.png">
+<img src= "docs/narrative_img/narrative.0.1.png">
 </div>
 </div>
 
@@ -285,7 +285,7 @@ Our first analysis shows whether students' likelihood of completion or transfer 
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.1..png">
+<img src= "docs/narrative_img/narrative.1.1..png">
 </div>
 </div>
 <pre id="stlog-1" class="stcmd"><code>
@@ -428,7 +428,7 @@ The next piece of this analysis looks at differences in the probability that a s
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.2.png">
+<img src= "docs/narrative_img/narrative.1.2.png">
 </div>
 </div>
 <pre id="stlog-2" class="stcmd"><code>
@@ -480,7 +480,7 @@ To go deeper into the question of the extent to which programs are supporting st
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.3.png">
+<img src= "docs/narrative_img/narrative.1.3.png">
 </div>
 </div>
 <pre id="stlog-3" class="stcmd"><code>
@@ -539,7 +539,7 @@ It's important to think carefully about the implications and interpretation of t
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.1.4.png">
+<img src= "docs/narrative_img/narrative.1.4.png">
 </div>
 </div>
 <pre id="stlog-4" class="stcmd"><code>
@@ -851,7 +851,7 @@ Our analysis shows whether students remain enrolled in their original pathway, s
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.2.1.png">
+<img src= "docs/narrative_img/narrative.2.1.png">
 </div>
 </div>
 <pre id="stlog-5" class="stcmd"><code>
@@ -1157,7 +1157,7 @@ This analysis identifies courses that are important for students to complete a p
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.3.1.png">
+<img src= "docs/narrative_img/narrative.3.1.png">
 </div>
 </div>
 <pre id="stlog-6" class="stcmd"><code>
@@ -1369,7 +1369,7 @@ In the first visualization of this section, we show the average number of credit
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.1.png">
+<img src= "docs/narrative_img/narrative.4.1.png">
 </div>
 </div>
 <pre id="stlog-7" class="stcmd"><code>
@@ -1468,7 +1468,7 @@ In the second visualization, we examine the importance of early momentum for lon
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.2.png">
+<img src= "docs/narrative_img/narrative.4.2.png">
 </div>
 </div>
 <pre id="stlog-8" class="stcmd"><code>
@@ -1505,7 +1505,7 @@ In the third and final visualization of this section, we plot the share of stude
 
 <div class="navbar navbar-default navbar-fixed-top" id="logo">
  <div class="container">
-<img src="https://github.com/rachworsham/open_sdp_cte_toolkit/blob/806f53825f42a6c63e181a1e7e9f0c455a9ddb88/docs/narrative_img/narrative.4.3.png">
+<img src= "docs/narrative_img/narrative.4.3.png">
 </div>
 </div>
 <pre id="stlog-9" class="stcmd"><code>
