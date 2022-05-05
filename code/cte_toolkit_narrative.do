@@ -1,5 +1,5 @@
 // Change the path in the next line to your top-level working directory
-cd "/Users/reworsha/Dropbox/My Mac (SOE-RAWORSH-ML)/Desktop/Harvard Important/cte/open_sdp_cte_toolkit-master 2"
+cd ""
 
 // Change the path below to the directory where you will store programs
 global programs "./code"
