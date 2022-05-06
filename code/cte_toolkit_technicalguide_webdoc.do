@@ -1,6 +1,5 @@
 // Change the path in the next line to your top-level working directory
 cd ""
-
 // Change the path below to the directory where you will store programs
 global programs "./code"
 
@@ -79,11 +78,9 @@ The sections below include example visualizations that are based on synthetic da
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table1.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="11">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table1.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table1.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -101,11 +98,9 @@ The first multinomial logistic regression model run expresses students' outcomes
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.1.jpg">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="12">
+webdoc put <a href="docs/techcompanion_img/techcompanion.1.jpg"><img alt="A description" src="docs/techcompanion_img/techcompanion.1.jpg"/></a>
+webdoc put </figure>
 
 /***
 
@@ -115,11 +110,9 @@ Importantly, you do not want to overwrite the original, student-level data used 
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.1a.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="13">
+webdoc put <a href="docs/techcompanion_img/techcompanion.1a.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.1a.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -135,11 +128,9 @@ Like with the first multinomial logistic regression, we fit this model to studen
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.1b.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="14">
+webdoc put <a href="docs/techcompanion_img/techcompanion.1b.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.1b.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -153,11 +144,9 @@ Many similar charts are possible using results from the same model. Our sample d
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.1c.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="15">
+webdoc put <a href="docs/techcompanion_img/techcompanion.1c.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.1c.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -169,11 +158,9 @@ A final chart for Section 1 displays the timing of student success, allowing you
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.1d.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="16">
+webdoc put <a href="docs/techcompanion_img/techcompanion.1d.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.1d.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -189,11 +176,9 @@ We need multiple terms of data for each student in order to create the "waterfal
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table2.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="17">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table2.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table2.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -222,11 +207,9 @@ Also, recall from above that the definition of completion you choose may mean mo
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table3.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="18">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table3.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table3.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -240,11 +223,10 @@ This analysis produces an interactive Sankey diagram showing flows of students a
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.2.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="19">
+webdoc put <a href="docs/techcompanion_img/techcompanion.2.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.2.png"/></a>
+webdoc put </figure>
+
 
 /***
 
@@ -256,11 +238,9 @@ While this analysis is useful for showing students' movement across pathways and
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.2a.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="20">
+webdoc put <a href="docs/techcompanion_img/techcompanion.2a.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.2a.png"/></a>
+webdoc put </figure>
 
 /***
 
@@ -274,11 +254,9 @@ This file should be unique at the studentid-cohorttermindex level. In other word
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table4.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="21">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table4.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table4.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -301,11 +279,9 @@ At this time, to our knowledge, the plotly package does not offer node sorting o
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table5.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="22">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table5.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table5.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -318,11 +294,9 @@ This analysis investigates core courses that are required for students to comple
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.3.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="23">
+webdoc put <a href="docs/techcompanion_img/techcompanion.3.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.3.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -335,11 +309,9 @@ Note that because some courses might not be unique to a single pathway (especial
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.3a.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="24">
+webdoc put <a href="docs/techcompanion_img/techcompanion.3a.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.3a.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -351,11 +323,9 @@ This file should be unique at the pathway-course_id level. In other words, each 
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table6.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="25">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table6.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table6.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -363,11 +333,9 @@ webdoc put </div>
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table7.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="25">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table7.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table7.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -382,11 +350,9 @@ We begin this analysis by comparing college-level credit accumulation over time 
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.4.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="26">
+webdoc put <a href="docs/techcompanion_img/techcompanion.4.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.4.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -396,11 +362,9 @@ Once you have your data in the form of the second table in Figure 4, you are rea
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.4a.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="27">
+webdoc put <a href="docs/techcompanion_img/techcompanion.4a.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.4a.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -410,11 +374,9 @@ In the second chart, we investigate the importance of early momentum in predicti
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.4b.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="28">
+webdoc put <a href="docs/techcompanion_img/techcompanion.4b.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.4b.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -426,11 +388,9 @@ In the final graph, we want to investigate the importance of early credit moment
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.4c.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="29">
+webdoc put <a href="docs/techcompanion_img/techcompanion.4c.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.4c.png"/></a>
+webdoc put </figure> 
 
 /***
 
@@ -446,11 +406,9 @@ This file should be unique at the studentid-cohorttermindex level. In other word
 
 ***/
 
-webdoc put <div class="navbar navbar-default navbar-fixed-top" id="logo">
-webdoc put  <div class="container">
-webdoc put <img src="techcompanion_img/techcompanion.table8.png">
-webdoc put </div>
-webdoc put </div> 
+webdoc put <figure id="29">
+webdoc put <a href="docs/techcompanion_img/techcompanion.table8.png"><img alt="A description" src="docs/techcompanion_img/techcompanion.table8.png"/></a>
+webdoc put </figure> 
 
 /***
 
