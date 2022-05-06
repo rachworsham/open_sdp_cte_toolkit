@@ -1026,7 +1026,6 @@ graph set window fontface "Open Sans"
 
 
 
-
 // Create credits earned by early momentum charts
 
 // Avg. college-level cumulative credits earned by early momentum
