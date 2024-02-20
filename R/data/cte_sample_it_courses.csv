@@ -1,0 +1,17 @@
+pathway,course_id,course_label,total_attempters,proportion_failing,prob_completer_fail,prob_completer_pass,prob_completer_diff
+IT Tech,IT101,Introduction to Information Technology,4542,.2,.33000001,.54699999,.21699999
+IT Tech,IT102,Fundamentals of Web Development,3448,.5,.20100001,.67500001,.47400001
+IT Tech,IT201,Database Management,3050,.5,.138,.97399998,.83600003
+IT Tech,IT202,Web Programming,3409,.60000002,.177,.69,.51200002
+IT Tech,IT203,Network Infrastructure Management,4028,.40000001,.28799999,.84100002,.55199999
+IT Tech,MA101,Elementary Algebra,3509,.60000002,.182,.764,.583
+IT Tech,BUS101,Introduction to Business Practices,3368,.1,.23800001,.90499997,.667
+IT Tech,ENG101,English Composition,3381,.40000001,.26499999,.755,.491
+IT Tech,IT301,Operating Systems,3108,.5,.245,.48100001,.236
+IT Tech,MA102,Pre-Calculus,3439,.34999999,.189,.384,.19499999
+IT Tech,IT302,Introduction to Digital Devices,4087,.2,.17399999,.97600001,.80199999
+IT Tech,IT303,Fundamentals of Cloud Computing,3253,.69999999,.233,.43000001,.197
+IT Tech,IT204,Information Security,3027,.2,.32699999,.73199999,.405
+IT Tech,BUS102,Intercultural Communication,3273,.050000001,.19400001,.62,.426
+IT Tech,SS101,Culture and Society,3187,.25,.32100001,.77200001,.45100001
+IT Tech,BUS103,Critical Thinking and Problem-Solving,3332,.15000001,.24699999,.83200002,.58499998
