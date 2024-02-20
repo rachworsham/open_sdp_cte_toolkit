@@ -10,13 +10,13 @@ The code in this repository is based on code from the "Analyze" section of the
 This repository is organized in the following folder structure:
 
 - `R` includes resources for implementation in R
-- `Stata` includes resrouces for implementation in Stata
-- `code` contains the code for the analysis 
-- `data` contains data necessary to complete the analysis
-- `docs` contains CTE Toolkit web guides and images
-- - Do files with a `_webdoc` suffix generate both charts and web guides using the Stata webdoc package
-- - Do files without the `_webdoc` suffix are automatically generated versions of the do files stripped of webdoc commands and markdown content
-- Run `run_webdoc.do` to run through the individual do files, generate the guides, and generate stripped versions of the chart code.
+- `Stata` includes resources for implementation in Stata
+- - `code` contains the code for the analysis 
+- -`data` contains data necessary to complete the analysis
+- - `docs` contains CTE Toolkit web guides and images
+- - - Do files with a `_webdoc` suffix generate both charts and web guides using the Stata webdoc package
+- - - Do files without the `_webdoc` suffix are automatically generated versions of the do files stripped of webdoc commands and markdown content
+- - - Run `run_webdoc.do` to run through the individual do files, generate the guides, and generate stripped versions of the chart code.
 
 These materials were originally authored by Chris Avery, Jon Fullerton, Brian Johnson, Adrienne Murphy, Alyssa Reinhart, and Elise Swanson.
 
