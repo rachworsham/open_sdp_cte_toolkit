@@ -1,5 +1,5 @@
 # Understanding patterns of success among postsecondary CTE students: A diagnostic for institutional and system analysts
-This repository contains web guides, Stata code, and sample
+This repository contains web guides, Stata code, R code and sample
 data to help education data analysts answer questions about student success in CTE pathways. 
 This material can also be accessed on the
 OpenSDP website at [opensdp.github.io/analysis](https://opensdp.github.io/analysis).
@@ -9,9 +9,9 @@ The code in this repository is based on code from the "Analyze" section of the
 
 This repository is organized in the following folder structure:
 
-- `code` contains the Stata code of the analysis 
-- - `cte_toolkit_narrative.do` contains all Stata code for the toolkit
-- - `section1.do` - `section4.do` is the State code broken out by toolkit section
+- `R' includes resources for implementation in R
+- `Stata' includes resrouces for implementation in Stata
+- `code` contains the code for the analysis 
 - `data` contains data necessary to complete the analysis
 - `docs` contains CTE Toolkit web guides and images
 - - Do files with a `_webdoc` suffix generate both charts and web guides using the Stata webdoc package
