@@ -1,0 +1,42 @@
+
+<span class="stcmt">// Create trends over time chart</span>
+	
+<span class="stcmt">// Chart: waterfall view of completion/transfer, unenrollment, and continued enrollment over time</span>
+	
+	{
+	cap frame drop working
+	frame create working double(pathway term denominator terminated nonenrolled stillenrolled)
+	foreach p in $pathways {
+	    di _newline(2)
+		distinct studentid if entry_pathway == `p'
+		local denominator = r(ndistinct)
+		forvalues i = 1/$max_term {
+			preserve
+				keep if entry_pathway == `p' &amp; cohorttermindex &lt;= `i'
+				bys studentid: egen any_terminating = max(terminating)
+				keep studentid entry_pathway pathway any_terminating cohorttermindex
+				keep if cohorttermindex == `i'
+				isid studentid
+				count if any_terminating == 1
+				local terminated = r(N)
+				count if pathway == 99
+				local nonenrolled = r(N)
+				count if pathway != 99 &amp; any_terminating == 0
+				local stillenrolled = r(N)
+			restore 
+			frame post working (`p') (`i') (`denominator') (`terminated') (`nonenrolled')	(`stillenrolled')
+		}	
+	}
+	frame change working
+	foreach s in terminated nonenrolled stillenrolled {
+		gen pct_`s' = `s'/denominator
+	}	
+	label define pathway_vals 1 "Some Pathway" 2 "Another Pathway" 3 "One More Pathway"//please modify appropriately; unfortunately, value labels do not copy automatically into new frames
+	label values pathway pathway_vals		
+	gen pct_nonenrolled_neg = -1*pct_nonenrolled//useful for getting this portion of cohort to hang below the x axis
+	graph bar (asis) pct_stillenrolled pct_terminated pct_nonenrolled_neg, over(term) yline(0, lcolor(gray)) bar(1, fcolor(navy)) bar(2, fcolor(green)) bar(3, fcolor(cranberry)) stack by(pathway, title("First Completion/Transfer Rates by Pathway") b1title("Cohort Term") graphregion(fcolor(white)) legend(position(3)) note("Note: Each stacked bar represents an entire cohort each term.", size(vsmall))) legend(cols(1) label(1 "Still Enrolled") label(2 "Completer/" "Transfer") label(3 "No Longer" "Enrolled") size(small) symxsize(small) textwidth(18)) ytitle("Proportion of Cohort") ylabel(-0.5 "0.5" 0 "0" 0.5 "0.5" 1 "1") bar(1, fcolor("51 34 136") lcolor(black)) bar(2, fcolor("68 170 153") lcolor(black)) bar(3, fcolor("136 34 85") lcolor(black))
+	graph export "${saved_graphs}/3_student_status_over_time.png", replace
+	frame change default
+	frame drop working		
+	}	
+
