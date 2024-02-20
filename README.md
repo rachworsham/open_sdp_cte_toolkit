@@ -9,8 +9,8 @@ The code in this repository is based on code from the "Analyze" section of the
 
 This repository is organized in the following folder structure:
 
-- `R' includes resources for implementation in R
-- `Stata' includes resrouces for implementation in Stata
+- `R` includes resources for implementation in R
+- `Stata` includes resrouces for implementation in Stata
 - `code` contains the code for the analysis 
 - `data` contains data necessary to complete the analysis
 - `docs` contains CTE Toolkit web guides and images
