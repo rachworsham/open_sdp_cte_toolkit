@@ -12,7 +12,7 @@ This repository is organized in the following folder structure:
 - `R` includes resources for implementation in R
 - `Stata` includes resources for implementation in Stata
 - - `code` contains the code for the analysis 
-- -`data` contains data necessary to complete the analysis
+- - `data` contains data necessary to complete the analysis
 - - `docs` contains CTE Toolkit web guides and images
 - - - Do files with a `_webdoc` suffix generate both charts and web guides using the Stata webdoc package
 - - - Do files without the `_webdoc` suffix are automatically generated versions of the do files stripped of webdoc commands and markdown content
